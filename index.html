@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>7 Hermetic Laws | The Way of Hermes</title>
+    <meta name="description" content="An ode to Hermes, the divine messenger who bridges worlds. The seven sacred laws of Hermetic philosophy.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=MedievalSharp&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%231a1a2e'/><path d='M50 15 L50 85 M30 35 Q50 50 30 65 M70 35 Q50 50 70 65' stroke='%23e6c84c' stroke-width='3' fill='none'/><circle cx='50' cy='15' r='8' fill='%23e6c84c'/></svg>">
+    <style>
+        :root {
+            --primary: #1a1a2e;
+            --secondary: #16213e;
+            --accent: #e6c84c;
+            --accent-secondary: #c9a227;
+            --background: #0f0f1a;
+            --text-primary: #f0e6d3;
+            --text-secondary: #a89f8a;
+            --glow: #ffd700;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            background: var(--background);
+            color: var(--text-primary);
+            line-height: 1.8;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Star Field Background */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            background: var(--text-primary);
+            border-radius: 50%;
+            animation: twinkle var(--duration) ease-in-out infinite;
+            opacity: 0;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        /* Main Container */
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 4rem 2rem;
+            position: relative;
+        }
+
+        .caduceus {
+            width: 180px;
+            height: auto;
+            margin-bottom: 3rem;
+            filter: drop-shadow(0 0 30px rgba(230, 200, 76, 0.4));
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .hero-title {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            font-weight: 700;
+            color: var(--accent);
+            text-shadow: 
+                0 0 10px rgba(230, 200, 76, 0.5),
+                0 0 30px rgba(230, 200, 76, 0.3),
+                0 0 60px rgba(230, 200, 76, 0.2);
+            letter-spacing: 0.15em;
+            margin-bottom: 1rem;
+            animation: glow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 10px rgba(230, 200, 76, 0.5), 0 0 30px rgba(230, 200, 76, 0.3); }
+            to { text-shadow: 0 0 20px rgba(230, 200, 76, 0.8), 0 0 50px rgba(230, 200, 76, 0.5), 0 0 80px rgba(230, 200, 76, 0.3); }
+        }
+
+        .hero-subtitle {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(1rem, 3vw, 1.4rem);
+            color: var(--text-secondary);
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 3rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            font-family: 'Cinzel', serif;
+            font-size: 0.85rem;
+            letter-spacing: 0.2em;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(10px); }
+        }
+
+        .scroll-indicator svg {
+            width: 24px;
+            height: 24px;
+            stroke: var(--accent);
+        }
+
+        /* Ode Section */
+        .ode-section {
+            padding: 8rem 0;
+            position: relative;
+        }
+
+        .section-border {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 4rem;
+        }
+
+        .border-line {
+            width: 100px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+        }
+
+        .border-symbol {
+            width: 30px;
+            height: 30px;
+            fill: var(--accent);
+            opacity: 0.8;
+        }
+
+        .ode-title {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
+            color: var(--accent);
+            text-align: center;
+            margin-bottom: 3rem;
+            letter-spacing: 0.1em;
+        }
+
+        .ode-text {
+            font-size: 1.3rem;
+            line-height: 2.2;
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .ode-text p {
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .ode-text p.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .ode-text .dropcap {
+            float: left;
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 4rem;
+            line-height: 1;
+            padding-right: 0.8rem;
+            padding-top: 0.1rem;
+            color: var(--accent);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .ode-text em {
+            color: var(--accent);
+            font-style: italic;
+        }
+
+        /* Symbols Section */
+        .symbols-section {
+            padding: 6rem 0;
+            background: linear-gradient(180deg, transparent, rgba(22, 33, 62, 0.3), transparent);
+        }
+
+        .symbols-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .symbol-card {
+            background: linear-gradient(135deg, rgba(26, 26, 46, 0.8), rgba(15, 15, 26, 0.9));
+            border: 1px solid rgba(230, 200, 76, 0.2);
+            border-radius: 8px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .symbol-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(230, 200, 76, 0.1), transparent 70%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .symbol-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(230, 200, 76, 0.2);
+        }
+
+        .symbol-card:hover::before {
+            opacity: 1;
+        }
+
+        .symbol-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            transition: transform 0.4s ease, filter 0.4s ease;
+        }
+
+        .symbol-card:hover .symbol-icon {
+            transform: scale(1.1) rotate(5deg);
+            filter: drop-shadow(0 0 15px rgba(230, 200, 76, 0.6));
+        }
+
+        .symbol-icon svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .symbol-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.3rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            letter-spacing: 0.1em;
+        }
+
+        .symbol-desc {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* Quote Section */
+        .quote-section {
+            padding: 8rem 0;
+            text-align: center;
+        }
+
+        .hermes-quote {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.4rem, 4vw, 2rem);
+            font-style: italic;
+            color: var(--text-primary);
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            position: relative;
+            line-height: 1.8;
+        }
+
+        .hermes-quote::before {
+            content: '"';
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 6rem;
+            color: var(--accent);
+            opacity: 0.3;
+            position: absolute;
+            top: -2rem;
+            left: -2rem;
+        }
+
+        .quote-source {
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            color: var(--accent);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+
+        /* Redirect Section */
+        .redirect-section {
+            padding: 6rem 0 10rem;
+            text-align: center;
+        }
+
+        .redirect-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            letter-spacing: 0.15em;
+        }
+
+        .countdown-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 3rem;
+        }
+
+        .countdown-circle {
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+        }
+
+        .countdown-bg {
+            fill: none;
+            stroke: rgba(230, 200, 76, 0.1);
+            stroke-width: 4;
+        }
+
+        .countdown-progress {
+            fill: none;
+            stroke: var(--accent);
+            stroke-width: 4;
+            stroke-linecap: round;
+            stroke-dasharray: 565;
+            stroke-dashoffset: 0;
+            transition: stroke-dashoffset 1s linear;
+            filter: drop-shadow(0 0 10px rgba(230, 200, 76, 0.5));
+        }
+
+        .countdown-number {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 4rem;
+            color: var(--accent);
+            text-shadow: 0 0 20px rgba(230, 200, 76, 0.5);
+        }
+
+        .countdown-label {
+            font-family: 'Cinzel', serif;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .redirect-button {
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--background);
+            background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+            border: none;
+            padding: 1rem 3rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .redirect-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .redirect-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(230, 200, 76, 0.4);
+        }
+
+        .redirect-button:hover::before {
+            left: 100%;
+        }
+
+        .redirect-note {
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            opacity: 0.7;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 3rem 0;
+            text-align: center;
+            border-top: 1px solid rgba(230, 200, 76, 0.1);
+        }
+
+        .footer-text {
+            font-family: 'Cinzel', serif;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            letter-spacing: 0.1em;
+        }
+
+        .footer-symbol {
+            width: 40px;
+            height: 40px;
+            margin: 1rem auto;
+            opacity: 0.5;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title {
+                letter-spacing: 0.08em;
+            }
+
+            .hero-subtitle {
+                letter-spacing: 0.15em;
+            }
+
+            .ode-section, .quote-section {
+                padding: 5rem 0;
+            }
+
+            .symbols-grid {
+                gap: 2rem;
+            }
+
+            .symbol-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .countdown-container {
+                width: 160px;
+                height: 160px;
+            }
+
+            .countdown-number {
+                font-size: 3rem;
+            }
+        }
+
+        /* Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Subtle Credit */
+        .subtle-credit {
+            position: fixed;
+            top: 1rem;
+            right: 1.5rem;
+            z-index: 100;
+        }
+
+        .subtle-credit a {
+            font-family: 'Cinzel', serif;
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            text-decoration: none;
+            opacity: 0.5;
+            transition: opacity 0.3s ease, color 0.3s ease;
+        }
+
+        .subtle-credit a:hover {
+            opacity: 1;
+            color: var(--accent);
+        }
+
+        /* No JS Fallback */
+        .noscript-redirect {
+            display: none;
+            padding: 2rem;
+            text-align: center;
+            background: rgba(230, 200, 76, 0.1);
+            margin-top: 2rem;
+            border-radius: 4px;
+        }
+
+        noscript .noscript-redirect {
+            display: block;
+        }
+
+        .noscript-link {
+            color: var(--accent);
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Star Field -->
+    <div class="stars" id="stars"></div>
+
+    <!-- Subtle Credit -->
+    <div class="subtle-credit">
+        <a href="https://7hermeticlabs.com" target="_blank" rel="noopener">Transmuted by: Hermeticlabs.com</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <!-- Caduceus SVG -->
+            <svg class="caduceus" viewBox="0 0 100 200" xmlns="http://www.w3.org/2000/svg">
+                <!-- Staff -->
+                <defs>
+                    <linearGradient id="staffGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#c9a227"/>
+                        <stop offset="50%" style="stop-color:#e6c84c"/>
+                        <stop offset="100%" style="stop-color:#c9a227"/>
+                    </linearGradient>
+                    <linearGradient id="snakeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" style="stop-color:#a89f8a"/>
+                        <stop offset="50%" style="stop-color:#f0e6d3"/>
+                        <stop offset="100%" style="stop-color:#a89f8a"/>
+                    </linearGradient>
+                </defs>
+                <!-- Winged Circle at top -->
+                <ellipse cx="50" cy="18" rx="20" ry="15" fill="none" stroke="url(#staffGrad)" stroke-width="2"/>
+                <ellipse cx="50" cy="18" rx="12" ry="9" fill="none" stroke="url(#staffGrad)" stroke-width="1.5"/>
+                <!-- Wings -->
+                <path d="M30 18 Q15 8 5 15 Q15 20 30 18" fill="url(#staffGrad)" opacity="0.9"/>
+                <path d="M70 18 Q85 8 95 15 Q85 20 70 18" fill="url(#staffGrad)" opacity="0.9"/>
+                <path d="M30 18 Q10 5 -5 12 Q10 22 30 18" fill="url(#staffGrad)" opacity="0.6"/>
+                <path d="M70 18 Q90 5 105 12 Q90 22 70 18" fill="url(#staffGrad)" opacity="0.6"/>
+                <!-- Staff Rod -->
+                <line x1="50" y1="30" x2="50" y2="190" stroke="url(#staffGrad)" stroke-width="4" stroke-linecap="round"/>
+                <!-- Left Snake -->
+                <path d="M50 45 Q30 55 35 75 Q40 90 50 95 Q60 90 65 75 Q70 55 50 45" fill="none" stroke="url(#snakeGrad)" stroke-width="3" stroke-linecap="round"/>
+                <path d="M35 75 Q32 80 28 78" fill="none" stroke="url(#snakeGrad)" stroke-width="2" stroke-linecap="round"/>
+                <circle cx="28" cy="76" r="2" fill="url(#snakeGrad)"/>
+                <!-- Right Snake -->
+                <path d="M50 45 Q70 55 65 75 Q60 90 50 95 Q40 90 35 75 Q30 55 50 45" fill="none" stroke="url(#snakeGrad)" stroke-width="3" stroke-linecap="round"/>
+                <path d="M65 75 Q68 80 72 78" fill="none" stroke="url(#snakeGrad)" stroke-width="2" stroke-linecap="round"/>
+                <circle cx="72" cy="76" r="2" fill="url(#snakeGrad)"/>
+                <!-- Knot at bottom -->
+                <circle cx="50" cy="188" r="6" fill="url(#staffGrad)"/>
+            </svg>
+
+            <h1 class="hero-title">7 Hermetic Laws</h1>
+            <p class="hero-subtitle">The Way of Hermes</p>
+        </div>
+
+        <div class="scroll-indicator">
+            <span>Descend into wisdom</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 5v14M5 12l7 7 7-7"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Ode Section -->
+    <section class="ode-section">
+        <div class="container">
+            <div class="section-border">
+                <div class="border-line"></div>
+                <svg class="border-symbol" viewBox="0 0 30 30">
+                    <circle cx="15" cy="15" r="12" fill="none" stroke="currentColor" stroke-width="1"/>
+                    <circle cx="15" cy="15" r="6" fill="none" stroke="currentColor" stroke-width="1"/>
+                    <circle cx="15" cy="15" r="2" fill="currentColor"/>
+                </svg>
+                <div class="border-line"></div>
+            </div>
+
+            <h2 class="ode-title">An Ode to Hermes</h2>
+
+            <div class="ode-text">
+                <p class="visible">
+                    <span class="dropcap">H</span>ermes, thou swift messenger of the gods, who dost traverse the realms between heaven and earth, between the known and the unknown. Thou art the keeper of crossroads, the guide of souls through the veil of darkness, the divine interpreter who translates the language of the gods into forms mortals may comprehend.
+                </p>
+                <p>
+                    Called also Thoth in the land of Egypt, Hermes Trismegistus—the thrice-greatest—who didst inscribe the sacred tablets of wisdom upon the emerald stone. From Alexandria's ancient halls to Renaissance Florence, thy teachings have illuminated the path of those who seek to understand the mysteries of existence.
+                </p>
+                <p>
+                    Thou art <em>Logos</em>, the Word made manifest, the bridge between spirit and matter. Through thee flow the seven sacred laws that govern all creation: the principle of mentalism, correspondence, vibration, polarity, rhythm, cause and effect, and gender. These are the fingerprints of the divine upon the fabric of reality.
+                </p>
+                <p>
+                    As winged sandals carry thee across the heavens, so too dost thou carry understanding across the chasm between ignorance and enlightenment. May this threshold honor thy eternal vigil, and may all who cross hence carry forward the torch of Hermetic wisdom.
+                </p>
+            </div>
+
+            <div class="section-border" style="margin-top: 4rem;">
+                <div class="border-line"></div>
+                <svg class="border-symbol" viewBox="0 0 30 30">
+                    <path d="M15 2 L15 28 M2 15 L28 15" stroke="currentColor" stroke-width="1" fill="none"/>
+                    <circle cx="15" cy="15" r="10" fill="none" stroke="currentColor" stroke-width="1"/>
+                </svg>
+                <div class="border-line"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Symbols Section -->
+    <section class="symbols-section">
+        <div class="container">
+            <h2 class="ode-title">Symbols of the Hermetic Path</h2>
+
+            <div class="symbols-grid">
+                <!-- Caduceus Card -->
+                <div class="symbol-card">
+                    <div class="symbol-icon">
+                        <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="sym1Grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#e6c84c"/>
+                                    <stop offset="100%" style="stop-color:#c9a227"/>
+                                </linearGradient>
+                            </defs>
+                            <line x1="40" y1="8" x2="40" y2="72" stroke="url(#sym1Grad)" stroke-width="3"/>
+                            <ellipse cx="40" cy="12" rx="10" ry="6" fill="none" stroke="url(#sym1Grad)" stroke-width="1.5"/>
+                            <path d="M30 12 Q15 5 8 10 Q15 15 30 12" fill="url(#sym1Grad)"/>
+                            <path d="M50 12 Q65 5 72 10 Q65 15 50 12" fill="url(#sym1Grad)"/>
+                            <path d="M40 22 Q25 30 28 42 Q32 52 40 55 Q48 52 52 42 Q55 30 40 22" fill="none" stroke="url(#sym1Grad)" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <h3 class="symbol-title">The Caduceus</h3>
+                    <p class="symbol-desc">The winged staff entwined by serpents, symbolizing the balance of opposing forces, the rising of Kundalini energy, and the harmonization of consciousness.</p>
+                </div>
+
+                <!-- Winged Sandals Card -->
+                <div class="symbol-card">
+                    <div class="symbol-icon">
+                        <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="sym2Grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#e6c84c"/>
+                                    <stop offset="100%" style="stop-color:#c9a227"/>
+                                </linearGradient>
+                            </defs>
+                            <!-- Wing Left -->
+                            <path d="M20 35 Q5 20 10 10 Q20 18 25 30 Q22 32 20 35" fill="url(#sym2Grad)" opacity="0.9"/>
+                            <path d="M18 38 Q2 28 8 18 Q18 25 22 35" fill="url(#sym2Grad)" opacity="0.6"/>
+                            <!-- Wing Right -->
+                            <path d="M60 35 Q75 20 70 10 Q60 18 55 30 Q58 32 60 35" fill="url(#sym2Grad)" opacity="0.9"/>
+                            <path d="M62 38 Q78 28 72 18 Q62 25 58 35" fill="url(#sym2Grad)" opacity="0.6"/>
+                            <!-- Sandal Base -->
+                            <path d="M15 45 L25 40 L55 40 L65 45 L60 55 L20 55 Z" fill="none" stroke="url(#sym2Grad)" stroke-width="2"/>
+                            <path d="M20 50 L60 50" stroke="url(#sym2Grad)" stroke-width="1.5"/>
+                            <!-- Straps -->
+                            <path d="M25 40 L30 48 M35 40 L35 48 M45 40 L45 48 M55 40 L50 48" stroke="url(#sym2Grad)" stroke-width="1.5"/>
+                        </svg>
+                    </div>
+                    <h3 class="symbol-title">Talaria</h3>
+                    <p class="symbol-desc">The winged sandals of divine swiftness, enabling passage between worlds, representing the ability to move freely across spiritual dimensions.</p>
+                </div>
+
+                <!-- Eye Symbol Card -->
+                <div class="symbol-card">
+                    <div class="symbol-icon">
+                        <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="sym3Grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#e6c84c"/>
+                                    <stop offset="100%" style="stop-color:#c9a227"/>
+                                </linearGradient>
+                                <radialGradient id="eyeGrad">
+                                    <stop offset="0%" style="stop-color:#f0e6d3"/>
+                                    <stop offset="70%" style="stop-color:#c9a227"/>
+                                    <stop offset="100%" style="stop-color:#1a1a2e"/>
+                                </radialGradient>
+                            </defs>
+                            <!-- Triangle/Pyramid rays -->
+                            <path d="M40 5 L55 30 L25 30 Z" fill="none" stroke="url(#sym3Grad)" stroke-width="1.5"/>
+                            <path d="M40 5 L65 40 L15 40 Z" fill="none" stroke="url(#sym3Grad)" stroke-width="1" opacity="0.5"/>
+                            <!-- Eye shape -->
+                            <path d="M10 40 Q40 25 70 40 Q40 55 10 40" fill="none" stroke="url(#sym3Grad)" stroke-width="2"/>
+                            <!-- Iris -->
+                            <circle cx="40" cy="40" r="15" fill="none" stroke="url(#sym3Grad)" stroke-width="1.5"/>
+                            <circle cx="40" cy="40" r="8" fill="url(#eyeGrad)"/>
+                            <circle cx="40" cy="40" r="3" fill="url(#sym3Grad)"/>
+                            <!-- Rays -->
+                            <line x1="40" y1="20" x2="40" y2="10" stroke="url(#sym3Grad)" stroke-width="1"/>
+                            <line x1="55" y1="25" x2="62" y2="18" stroke="url(#sym3Grad)" stroke-width="1"/>
+                            <line x1="25" y1="25" x2="18" y2="18" stroke="url(#sym3Grad)" stroke-width="1"/>
+                        </svg>
+                    </div>
+                    <h3 class="symbol-title">The Hermetic Eye</h3>
+                    <p class="symbol-desc">The all-seeing eye of wisdom within the triangle of light, representing spiritual vision, illumination, and the perception beyond ordinary sight.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quote Section -->
+    <section class="quote-section">
+        <div class="container">
+            <blockquote class="hermes-quote">
+                As above, so below. As within, so without. The universe is a mirror of the mind, and mind is the mirror of the universe. To know one is to know all.
+            </blockquote>
+            <p class="quote-source">— Hermes Trismegistus</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <svg class="footer-symbol" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="20" cy="20" r="18" fill="none" stroke="#e6c84c" stroke-width="1"/>
+                <line x1="20" y1="2" x2="20" y2="38" stroke="#e6c84c" stroke-width="1"/>
+                <line x1="2" y1="20" x2="38" y2="20" stroke="#e6c84c" stroke-width="1"/>
+                <circle cx="20" cy="20" r="8" fill="none" stroke="#e6c84c" stroke-width="1"/>
+            </svg>
+            <p class="footer-text">7 Hermetic Laws &middot; The Way of Hermes</p>
+        </div>
+    </footer>
+
+    <script>
+        // Star Field Generator
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            const starCount = Math.min(150, window.innerWidth < 768 ? 80 : 150);
+
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.width = Math.random() * 3 + 1 + 'px';
+                star.style.height = star.style.width;
+                star.style.setProperty('--duration', (Math.random() * 3 + 2) + 's');
+                star.style.animationDelay = Math.random() * 5 + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+
+        // Scroll Reveal for Ode
+        function initScrollReveal() {
+            const odeParagraphs = document.querySelectorAll('.ode-text p:not(.visible)');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.classList.add('visible');
+                        }, index * 200);
+                    }
+                });
+            }, { threshold: 0.3 });
+
+            odeParagraphs.forEach(p => observer.observe(p));
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            createStars();
+            initScrollReveal();
+        });
+    </script>
+</body>
+</html>
