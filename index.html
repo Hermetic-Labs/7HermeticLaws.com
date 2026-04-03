@@ -1072,39 +1072,26 @@ body {
         <p class="footer-text" style="margin-top: 0.618rem; font-size: 0.5rem; opacity: 0.5;">Narration: <a href="https://archive.org/details/kybalion_ghs_librivox" style="color: inherit; text-decoration: underline;" target="_blank">The Kybalion &mdash; LibriVox (Algy Pug)</a> &middot; Public Domain &middot; Design proportioned by &phi; &middot; Spacing by Fibonacci</p>
     </footer>
     
-    <!-- Hermetic Audio Player -->
+    <!-- Ambient Music Controller -->
     <div class="hermetic-player" id="hermetic-player">
         <button class="player-btn" id="player-play" title="Play/Pause">
             <svg viewBox="0 0 24 24" id="player-play-icon"><polygon points="5,3 19,12 5,21"/></svg>
         </button>
         
         <div class="player-chapter" id="player-chapter">
-            <span class="player-chapter__title">Chapter</span>
-            <span id="player-chapter-name">The Kybalion</span>
+            <span class="player-chapter__title" style="letter-spacing: 0.2rem;">GENERATIVE</span>
+            <span id="player-chapter-name">Ambient Resonance</span>
         </div>
         
-        <div class="player-progress" id="player-progress">
-            <div class="player-progress__fill" id="player-progress-fill"></div>
-        </div>
-        
-        <span class="player-progress__time" id="player-time">0:00 / 0:00</span>
-        
-        <div class="player-volume">
+        <div class="player-volume" style="margin-left: auto; padding-right: 1.618rem;">
             <svg style="width:13px; height:13px; fill:var(--text-muted)" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.06c1.48-.74 2.5-2.26 2.5-4.03z"/></svg>
             <input type="range" id="player-volume" min="0" max="100" value="80" title="Volume">
         </div>
-        
-        <button class="player-btn" id="player-prev" title="Previous Chapter" style="width:26px;height:26px">
-            <svg viewBox="0 0 24 24" style="width:11px;height:11px"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
-        </button>
-        <button class="player-btn" id="player-next" title="Next Chapter" style="width:26px;height:26px">
-            <svg viewBox="0 0 24 24" style="width:11px;height:11px"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
-        </button>
     </div>
     
     <button class="hermetic-player__toggle" id="player-toggle">
         <svg style="width:13px; height:13px; fill:currentColor" viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
-        <span id="player-toggle-text">Narration</span>
+        <span id="player-toggle-text">Music</span>
     </button>
     
     <script>
@@ -1215,68 +1202,29 @@ body {
         };
         
         /* ========================================
-           HERMETIC AUDIO PLAYER
+           HERMETIC AUDIO PLAYER (Ambient Engine)
            ======================================== */
         const HermeticPlayer = {
-            audio: null,
             isPlaying: false,
-            currentChapter: 0,
             playerActive: false,
-            
-            chapters: [
-                { id: 'intro',   title: 'Introduction',               file: 'assets/audio/kybalion_00_3initiates.mp3', section: 'hero' },
-                { id: 'ch1',     title: 'The Hermetic Philosophy',    file: 'assets/audio/kybalion_01_3initiates.mp3', section: 'hero' },
-                { id: 'ch2',     title: 'The Seven Hermetic Principles', file: 'assets/audio/kybalion_02_3initiates.mp3', section: 'hero' },
-                { id: 'ch3',     title: 'Mental Transmutation',       file: 'assets/audio/kybalion_03_3initiates.mp3', section: 'mentalism' },
-                { id: 'ch4',     title: 'The All',                    file: 'assets/audio/kybalion_04_3initiates.mp3', section: 'mentalism' },
-                { id: 'ch5',     title: 'The Mental Universe',        file: 'assets/audio/kybalion_05_3initiates.mp3', section: 'mentalism' },
-                { id: 'ch6',     title: 'The Divine Paradox',         file: 'assets/audio/kybalion_06_3initiates.mp3', section: 'correspondence' },
-                { id: 'ch7',     title: '"The All" in All',           file: 'assets/audio/kybalion_07_3initiates.mp3', section: 'correspondence' },
-                { id: 'ch8',     title: 'Planes of Correspondence',   file: 'assets/audio/kybalion_08_3initiates.mp3', section: 'correspondence' },
-                { id: 'ch9',     title: 'Vibration',                  file: 'assets/audio/kybalion_09_3initiates.mp3', section: 'vibration' },
-                { id: 'ch10',    title: 'Polarity',                   file: 'assets/audio/kybalion_10_3initiates.mp3', section: 'polarity' },
-                { id: 'ch11',    title: 'Rhythm',                     file: 'assets/audio/kybalion_11_3initiates.mp3', section: 'rhythm' },
-                { id: 'ch12',    title: 'Causation',                  file: 'assets/audio/kybalion_12_3initiates.mp3', section: 'cause-effect' },
-                { id: 'ch13',    title: 'Gender',                     file: 'assets/audio/kybalion_13_3initiates.mp3', section: 'duality' },
-                { id: 'ch14',    title: 'Mental Gender',              file: 'assets/audio/kybalion_14_3initiates.mp3', section: 'duality' },
-                { id: 'ch15',    title: 'Hermetic Axioms',            file: 'assets/audio/kybalion_15_3initiates.mp3', section: 'duality' },
-            ],
+            volume: 0.8,
             
             init() {
-                this.audio = new Audio();
-                this.audio.preload = 'metadata';
-                
                 const toggle = document.getElementById('player-toggle');
                 const playBtn = document.getElementById('player-play');
-                const prevBtn = document.getElementById('player-prev');
-                const nextBtn = document.getElementById('player-next');
-                const progress = document.getElementById('player-progress');
                 const volumeSlider = document.getElementById('player-volume');
                 
                 toggle.addEventListener('click', () => this.togglePlayer());
                 playBtn.addEventListener('click', () => this.togglePlayback());
-                prevBtn.addEventListener('click', () => this.prevChapter());
-                nextBtn.addEventListener('click', () => this.nextChapter());
-                
-                progress.addEventListener('click', (e) => {
-                    if (!this.audio.duration) return;
-                    const rect = progress.getBoundingClientRect();
-                    const pct = (e.clientX - rect.left) / rect.width;
-                    this.audio.currentTime = pct * this.audio.duration;
-                });
                 
                 volumeSlider.addEventListener('input', (e) => {
-                    this.audio.volume = e.target.value / 100;
+                    this.volume = e.target.value / 100;
+                    if (this.isPlaying) {
+                        AmbientDrone.setVolume(this.volume);
+                    }
                     this.saveState();
                 });
                 
-                this.audio.addEventListener('timeupdate', () => this.updateProgress());
-                this.audio.addEventListener('ended', () => this.nextChapter());
-                this.audio.addEventListener('error', () => {
-                    console.warn('Audio file not found:', this.chapters[this.currentChapter]?.file);
-                });
-                
-                // Restore state
                 this.loadState();
             },
             
@@ -1289,73 +1237,22 @@ body {
                 document.body.classList.toggle('player-active', this.playerActive);
                 
                 if (this.playerActive && !this.isPlaying) {
-                    this.loadChapter(this.currentChapter);
+                    this.togglePlayback();
                 }
+                this.saveState();
             },
             
             togglePlayback() {
                 if (this.isPlaying) {
-                    this.audio.pause();
+                    AmbientDrone.stop();
                     this.isPlaying = false;
                 } else {
-                    if (!this.audio.src || this.audio.src === location.href) {
-                        this.loadChapter(this.currentChapter);
-                    }
-                    this.audio.play().catch(() => {
-                        console.warn('Audio playback requires user gesture or file not found');
-                    });
+                    AmbientDrone.start();
+                    AmbientDrone.setVolume(this.volume);
                     this.isPlaying = true;
                 }
                 this.updatePlayIcon();
                 this.saveState();
-            },
-            
-            loadChapter(index) {
-                if (index < 0 || index >= this.chapters.length) return;
-                this.currentChapter = index;
-                const chapter = this.chapters[index];
-                this.audio.src = chapter.file;
-                
-                document.getElementById('player-chapter-name').textContent = chapter.title;
-                document.getElementById('player-toggle').classList.toggle('playing', this.isPlaying);
-                document.getElementById('player-toggle-text').textContent = this.isPlaying ? chapter.title : 'Narration';
-                
-                this.saveState();
-            },
-            
-            nextChapter() {
-                const next = this.currentChapter + 1;
-                if (next < this.chapters.length) {
-                    this.loadChapter(next);
-                    if (this.isPlaying) this.audio.play().catch(() => {});
-                } else {
-                    this.isPlaying = false;
-                    this.updatePlayIcon();
-                }
-            },
-            
-            prevChapter() {
-                if (this.audio.currentTime > 3) {
-                    this.audio.currentTime = 0;
-                } else {
-                    const prev = Math.max(0, this.currentChapter - 1);
-                    this.loadChapter(prev);
-                    if (this.isPlaying) this.audio.play().catch(() => {});
-                }
-            },
-            
-            updateProgress() {
-                if (!this.audio.duration) return;
-                const pct = (this.audio.currentTime / this.audio.duration) * 100;
-                document.getElementById('player-progress-fill').style.width = pct + '%';
-                
-                const fmt = (t) => {
-                    const m = Math.floor(t / 60);
-                    const s = Math.floor(t % 60).toString().padStart(2, '0');
-                    return m + ':' + s;
-                };
-                document.getElementById('player-time').textContent = 
-                    fmt(this.audio.currentTime) + ' / ' + fmt(this.audio.duration);
             },
             
             updatePlayIcon() {
@@ -1366,24 +1263,12 @@ body {
                     icon.innerHTML = '<polygon points="5,3 19,12 5,21"/>';
                 }
                 document.getElementById('player-toggle').classList.toggle('playing', this.isPlaying);
-                document.getElementById('player-toggle-text').textContent = 
-                    this.isPlaying ? this.chapters[this.currentChapter].title : 'Narration';
-            },
-            
-            // Map section ID to first matching chapter
-            goToSection(sectionId) {
-                const idx = this.chapters.findIndex(c => c.section === sectionId);
-                if (idx !== -1 && idx !== this.currentChapter) {
-                    this.loadChapter(idx);
-                    if (this.isPlaying) this.audio.play().catch(() => {});
-                }
             },
             
             saveState() {
                 try {
                     localStorage.setItem('hermetic:audio', JSON.stringify({
-                        chapter: this.currentChapter,
-                        volume: this.audio.volume,
+                        volume: this.volume,
                         playerActive: this.playerActive
                     }));
                 } catch(e) {}
@@ -1393,14 +1278,17 @@ body {
                 try {
                     const saved = JSON.parse(localStorage.getItem('hermetic:audio'));
                     if (saved) {
-                        this.currentChapter = saved.chapter || 0;
-                        this.audio.volume = saved.volume ?? 0.8;
-                        document.getElementById('player-volume').value = this.audio.volume * 100;
+                        this.volume = saved.volume ?? 0.8;
+                        document.getElementById('player-volume').value = this.volume * 100;
                         if (saved.playerActive) {
                             this.playerActive = true;
                             document.getElementById('hermetic-player').classList.add('active');
                             document.body.classList.add('player-active');
-                            this.loadChapter(this.currentChapter);
+                            // Start automatically if it was active
+                            AmbientDrone.start();
+                            AmbientDrone.setVolume(this.volume);
+                            this.isPlaying = true;
+                            this.updatePlayIcon();
                         }
                     }
                 } catch(e) {}
