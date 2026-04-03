@@ -3,46 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>7 Hermetic Laws | The Way of Hermes</title>
-    <meta name="description" content="An ode to Hermes, the divine messenger who bridges worlds. The seven sacred laws of Hermetic philosophy.">
-
+    <title>7 Hermetic Laws | Interactive Experience</title>
+    <meta name="description" content="Seven interactive explorations of the Hermetic principles. Mind, correspondence, vibration, polarity, rhythm, cause and effect, and gender.">
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=MedievalSharp&display=swap" rel="stylesheet">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%231a1a2e'/><path d='M50 15 L50 85 M30 35 Q50 50 30 65 M70 35 Q50 50 70 65' stroke='%23e6c84c' stroke-width='3' fill='none'/><circle cx='50' cy='15' r='8' fill='%23e6c84c'/></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%230a0a0f'/><circle cx='50' cy='50' r='35' fill='none' stroke='%2350C878' stroke-width='2'/><circle cx='50' cy='50' r='25' fill='none' stroke='%2350C878' stroke-width='1.5'/><circle cx='50' cy='50' r='15' fill='none' stroke='%23e6c84c' stroke-width='1'/><circle cx='50' cy='50' r='5' fill='%2350C878'/></svg>">
+    
     <style>
+        /* ========================================
+           DESIGN SYSTEM
+           ======================================== */
         :root {
-            --primary: #1a1a2e;
-            --secondary: #16213e;
-            --accent: #e6c84c;
-            --accent-secondary: #c9a227;
-            --background: #0f0f1a;
-            --text-primary: #f0e6d3;
-            --text-secondary: #a89f8a;
-            --glow: #ffd700;
+            /* Colors - Dark Mystical */
+            --void: #050508;
+            --deep: #0a0a0f;
+            --surface: #111118;
+            --surface-raised: #1a1a24;
+            
+            /* Emerald - Primary */
+            --emerald-dim: #1a4d2e;
+            --emerald: #2d8659;
+            --emerald-bright: #50C878;
+            --emerald-glow: rgba(80, 200, 120, 0.4);
+            
+            /* Gold - Sacred Accent */
+            --gold-dim: #8b7355;
+            --gold: #c9a227;
+            --gold-bright: #e6c84c;
+            --gold-glow: rgba(230, 200, 76, 0.5);
+            
+            /* Text */
+            --text-primary: #e8e4dc;
+            --text-secondary: #9a958a;
+            --text-muted: #5a5650;
+            
+            /* Law-specific accent colors */
+            --mentalism-color: #9b6dff;
+            --correspondence-color: #6dd5ff;
+            --vibration-color: #ff6d9b;
+            --polarity-color: #ffd76d;
+            --rhythm-color: #6dffb8;
+            --cause-effect-color: #ff9b6d;
+            --duality-color: #b86dff;
+            
+            /* Spacing */
+            --section-padding: clamp(4rem, 10vh, 8rem);
+            --content-max: 1200px;
+            
+            /* Motion */
+            --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+            --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+            --duration-fast: 200ms;
+            --duration-normal: 400ms;
+            --duration-slow: 800ms;
         }
-
-        * {
+        
+        /* ========================================
+           RESET & BASE
+           ======================================== */
+        *, *::before, *::after {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
+        
         html {
             scroll-behavior: smooth;
+            scrollbar-width: thin;
+            scrollbar-color: var(--emerald) var(--void);
         }
-
-        body {
+        
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--void);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--emerald-dim);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--emerald);
+        }
+        
+body {
             font-family: 'Cormorant Garamond', Georgia, serif;
-            background: var(--background);
+            background: var(--void);
             color: var(--text-primary);
-            line-height: 1.8;
+            line-height: 1.7;
             overflow-x: hidden;
             min-height: 100vh;
         }
-
-        /* Star Field Background */
-        .stars {
+        
+        ::selection {
+            background: var(--emerald);
+            color: var(--void);
+        }
+        
+        /* ========================================
+           AMBIENT BACKGROUND
+           ======================================== */
+        .ambient-bg {
             position: fixed;
             top: 0;
             left: 0;
@@ -50,763 +115,1938 @@
             height: 100%;
             pointer-events: none;
             z-index: 0;
+            overflow: hidden;
         }
-
-        .star {
+        
+        .ambient-orb {
             position: absolute;
-            background: var(--text-primary);
             border-radius: 50%;
-            animation: twinkle var(--duration) ease-in-out infinite;
-            opacity: 0;
+            filter: blur(100px);
+            opacity: 0.15;
+            animation: drift 20s ease-in-out infinite;
         }
-
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.2; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.2); }
+        
+        .ambient-orb--emerald {
+            width: 600px;
+            height: 600px;
+            background: var(--emerald);
+            top: -200px;
+            right: -200px;
+            animation-delay: 0s;
         }
-
-        /* Main Container */
-        .container {
+        
+        .ambient-orb--gold {
+            width: 400px;
+            height: 400px;
+            background: var(--gold);
+            bottom: -100px;
+            left: -100px;
+            animation-delay: -10s;
+        }
+        
+        @keyframes drift {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(30px, -20px) scale(1.05); }
+            50% { transform: translate(-20px, 30px) scale(0.95); }
+            75% { transform: translate(20px, 20px) scale(1.02); }
+        }
+        
+        /* ========================================
+           NAVIGATION
+           ======================================== */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(to bottom, var(--void), transparent);
+            transition: background var(--duration-normal) var(--ease-smooth);
+        }
+        
+        .nav.scrolled {
+            background: rgba(10, 10, 15, 0.95);
+            backdrop-filter: blur(10px);
+        }
+        
+        .nav-logo {
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--gold-bright);
+            text-decoration: none;
+            letter-spacing: 0.15em;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .nav-logo svg {
+            width: 24px;
+            height: 24px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 0.5rem;
+            list-style: none;
+        }
+        
+        .nav-link {
+            font-family: 'Cinzel', serif;
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 0.5rem 0.75rem;
+            border-radius: 4px;
+            transition: all var(--duration-fast) var(--ease-smooth);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+        
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--emerald-bright);
+            background: rgba(80, 200, 120, 0.1);
+        }
+        
+        /* ========================================
+           SECTIONS BASE
+           ======================================== */
+        .section {
             position: relative;
             z-index: 1;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        /* Hero Section */
-        .hero {
             min-height: 100vh;
+            padding: var(--section-padding) 2rem;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 4rem 2rem;
-            position: relative;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity var(--duration-slow) var(--ease-smooth),
+                        transform var(--duration-slow) var(--ease-smooth);
         }
-
-        .caduceus {
-            width: 180px;
-            height: auto;
-            margin-bottom: 3rem;
-            filter: drop-shadow(0 0 30px rgba(230, 200, 76, 0.4));
+        
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .section-inner {
+            max-width: var(--content-max);
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        /* ========================================
+           HERO SECTION
+           ======================================== */
+        .hero {
+            text-align: center;
+            min-height: 100vh;
+        }
+        
+        .hero-orb {
+            width: 300px;
+            height: 300px;
+            margin: 0 auto 3rem;
+            position: relative;
             animation: float 6s ease-in-out infinite;
         }
-
+        
         @keyframes float {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
+            50% { transform: translateY(-20px); }
         }
-
+        
+        .hero-orb svg {
+            width: 100%;
+            height: 100%;
+        }
+        
         .hero-title {
-            font-family: 'Cinzel Decorative', serif;
-            font-size: clamp(2.5rem, 8vw, 4.5rem);
-            font-weight: 700;
-            color: var(--accent);
-            text-shadow: 
-                0 0 10px rgba(230, 200, 76, 0.5),
-                0 0 30px rgba(230, 200, 76, 0.3),
-                0 0 60px rgba(230, 200, 76, 0.2);
-            letter-spacing: 0.15em;
-            margin-bottom: 1rem;
-            animation: glow 3s ease-in-out infinite alternate;
-        }
-
-        @keyframes glow {
-            from { text-shadow: 0 0 10px rgba(230, 200, 76, 0.5), 0 0 30px rgba(230, 200, 76, 0.3); }
-            to { text-shadow: 0 0 20px rgba(230, 200, 76, 0.8), 0 0 50px rgba(230, 200, 76, 0.5), 0 0 80px rgba(230, 200, 76, 0.3); }
-        }
-
-        .hero-subtitle {
             font-family: 'Cinzel', serif;
-            font-size: clamp(1rem, 3vw, 1.4rem);
-            color: var(--text-secondary);
-            letter-spacing: 0.3em;
-            text-transform: uppercase;
-            margin-bottom: 2rem;
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 700;
+            color: var(--gold-bright);
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 60px var(--gold-glow);
         }
-
-        .scroll-indicator {
+        
+        .hero-subtitle {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.1rem, 3vw, 1.5rem);
+            font-style: italic;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            letter-spacing: 0.05em;
+        }
+        
+        .hero-laws {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 4rem;
+        }
+        
+        .hero-law {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Cinzel', serif;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            background: var(--surface-raised);
+            border: 1px solid var(--surface);
+            transition: all var(--duration-normal) var(--ease-smooth);
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .hero-law::before {
+            content: '';
             position: absolute;
-            bottom: 3rem;
+            inset: -4px;
+            border-radius: 50%;
+            border: 1px solid transparent;
+            transition: border-color var(--duration-normal) var(--ease-smooth);
+        }
+        
+        .hero-law:hover {
+            transform: scale(1.15);
+            background: var(--surface);
+        }
+        
+        .hero-law--mentalism:hover { box-shadow: 0 0 30px var(--mentalism-color); }
+        .hero-law--correspondence:hover { box-shadow: 0 0 30px var(--correspondence-color); }
+        .hero-law--vibration:hover { box-shadow: 0 0 30px var(--vibration-color); }
+        .hero-law--polarity:hover { box-shadow: 0 0 30px var(--polarity-color); }
+        .hero-law--rhythm:hover { box-shadow: 0 0 30px var(--rhythm-color); }
+        .hero-law--cause-effect:hover { box-shadow: 0 0 30px var(--cause-effect-color); }
+        .hero-law--duality:hover { box-shadow: 0 0 30px var(--duality-color); }
+        
+        .scroll-prompt {
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 0.5rem;
-            color: var(--text-secondary);
+            color: var(--text-muted);
             font-family: 'Cinzel', serif;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             letter-spacing: 0.2em;
+            text-transform: uppercase;
             animation: bounce 2s ease-in-out infinite;
         }
-
+        
         @keyframes bounce {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(10px); }
+            50% { transform: translateY(8px); }
         }
-
-        .scroll-indicator svg {
+        
+        .scroll-prompt svg {
             width: 24px;
             height: 24px;
-            stroke: var(--accent);
+            stroke: var(--emerald);
         }
-
-        /* Ode Section */
-        .ode-section {
-            padding: 8rem 0;
-            position: relative;
+        
+        /* ========================================
+           LAW SECTION TEMPLATE
+           ======================================== */
+        .law-section {
+            min-height: 100vh;
+            padding: 6rem 2rem;
         }
-
-        .section-border {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 4rem;
-        }
-
-        .border-line {
-            width: 100px;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--accent), transparent);
-        }
-
-        .border-symbol {
-            width: 30px;
-            height: 30px;
-            fill: var(--accent);
-            opacity: 0.8;
-        }
-
-        .ode-title {
-            font-family: 'Cinzel Decorative', serif;
-            font-size: clamp(1.8rem, 5vw, 2.5rem);
-            color: var(--accent);
+        
+        .law-header {
             text-align: center;
             margin-bottom: 3rem;
-            letter-spacing: 0.1em;
         }
-
-        .ode-text {
-            font-size: 1.3rem;
-            line-height: 2.2;
-            text-align: center;
-            max-width: 700px;
+        
+        .law-number {
+            font-family: 'Cinzel', serif;
+            font-size: 0.75rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+        
+        .law-title {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: 0.05em;
+        }
+        
+        .law-section--mentalism .law-title { color: var(--mentalism-color); }
+        .law-section--correspondence .law-title { color: var(--correspondence-color); }
+        .law-section--vibration .law-title { color: var(--vibration-color); }
+        .law-section--polarity .law-title { color: var(--polarity-color); }
+        .law-section--rhythm .law-title { color: var(--rhythm-color); }
+        .law-section--cause-effect .law-title { color: var(--cause-effect-color); }
+        .law-section--duality .law-title { color: var(--duality-color); }
+        
+        .law-quote {
+            font-style: italic;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+        
+        .law-content {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 3rem;
+            align-items: center;
+            max-width: var(--content-max);
             margin: 0 auto;
         }
-
-        .ode-text p {
-            margin-bottom: 2rem;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
+        
+        @media (max-width: 900px) {
+            .law-content {
+                grid-template-columns: 1fr;
+            }
         }
-
-        .ode-text p.visible {
-            opacity: 1;
-            transform: translateY(0);
+        
+        .law-description {
+            padding: 2rem;
+            background: rgba(17, 17, 24, 0.6);
+            border-radius: 12px;
+            border: 1px solid var(--surface);
         }
-
-        .ode-text .dropcap {
-            float: left;
-            font-family: 'Cinzel Decorative', serif;
-            font-size: 4rem;
-            line-height: 1;
-            padding-right: 0.8rem;
-            padding-top: 0.1rem;
-            color: var(--accent);
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-
-        .ode-text em {
-            color: var(--accent);
-            font-style: italic;
-        }
-
-        /* Symbols Section */
-        .symbols-section {
-            padding: 6rem 0;
-            background: linear-gradient(180deg, transparent, rgba(22, 33, 62, 0.3), transparent);
-        }
-
-        .symbols-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 3rem;
-            margin-top: 4rem;
-        }
-
-        .symbol-card {
-            background: linear-gradient(135deg, rgba(26, 26, 46, 0.8), rgba(15, 15, 26, 0.9));
-            border: 1px solid rgba(230, 200, 76, 0.2);
-            border-radius: 8px;
-            padding: 2.5rem 2rem;
-            text-align: center;
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .symbol-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at center, rgba(230, 200, 76, 0.1), transparent 70%);
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
-
-        .symbol-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--accent);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(230, 200, 76, 0.2);
-        }
-
-        .symbol-card:hover::before {
-            opacity: 1;
-        }
-
-        .symbol-icon {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 1.5rem;
-            transition: transform 0.4s ease, filter 0.4s ease;
-        }
-
-        .symbol-card:hover .symbol-icon {
-            transform: scale(1.1) rotate(5deg);
-            filter: drop-shadow(0 0 15px rgba(230, 200, 76, 0.6));
-        }
-
-        .symbol-icon svg {
-            width: 100%;
-            height: 100%;
-        }
-
-        .symbol-title {
-            font-family: 'Cinzel', serif;
-            font-size: 1.3rem;
-            color: var(--accent);
-            margin-bottom: 1rem;
-            letter-spacing: 0.1em;
-        }
-
-        .symbol-desc {
-            font-size: 1rem;
+        
+        .law-description p {
             color: var(--text-secondary);
-            line-height: 1.7;
-        }
-
-        /* Quote Section */
-        .quote-section {
-            padding: 8rem 0;
-            text-align: center;
-        }
-
-        .hermes-quote {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(1.4rem, 4vw, 2rem);
-            font-style: italic;
-            color: var(--text-primary);
-            max-width: 700px;
-            margin: 0 auto 2rem;
-            position: relative;
-            line-height: 1.8;
-        }
-
-        .hermes-quote::before {
-            content: '"';
-            font-family: 'Cinzel Decorative', serif;
-            font-size: 6rem;
-            color: var(--accent);
-            opacity: 0.3;
-            position: absolute;
-            top: -2rem;
-            left: -2rem;
-        }
-
-        .quote-source {
-            font-family: 'Cinzel', serif;
-            font-size: 1rem;
-            color: var(--accent);
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-        }
-
-        /* Redirect Section */
-        .redirect-section {
-            padding: 6rem 0 10rem;
-            text-align: center;
-        }
-
-        .redirect-title {
-            font-family: 'Cinzel', serif;
-            font-size: 1.5rem;
-            color: var(--text-secondary);
-            margin-bottom: 3rem;
-            letter-spacing: 0.15em;
-        }
-
-        .countdown-container {
-            position: relative;
-            width: 200px;
-            height: 200px;
-            margin: 0 auto 3rem;
-        }
-
-        .countdown-circle {
-            width: 100%;
-            height: 100%;
-            transform: rotate(-90deg);
-        }
-
-        .countdown-bg {
-            fill: none;
-            stroke: rgba(230, 200, 76, 0.1);
-            stroke-width: 4;
-        }
-
-        .countdown-progress {
-            fill: none;
-            stroke: var(--accent);
-            stroke-width: 4;
-            stroke-linecap: round;
-            stroke-dasharray: 565;
-            stroke-dashoffset: 0;
-            transition: stroke-dashoffset 1s linear;
-            filter: drop-shadow(0 0 10px rgba(230, 200, 76, 0.5));
-        }
-
-        .countdown-number {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-family: 'Cinzel Decorative', serif;
-            font-size: 4rem;
-            color: var(--accent);
-            text-shadow: 0 0 20px rgba(230, 200, 76, 0.5);
-        }
-
-        .countdown-label {
-            font-family: 'Cinzel', serif;
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            margin-bottom: 1rem;
-        }
-
-        .redirect-button {
-            font-family: 'Cinzel', serif;
+            margin-bottom: 1.5rem;
             font-size: 1.1rem;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--background);
-            background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
-            border: none;
-            padding: 1rem 3rem;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
         }
-
-        .redirect-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
+        
+        .law-description p:last-child {
+            margin-bottom: 0;
+        }
+        
+        .law-canvas-container {
+            position: relative;
+            aspect-ratio: 16/10;
+            background: var(--surface);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--surface-raised);
+        }
+        
+        .law-canvas {
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: left 0.5s ease;
+            display: block;
         }
-
-        .redirect-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(230, 200, 76, 0.4);
-        }
-
-        .redirect-button:hover::before {
-            left: 100%;
-        }
-
-        .redirect-note {
-            margin-top: 2rem;
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            opacity: 0.7;
-        }
-
-        /* Footer */
-        .footer {
-            padding: 3rem 0;
-            text-align: center;
-            border-top: 1px solid rgba(230, 200, 76, 0.1);
-        }
-
-        .footer-text {
+        
+        .law-hint {
+            position: absolute;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
             font-family: 'Cinzel', serif;
-            font-size: 0.85rem;
-            color: var(--text-secondary);
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            background: rgba(10, 10, 15, 0.8);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
             letter-spacing: 0.1em;
+            text-transform: uppercase;
+            white-space: nowrap;
         }
-
+        
+        .law-controls {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .law-control {
+            font-family: 'Cinzel', serif;
+            font-size: 0.75rem;
+            padding: 0.6rem 1.2rem;
+            border: 1px solid var(--surface-raised);
+            background: var(--surface);
+            color: var(--text-secondary);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all var(--duration-fast) var(--ease-smooth);
+            letter-spacing: 0.05em;
+        }
+        
+        .law-control:hover {
+            background: var(--surface-raised);
+            color: var(--text-primary);
+        }
+        
+        .law-control:focus {
+            outline: 2px solid var(--emerald);
+            outline-offset: 2px;
+        }
+        
+        .law-control input[type="range"] {
+            width: 120px;
+            height: 4px;
+            -webkit-appearance: none;
+            background: var(--surface-raised);
+            border-radius: 2px;
+            cursor: pointer;
+        }
+        
+        .law-control input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--emerald);
+            cursor: pointer;
+            transition: transform var(--duration-fast) var(--ease-bounce);
+        }
+        
+        .law-control input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+        
+        .law-control input[type="text"] {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1rem;
+            padding: 0.5rem 1rem;
+            background: var(--void);
+            border: 1px solid var(--surface-raised);
+            color: var(--text-primary);
+            border-radius: 6px;
+            width: 200px;
+        }
+        
+        .law-control input[type="text"]:focus {
+            outline: none;
+            border-color: var(--emerald);
+        }
+        
+        /* ========================================
+           FOOTER
+           ======================================== */
+        .footer {
+            position: relative;
+            z-index: 1;
+            padding: 4rem 2rem;
+            text-align: center;
+            border-top: 1px solid var(--surface);
+        }
+        
         .footer-symbol {
-            width: 40px;
-            height: 40px;
-            margin: 1rem auto;
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 1.5rem;
             opacity: 0.5;
         }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero-title {
-                letter-spacing: 0.08em;
-            }
-
-            .hero-subtitle {
-                letter-spacing: 0.15em;
-            }
-
-            .ode-section, .quote-section {
-                padding: 5rem 0;
-            }
-
-            .symbols-grid {
-                gap: 2rem;
-            }
-
-            .symbol-card {
-                padding: 2rem 1.5rem;
-            }
-
-            .countdown-container {
-                width: 160px;
-                height: 160px;
-            }
-
-            .countdown-number {
-                font-size: 3rem;
-            }
+        
+        .footer-text {
+            font-family: 'Cinzel', serif;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            letter-spacing: 0.15em;
         }
-
-        /* Reduced Motion */
+        
+        /* ========================================
+           REDUCED MOTION
+           ======================================== */
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after {
                 animation-duration: 0.01ms !important;
                 animation-iteration-count: 1 !important;
                 transition-duration: 0.01ms !important;
             }
+            html {
+                scroll-behavior: auto;
+            }
         }
-
-        /* Subtle Credit */
-        .subtle-credit {
-            position: fixed;
-            top: 1rem;
-            right: 1.5rem;
-            z-index: 100;
-        }
-
-        .subtle-credit a {
-            font-family: 'Cinzel', serif;
-            font-size: 0.75rem;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--text-secondary);
-            text-decoration: none;
-            opacity: 0.5;
-            transition: opacity 0.3s ease, color 0.3s ease;
-        }
-
-        .subtle-credit a:hover {
-            opacity: 1;
-            color: var(--accent);
-        }
-
-        /* No JS Fallback */
-        .noscript-redirect {
-            display: none;
-            padding: 2rem;
-            text-align: center;
-            background: rgba(230, 200, 76, 0.1);
-            margin-top: 2rem;
-            border-radius: 4px;
-        }
-
-        noscript .noscript-redirect {
-            display: block;
-        }
-
-        .noscript-link {
-            color: var(--accent);
-            font-family: 'Cinzel', serif;
-            font-size: 1.2rem;
+        
+        /* ========================================
+           AUDIO INTEGRATION PLACEHOLDER
+           ======================================== */
+        .audio-integration {
+            display: none; /* User will implement this */
         }
     </style>
 </head>
 <body>
-    <!-- Star Field -->
-    <div class="stars" id="stars"></div>
-
-    <!-- Subtle Credit -->
-    <div class="subtle-credit">
-        <a href="https://7hermeticlabs.com" target="_blank" rel="noopener">Transmuted by: Hermeticlabs.com</a>
+    <!-- Ambient Background -->
+    <div class="ambient-bg">
+        <div class="ambient-orb ambient-orb--emerald"></div>
+        <div class="ambient-orb ambient-orb--gold"></div>
     </div>
-
+    
+    <!-- Navigation -->
+    <nav class="nav" id="nav">
+        <a href="#hero" class="nav-logo">
+            <svg viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1"/>
+                <circle cx="12" cy="12" r="6" stroke="currentColor" stroke-width="1"/>
+                <circle cx="12" cy="12" r="2" fill="currentColor"/>
+            </svg>
+            Hermetic Laws
+        </a>
+        <ul class="nav-links">
+            <li><a href="#mentalism" class="nav-link">Mentalism</a></li>
+            <li><a href="#correspondence" class="nav-link">Correspondence</a></li>
+            <li><a href="#vibration" class="nav-link">Vibration</a></li>
+            <li><a href="#polarity" class="nav-link">Polarity</a></li>
+            <li><a href="#rhythm" class="nav-link">Rhythm</a></li>
+            <li><a href="#cause-effect" class="nav-link">Cause & Effect</a></li>
+            <li><a href="#duality" class="nav-link">Duality</a></li>
+        </ul>
+    </nav>
+    
     <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <!-- Caduceus SVG -->
-            <svg class="caduceus" viewBox="0 0 100 200" xmlns="http://www.w3.org/2000/svg">
-                <!-- Staff -->
-                <defs>
-                    <linearGradient id="staffGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" style="stop-color:#c9a227"/>
-                        <stop offset="50%" style="stop-color:#e6c84c"/>
-                        <stop offset="100%" style="stop-color:#c9a227"/>
-                    </linearGradient>
-                    <linearGradient id="snakeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                        <stop offset="0%" style="stop-color:#a89f8a"/>
-                        <stop offset="50%" style="stop-color:#f0e6d3"/>
-                        <stop offset="100%" style="stop-color:#a89f8a"/>
-                    </linearGradient>
-                </defs>
-                <!-- Winged Circle at top -->
-                <ellipse cx="50" cy="18" rx="20" ry="15" fill="none" stroke="url(#staffGrad)" stroke-width="2"/>
-                <ellipse cx="50" cy="18" rx="12" ry="9" fill="none" stroke="url(#staffGrad)" stroke-width="1.5"/>
-                <!-- Wings -->
-                <path d="M30 18 Q15 8 5 15 Q15 20 30 18" fill="url(#staffGrad)" opacity="0.9"/>
-                <path d="M70 18 Q85 8 95 15 Q85 20 70 18" fill="url(#staffGrad)" opacity="0.9"/>
-                <path d="M30 18 Q10 5 -5 12 Q10 22 30 18" fill="url(#staffGrad)" opacity="0.6"/>
-                <path d="M70 18 Q90 5 105 12 Q90 22 70 18" fill="url(#staffGrad)" opacity="0.6"/>
-                <!-- Staff Rod -->
-                <line x1="50" y1="30" x2="50" y2="190" stroke="url(#staffGrad)" stroke-width="4" stroke-linecap="round"/>
-                <!-- Left Snake -->
-                <path d="M50 45 Q30 55 35 75 Q40 90 50 95 Q60 90 65 75 Q70 55 50 45" fill="none" stroke="url(#snakeGrad)" stroke-width="3" stroke-linecap="round"/>
-                <path d="M35 75 Q32 80 28 78" fill="none" stroke="url(#snakeGrad)" stroke-width="2" stroke-linecap="round"/>
-                <circle cx="28" cy="76" r="2" fill="url(#snakeGrad)"/>
-                <!-- Right Snake -->
-                <path d="M50 45 Q70 55 65 75 Q60 90 50 95 Q40 90 35 75 Q30 55 50 45" fill="none" stroke="url(#snakeGrad)" stroke-width="3" stroke-linecap="round"/>
-                <path d="M65 75 Q68 80 72 78" fill="none" stroke="url(#snakeGrad)" stroke-width="2" stroke-linecap="round"/>
-                <circle cx="72" cy="76" r="2" fill="url(#snakeGrad)"/>
-                <!-- Knot at bottom -->
-                <circle cx="50" cy="188" r="6" fill="url(#staffGrad)"/>
-            </svg>
-
-            <h1 class="hero-title">7 Hermetic Laws</h1>
-            <p class="hero-subtitle">The Way of Hermes</p>
-        </div>
-
-        <div class="scroll-indicator">
-            <span>Descend into wisdom</span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M12 5v14M5 12l7 7 7-7"/>
-            </svg>
-        </div>
-    </section>
-
-    <!-- Ode Section -->
-    <section class="ode-section">
-        <div class="container">
-            <div class="section-border">
-                <div class="border-line"></div>
-                <svg class="border-symbol" viewBox="0 0 30 30">
-                    <circle cx="15" cy="15" r="12" fill="none" stroke="currentColor" stroke-width="1"/>
-                    <circle cx="15" cy="15" r="6" fill="none" stroke="currentColor" stroke-width="1"/>
-                    <circle cx="15" cy="15" r="2" fill="currentColor"/>
+    <section class="section hero visible" id="hero">
+        <div class="section-inner">
+            <div class="hero-orb">
+                <svg viewBox="0 0 200 200" fill="none">
+                    <circle cx="100" cy="100" r="80" stroke="var(--emerald)" stroke-width="0.5" opacity="0.3"/>
+                    <circle cx="100" cy="100" r="60" stroke="var(--emerald)" stroke-width="1"/>
+                    <circle cx="100" cy="100" r="40" stroke="var(--gold)" stroke-width="1"/>
+                    <circle cx="100" cy="100" r="20" stroke="var(--gold)" stroke-width="0.5"/>
+                    <circle cx="100" cy="100" r="8" fill="var(--emerald-bright)"/>
+                    <path d="M100 20 L100 180 M20 100 L180 100" stroke="var(--emerald)" stroke-width="0.3" opacity="0.5"/>
+                    <circle cx="100" cy="20" r="4" fill="var(--gold)"/>
+                    <circle cx="100" cy="180" r="4" fill="var(--gold)"/>
+                    <circle cx="20" cy="100" r="4" fill="var(--gold)"/>
+                    <circle cx="180" cy="100" r="4" fill="var(--gold)"/>
                 </svg>
-                <div class="border-line"></div>
             </div>
-
-            <h2 class="ode-title">An Ode to Hermes</h2>
-
-            <div class="ode-text">
-                <p class="visible">
-                    <span class="dropcap">H</span>ermes, thou swift messenger of the gods, who dost traverse the realms between heaven and earth, between the known and the unknown. Thou art the keeper of crossroads, the guide of souls through the veil of darkness, the divine interpreter who translates the language of the gods into forms mortals may comprehend.
-                </p>
-                <p>
-                    Called also Thoth in the land of Egypt, Hermes Trismegistus—the thrice-greatest—who didst inscribe the sacred tablets of wisdom upon the emerald stone. From Alexandria's ancient halls to Renaissance Florence, thy teachings have illuminated the path of those who seek to understand the mysteries of existence.
-                </p>
-                <p>
-                    Thou art <em>Logos</em>, the Word made manifest, the bridge between spirit and matter. Through thee flow the seven sacred laws that govern all creation: the principle of mentalism, correspondence, vibration, polarity, rhythm, cause and effect, and gender. These are the fingerprints of the divine upon the fabric of reality.
-                </p>
-                <p>
-                    As winged sandals carry thee across the heavens, so too dost thou carry understanding across the chasm between ignorance and enlightenment. May this threshold honor thy eternal vigil, and may all who cross hence carry forward the torch of Hermetic wisdom.
-                </p>
+            <h1 class="hero-title">Seven Hermetic Laws</h1>
+            <p class="hero-subtitle">Ancient wisdom made interactive. Explore the principles that govern all existence.</p>
+            
+            <div class="hero-laws">
+                <a href="#mentalism" class="hero-law hero-law--mentalism" title="Mentalism">1</a>
+                <a href="#correspondence" class="hero-law hero-law--correspondence" title="Correspondence">2</a>
+                <a href="#vibration" class="hero-law hero-law--vibration" title="Vibration">3</a>
+                <a href="#polarity" class="hero-law hero-law--polarity" title="Polarity">4</a>
+                <a href="#rhythm" class="hero-law hero-law--rhythm" title="Rhythm">5</a>
+                <a href="#cause-effect" class="hero-law hero-law--cause-effect" title="Cause & Effect">6</a>
+                <a href="#duality" class="hero-law hero-law--duality" title="Gender / Creative Duality">7</a>
             </div>
-
-            <div class="section-border" style="margin-top: 4rem;">
-                <div class="border-line"></div>
-                <svg class="border-symbol" viewBox="0 0 30 30">
-                    <path d="M15 2 L15 28 M2 15 L28 15" stroke="currentColor" stroke-width="1" fill="none"/>
-                    <circle cx="15" cy="15" r="10" fill="none" stroke="currentColor" stroke-width="1"/>
+            
+            <div class="scroll-prompt">
+                <span>Begin the journey</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 5v14M5 12l7 7 7-7"/>
                 </svg>
-                <div class="border-line"></div>
             </div>
         </div>
     </section>
-
-    <!-- Symbols Section -->
-    <section class="symbols-section">
-        <div class="container">
-            <h2 class="ode-title">Symbols of the Hermetic Path</h2>
-
-            <div class="symbols-grid">
-                <!-- Caduceus Card -->
-                <div class="symbol-card">
-                    <div class="symbol-icon">
-                        <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-                            <defs>
-                                <linearGradient id="sym1Grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" style="stop-color:#e6c84c"/>
-                                    <stop offset="100%" style="stop-color:#c9a227"/>
-                                </linearGradient>
-                            </defs>
-                            <line x1="40" y1="8" x2="40" y2="72" stroke="url(#sym1Grad)" stroke-width="3"/>
-                            <ellipse cx="40" cy="12" rx="10" ry="6" fill="none" stroke="url(#sym1Grad)" stroke-width="1.5"/>
-                            <path d="M30 12 Q15 5 8 10 Q15 15 30 12" fill="url(#sym1Grad)"/>
-                            <path d="M50 12 Q65 5 72 10 Q65 15 50 12" fill="url(#sym1Grad)"/>
-                            <path d="M40 22 Q25 30 28 42 Q32 52 40 55 Q48 52 52 42 Q55 30 40 22" fill="none" stroke="url(#sym1Grad)" stroke-width="2"/>
-                        </svg>
-                    </div>
-                    <h3 class="symbol-title">The Caduceus</h3>
-                    <p class="symbol-desc">The winged staff entwined by serpents, symbolizing the balance of opposing forces, the rising of Kundalini energy, and the harmonization of consciousness.</p>
+    
+    <!-- Law 1: Mentalism -->
+    <section class="section law-section law-section--mentalism" id="mentalism">
+        <div class="section-inner law-header">
+            <p class="law-number">The Principle of</p>
+            <h2 class="law-title">Mentalism</h2>
+            <p class="law-quote">"The All is mind; the universe is mental."</p>
+        </div>
+        <div class="law-content">
+            <div class="law-description">
+                <p>Your mind is the first cause. Thoughts manifest into reality through clarity and focus.</p>
+                <p>Enter an intention below, then watch as sacred geometry crystallizes from the void—emerging from chaos into form based on the clarity of your focus.</p>
+                <div class="law-controls">
+                    <input type="text" id="mentalism-input" placeholder="Enter your intention..." class="law-control">
+                    <button class="law-control" id="mentalism-manifest">Manifest</button>
+                    <span class="law-control">
+                        Clarity: <input type="range" id="mentalism-clarity" min="0" max="100" value="50">
+                    </span>
+                    <button class="law-control" id="mentalism-reset">Reset</button>
                 </div>
-
-                <!-- Winged Sandals Card -->
-                <div class="symbol-card">
-                    <div class="symbol-icon">
-                        <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-                            <defs>
-                                <linearGradient id="sym2Grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" style="stop-color:#e6c84c"/>
-                                    <stop offset="100%" style="stop-color:#c9a227"/>
-                                </linearGradient>
-                            </defs>
-                            <!-- Wing Left -->
-                            <path d="M20 35 Q5 20 10 10 Q20 18 25 30 Q22 32 20 35" fill="url(#sym2Grad)" opacity="0.9"/>
-                            <path d="M18 38 Q2 28 8 18 Q18 25 22 35" fill="url(#sym2Grad)" opacity="0.6"/>
-                            <!-- Wing Right -->
-                            <path d="M60 35 Q75 20 70 10 Q60 18 55 30 Q58 32 60 35" fill="url(#sym2Grad)" opacity="0.9"/>
-                            <path d="M62 38 Q78 28 72 18 Q62 25 58 35" fill="url(#sym2Grad)" opacity="0.6"/>
-                            <!-- Sandal Base -->
-                            <path d="M15 45 L25 40 L55 40 L65 45 L60 55 L20 55 Z" fill="none" stroke="url(#sym2Grad)" stroke-width="2"/>
-                            <path d="M20 50 L60 50" stroke="url(#sym2Grad)" stroke-width="1.5"/>
-                            <!-- Straps -->
-                            <path d="M25 40 L30 48 M35 40 L35 48 M45 40 L45 48 M55 40 L50 48" stroke="url(#sym2Grad)" stroke-width="1.5"/>
-                        </svg>
-                    </div>
-                    <h3 class="symbol-title">Talaria</h3>
-                    <p class="symbol-desc">The winged sandals of divine swiftness, enabling passage between worlds, representing the ability to move freely across spiritual dimensions.</p>
-                </div>
-
-                <!-- Eye Symbol Card -->
-                <div class="symbol-card">
-                    <div class="symbol-icon">
-                        <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-                            <defs>
-                                <linearGradient id="sym3Grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" style="stop-color:#e6c84c"/>
-                                    <stop offset="100%" style="stop-color:#c9a227"/>
-                                </linearGradient>
-                                <radialGradient id="eyeGrad">
-                                    <stop offset="0%" style="stop-color:#f0e6d3"/>
-                                    <stop offset="70%" style="stop-color:#c9a227"/>
-                                    <stop offset="100%" style="stop-color:#1a1a2e"/>
-                                </radialGradient>
-                            </defs>
-                            <!-- Triangle/Pyramid rays -->
-                            <path d="M40 5 L55 30 L25 30 Z" fill="none" stroke="url(#sym3Grad)" stroke-width="1.5"/>
-                            <path d="M40 5 L65 40 L15 40 Z" fill="none" stroke="url(#sym3Grad)" stroke-width="1" opacity="0.5"/>
-                            <!-- Eye shape -->
-                            <path d="M10 40 Q40 25 70 40 Q40 55 10 40" fill="none" stroke="url(#sym3Grad)" stroke-width="2"/>
-                            <!-- Iris -->
-                            <circle cx="40" cy="40" r="15" fill="none" stroke="url(#sym3Grad)" stroke-width="1.5"/>
-                            <circle cx="40" cy="40" r="8" fill="url(#eyeGrad)"/>
-                            <circle cx="40" cy="40" r="3" fill="url(#sym3Grad)"/>
-                            <!-- Rays -->
-                            <line x1="40" y1="20" x2="40" y2="10" stroke="url(#sym3Grad)" stroke-width="1"/>
-                            <line x1="55" y1="25" x2="62" y2="18" stroke="url(#sym3Grad)" stroke-width="1"/>
-                            <line x1="25" y1="25" x2="18" y2="18" stroke="url(#sym3Grad)" stroke-width="1"/>
-                        </svg>
-                    </div>
-                    <h3 class="symbol-title">The Hermetic Eye</h3>
-                    <p class="symbol-desc">The all-seeing eye of wisdom within the triangle of light, representing spiritual vision, illumination, and the perception beyond ordinary sight.</p>
-                </div>
+            </div>
+            <div class="law-canvas-container">
+                <canvas id="mentalism-canvas" class="law-canvas"></canvas>
+                <div class="law-hint">Type an intention, then press Manifest</div>
             </div>
         </div>
     </section>
-
-    <!-- Quote Section -->
-    <section class="quote-section">
-        <div class="container">
-            <blockquote class="hermes-quote">
-                As above, so below. As within, so without. The universe is a mirror of the mind, and mind is the mirror of the universe. To know one is to know all.
-            </blockquote>
-            <p class="quote-source">— Hermes Trismegistus</p>
+    
+    <!-- Law 2: Correspondence -->
+    <section class="section law-section law-section--correspondence" id="correspondence">
+        <div class="section-inner law-header">
+            <p class="law-number">The Principle of</p>
+            <h2 class="law-title">Correspondence</h2>
+            <p class="law-quote">"As above, so below; as below, so above."</p>
+        </div>
+        <div class="law-content">
+            <div class="law-description">
+                <p>The planes mirror each other. What happens in one realm echoes in all others.</p>
+                <p>Move the orb in the lower realm and watch as the upper realm transforms—reflecting, scaling, or inverting your movements through sacred geometry.</p>
+                <div class="law-controls">
+                    <button class="law-control" id="corr-mode">Mode: Mirror</button>
+                    <span class="law-control">
+                        Link: <input type="range" id="corr-link" min="0" max="100" value="70">
+                    </span>
+                </div>
+            </div>
+            <div class="law-canvas-container">
+                <canvas id="correspondence-canvas" class="law-canvas"></canvas>
+                <div class="law-hint">Click and drag the lower orb</div>
+            </div>
         </div>
     </section>
-
+    
+    <!-- Law 3: Vibration -->
+    <section class="section law-section law-section--vibration" id="vibration">
+        <div class="section-inner law-header">
+            <p class="law-number">The Principle of</p>
+            <h2 class="law-title">Vibration</h2>
+            <p class="law-quote">"Nothing rests; everything moves; everything vibrates."</p>
+        </div>
+        <div class="law-content">
+            <div class="law-description">
+                <p>All things are in constant motion at varying frequencies. At low vibration, forms are stable; at high vibration, they blur into pure energy.</p>
+                <p>Click anywhere in the field to inject energy. Watch as the particle field responds to your touch—raising or lowering the frequency of reality itself.</p>
+                <div class="law-controls">
+                    <button class="law-control" id="vibration-toggle">Start Field</button>
+                    <span class="law-control">
+                        Base: <input type="range" id="vibration-base" min="0" max="100" value="30">
+                    </span>
+                </div>
+            </div>
+            <div class="law-canvas-container">
+                <canvas id="vibration-canvas" class="law-canvas"></canvas>
+                <div class="law-hint">Click to inject energy into the field</div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Law 4: Polarity -->
+    <section class="section law-section law-section--polarity" id="polarity">
+        <div class="section-inner law-header">
+            <p class="law-number">The Principle of</p>
+            <h2 class="law-title">Polarity</h2>
+            <p class="law-quote">"Everything has its opposite; opposites are identical in nature."</p>
+        </div>
+        <div class="law-content">
+            <div class="law-description">
+                <p>What appears as opposite poles are merely degrees of the same thing. Light and dark, heat and cold, love and hate—all gradients on one continuum.</p>
+                <p>Move the slider between opposites and watch everything transform along the same axis.</p>
+                <div class="law-controls">
+                    <span class="law-control">
+                        <span id="polarity-label-left">Cold</span>
+                        <input type="range" id="polarity-slider" min="0" max="100" value="50">
+                        <span id="polarity-label-right">Hot</span>
+                    </span>
+                    <button class="law-control" id="polarity-flip">Flip Names</button>
+                </div>
+            </div>
+            <div class="law-canvas-container">
+                <canvas id="polarity-canvas" class="law-canvas"></canvas>
+                <div class="law-hint">Drag the slider to transform between opposites</div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Law 5: Rhythm -->
+    <section class="section law-section law-section--rhythm" id="rhythm">
+        <div class="section-inner law-header">
+            <p class="law-number">The Principle of</p>
+            <h2 class="law-title">Rhythm</h2>
+            <p class="law-quote">"Everything flows out and in; everything has its tides."</p>
+        </div>
+        <div class="law-content">
+            <div class="law-description">
+                <p>The universe moves in eternal cycles—swing and return, expansion and contraction. The pendulum always finds its center again.</p>
+                <p>Push the pendulum. Add friction. But watch—it always returns to its eternal rhythm.</p>
+                <div class="law-controls">
+                    <button class="law-control" id="rhythm-push">Push</button>
+                    <button class="law-control" id="rhythm-dampen">Dampen</button>
+                    <span class="law-control">
+                        Friction: <input type="range" id="rhythm-friction" min="0" max="100" value="20">
+                    </span>
+                </div>
+            </div>
+            <div class="law-canvas-container">
+                <canvas id="rhythm-canvas" class="law-canvas"></canvas>
+                <div class="law-hint">Push the pendulum or adjust friction</div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Law 6: Cause & Effect -->
+    <section class="section law-section law-section--cause-effect" id="cause-effect">
+        <div class="section-inner law-header">
+            <p class="law-number">The Principle of</p>
+            <h2 class="law-title">Cause & Effect</h2>
+            <p class="law-quote">"Every cause has its effect; every effect has its cause."</p>
+        </div>
+        <div class="law-content">
+            <div class="law-description">
+                <p>Actions ripple through time and space. Each cause sets in motion a chain of consequences—some immediate, some delayed.</p>
+                <p>Drop a cause node and watch the effects propagate through the web. Nothing is lost; every action echoes.</p>
+                <div class="law-controls">
+                    <button class="law-control" id="cause-clear">Clear Web</button>
+                    <span class="law-control">
+                        Delay: <input type="range" id="cause-delay" min="0" max="100" value="50">
+                    </span>
+                    <button class="law-control" id="cause-play">Replay</button>
+                </div>
+            </div>
+            <div class="law-canvas-container">
+                <canvas id="cause-effect-canvas" class="law-canvas"></canvas>
+                <div class="law-hint">Click to place a cause</div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Law 7: Gender / Creative Duality -->
+    <section class="section law-section law-section--duality" id="duality">
+        <div class="section-inner law-header">
+            <p class="law-number">The Principle of</p>
+            <h2 class="law-title">Creative Duality</h2>
+            <p class="law-quote">"Gender is in everything; everything has its masculine and feminine principles."</p>
+        </div>
+        <div class="law-content">
+            <div class="law-description">
+                <p>Creation emerges from the interplay of complementary forces—active and receptive, seed and field.</p>
+                <p>Place seeds in the field. Adjust the balance between active and receptive forces. Watch life emerge from mathematical harmony.</p>
+                <div class="law-controls">
+                    <button class="law-control" id="duality-seed">Place Seed</button>
+                    <button class="law-control" id="duality-clear">Clear</button>
+                    <span class="law-control">
+                        Active: <input type="range" id="duality-active" min="0" max="100" value="50">
+                    </span>
+                    <span class="law-control">
+                        Receptive: <input type="range" id="duality-receptive" min="0" max="100" value="50">
+                    </span>
+                </div>
+            </div>
+            <div class="law-canvas-container">
+                <canvas id="duality-canvas" class="law-canvas"></canvas>
+                <div class="law-hint">Place seeds and adjust the field balance</div>
+            </div>
+        </div>
+    </section>
+    
     <!-- Footer -->
     <footer class="footer">
-        <div class="container">
-            <svg class="footer-symbol" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="20" cy="20" r="18" fill="none" stroke="#e6c84c" stroke-width="1"/>
-                <line x1="20" y1="2" x2="20" y2="38" stroke="#e6c84c" stroke-width="1"/>
-                <line x1="2" y1="20" x2="38" y2="20" stroke="#e6c84c" stroke-width="1"/>
-                <circle cx="20" cy="20" r="8" fill="none" stroke="#e6c84c" stroke-width="1"/>
-            </svg>
-            <p class="footer-text">7 Hermetic Laws &middot; The Way of Hermes</p>
-        </div>
+        <svg class="footer-symbol" viewBox="0 0 60 60" fill="none">
+            <circle cx="30" cy="30" r="28" stroke="var(--emerald)" stroke-width="0.5"/>
+            <circle cx="30" cy="30" r="20" stroke="var(--emerald)" stroke-width="0.5"/>
+            <circle cx="30" cy="30" r="12" stroke="var(--gold)" stroke-width="0.5"/>
+            <circle cx="30" cy="30" r="4" fill="var(--emerald-bright)"/>
+        </svg>
+        <p class="footer-text">Seven Hermetic Laws &middot; The Way of Hermes &middot; As Above, So Below</p>
     </footer>
-
+    
+    <!-- Audio Integration Point (for user to implement) -->
+    <div class="audio-integration" id="audio-player">
+        <!-- User will implement audio player here -->
+    </div>
+    
     <script>
-        // Star Field Generator
-        function createStars() {
-            const starsContainer = document.getElementById('stars');
-            const starCount = Math.min(150, window.innerWidth < 768 ? 80 : 150);
-
-            for (let i = 0; i < starCount; i++) {
-                const star = document.createElement('div');
-                star.className = 'star';
-                star.style.left = Math.random() * 100 + '%';
-                star.style.top = Math.random() * 100 + '%';
-                star.style.width = Math.random() * 3 + 1 + 'px';
-                star.style.height = star.style.width;
-                star.style.setProperty('--duration', (Math.random() * 3 + 2) + 's');
-                star.style.animationDelay = Math.random() * 5 + 's';
-                starsContainer.appendChild(star);
+        /* ========================================
+           GLOBAL STATE & UTILITIES
+           ======================================== */
+        const state = {
+            scrollY: 0,
+            sections: [],
+            reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches
+        };
+        
+        // Utility: Create and manage animation loop
+        function createLoop(canvas, draw, options = {}) {
+            const ctx = canvas.getContext('2d');
+            let animationId = null;
+            let lastTime = 0;
+            
+            function resize() {
+                const rect = canvas.parentElement.getBoundingClientRect();
+                const dpr = window.devicePixelRatio || 1;
+                canvas.width = rect.width * dpr;
+                canvas.height = rect.height * dpr;
+                ctx.scale(dpr, dpr);
+                canvas.style.width = rect.width + 'px';
+                canvas.style.height = rect.height + 'px';
             }
+            
+            function animate(time) {
+                if (state.reducedMotion) {
+                    draw(0, ctx, canvas);
+                } else {
+                    const delta = time - lastTime;
+                    lastTime = time;
+                    draw(delta, ctx, canvas);
+                }
+                animationId = requestAnimationFrame(animate);
+            }
+            
+            function start() {
+                resize();
+                animationId = requestAnimationFrame(animate);
+            }
+            
+            function stop() {
+                if (animationId) {
+                    cancelAnimationFrame(animationId);
+                    animationId = null;
+                }
+            }
+            
+            window.addEventListener('resize', resize);
+            
+            return { start, stop, resize, ctx, canvas };
         }
-
-        // Scroll Reveal for Ode
-        function initScrollReveal() {
-            const odeParagraphs = document.querySelectorAll('.ode-text p:not(.visible)');
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach((entry, index) => {
-                    if (entry.isIntersecting) {
-                        setTimeout(() => {
-                            entry.target.classList.add('visible');
-                        }, index * 200);
+        
+        /* ========================================
+           NAVIGATION & SCROLL EFFECTS
+           ======================================== */
+        const nav = document.getElementById('nav');
+        const sections = document.querySelectorAll('.section');
+        
+        // Intersection Observer for section visibility
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    updateNavHighlight(entry.target.id);
+                }
+            });
+        }, { threshold: 0.2 });
+        
+        sections.forEach(section => sectionObserver.observe(section));
+        
+        // Nav scroll effect
+        window.addEventListener('scroll', () => {
+            state.scrollY = window.scrollY;
+            nav.classList.toggle('scrolled', state.scrollY > 100);
+        });
+        
+        function updateNavHighlight(id) {
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+            });
+        }
+        
+        /* ========================================
+           MENTALISM INTERACTION
+           ======================================== */
+        (function initMentalism() {
+            const canvas = document.getElementById('mentalism-canvas');
+            const ctx = canvas.getContext('2d');
+            const input = document.getElementById('mentalism-input');
+            const claritySlider = document.getElementById('mentalism-clarity');
+            const manifestBtn = document.getElementById('mentalism-manifest');
+            const resetBtn = document.getElementById('mentalism-reset');
+            
+            let particles = [];
+            let targetClarity = 0.5;
+            let currentClarity = 0.5;
+            let seed = 12345;
+            let manifested = false;
+            let manifestProgress = 0;
+            
+            function resize() {
+                const rect = canvas.parentElement.getBoundingClientRect();
+                const dpr = window.devicePixelRatio || 1;
+                canvas.width = rect.width * dpr;
+                canvas.height = rect.height * dpr;
+                ctx.scale(dpr, dpr);
+            }
+            
+            function seededRandom(x, y) {
+                const n = Math.sin(x * 12.9898 + y * 78.233 + seed) * 43758.5453;
+                return n - Math.floor(n);
+            }
+            
+            function initParticles() {
+                particles = [];
+                const count = 200;
+                for (let i = 0; i < count; i++) {
+                    particles.push({
+                        x: Math.random() * canvas.width,
+                        y: Math.random() * canvas.height,
+                        vx: (Math.random() - 0.5) * 2,
+                        vy: (Math.random() - 0.5) * 2,
+                        size: Math.random() * 3 + 1,
+                        targetX: 0,
+                        targetY: 0,
+                        angle: Math.random() * Math.PI * 2
+                    });
+                }
+            }
+            
+            function draw() {
+                resize();
+                const w = canvas.width / (window.devicePixelRatio || 1);
+                const h = canvas.height / (window.devicePixelRatio || 1);
+                
+                ctx.fillStyle = '#0a0a0f';
+                ctx.fillRect(0, 0, w, h);
+                
+                if (!manifested) {
+                    // Draw void
+                    ctx.fillStyle = '#1a1a24';
+                    ctx.beginPath();
+                    ctx.arc(w/2, h/2, 80, 0, Math.PI * 2);
+                    ctx.fill();
+                    
+                    ctx.fillStyle = '#2d8659';
+                    ctx.font = '14px Cinzel';
+                    ctx.textAlign = 'center';
+                    ctx.fillText('Enter intention to manifest', w/2, h/2);
+                } else {
+                    currentClarity += (targetClarity - currentClarity) * 0.05;
+                    manifestProgress = Math.min(1, manifestProgress + 0.02);
+                    
+                    // Draw connecting lines based on clarity
+                    const maxDist = 100 + currentClarity * 100;
+                    const lineOpacity = currentClarity * manifestProgress;
+                    
+                    for (let i = 0; i < particles.length; i++) {
+                        const p = particles[i];
+                        
+                        // Crystallize toward sacred geometry
+                        const targetAngle = p.angle + manifestProgress * Math.PI;
+                        const targetDist = 50 + seededRandom(p.x, p.y) * 150 * currentClarity;
+                        p.targetX = w/2 + Math.cos(targetAngle + i * 0.1) * targetDist;
+                        p.targetY = h/2 + Math.sin(targetAngle + i * 0.1) * targetDist;
+                        
+                        p.x += (p.targetX - p.x) * 0.05;
+                        p.y += (p.targetY - p.y) * 0.05;
+                        
+                        // Draw particle
+                        const color = `rgba(155, 109, 255, ${0.3 + currentClarity * 0.7})`;
+                        ctx.fillStyle = color;
+                        ctx.beginPath();
+                        ctx.arc(p.x, p.y, p.size * manifestProgress, 0, Math.PI * 2);
+                        ctx.fill();
+                        
+                        // Draw lines to nearby particles
+                        if (currentClarity > 0.3) {
+                            for (let j = i + 1; j < particles.length; j++) {
+                                const p2 = particles[j];
+                                const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+                                if (dist < maxDist) {
+                                    ctx.strokeStyle = `rgba(80, 200, 120, ${(1 - dist/maxDist) * lineOpacity * 0.5})`;
+                                    ctx.lineWidth = 0.5;
+                                    ctx.beginPath();
+                                    ctx.moveTo(p.x, p.y);
+                                    ctx.lineTo(p2.x, p2.y);
+                                    ctx.stroke();
+                                }
+                            }
+                        }
+                    }
+                    
+                    // Draw central geometry
+                    if (manifestProgress > 0.5) {
+                        const geoOpacity = (manifestProgress - 0.5) * 2;
+                        ctx.strokeStyle = `rgba(230, 200, 76, ${geoOpacity * currentClarity})`;
+                        ctx.lineWidth = 1;
+                        
+                        // Hexagon
+                        ctx.beginPath();
+                        for (let i = 0; i < 6; i++) {
+                            const angle = i * Math.PI / 3 - Math.PI / 2;
+                            const x = w/2 + Math.cos(angle) * 60 * currentClarity;
+                            const y = h/2 + Math.sin(angle) * 60 * currentClarity;
+                            if (i === 0) ctx.moveTo(x, y);
+                            else ctx.lineTo(x, y);
+                        }
+                        ctx.closePath();
+                        ctx.stroke();
+                    }
+                }
+                
+                if (!state.reducedMotion) {
+                    requestAnimationFrame(draw);
+                }
+            }
+            
+            manifestBtn.addEventListener('click', () => {
+                seed = input.value.split('').reduce((a, c) => a + c.charCodeAt(0), 0) || 12345;
+                if (seed === 12345) seed = Math.random() * 100000;
+                particles.forEach((p, i) => {
+                    p.angle = seededRandom(i, seed) * Math.PI * 2;
+                });
+                manifested = true;
+                manifestProgress = 0;
+            });
+            
+            claritySlider.addEventListener('input', (e) => {
+                targetClarity = e.target.value / 100;
+            });
+            
+            resetBtn.addEventListener('click', () => {
+                manifested = false;
+                manifestProgress = 0;
+                input.value = '';
+                initParticles();
+            });
+            
+            // Start
+            initParticles();
+            draw();
+        })();
+        
+        /* ========================================
+           CORRESPONDENCE INTERACTION
+           ======================================== */
+        (function initCorrespondence() {
+            const canvas = document.getElementById('correspondence-canvas');
+            const modeBtn = document.getElementById('corr-mode');
+            const linkSlider = document.getElementById('corr-link');
+            
+            let modes = ['Mirror', 'Scale', 'Rotate', 'Invert'];
+            let currentMode = 0;
+            let linkStrength = 0.7;
+            
+            let lowerOrb = { x: 0.5, y: 0.7 };
+            let upperOrb = { x: 0.5, y: 0.3 };
+            let isDragging = false;
+            
+            function resize() {
+                const rect = canvas.parentElement.getBoundingClientRect();
+                const dpr = window.devicePixelRatio || 1;
+                canvas.width = rect.width * dpr;
+                canvas.height = rect.height * dpr;
+                ctx.scale(dpr, dpr);
+            }
+            
+            const ctx = canvas.getContext('2d');
+            let animId;
+            
+            function draw() {
+                resize();
+                const w = canvas.width / (window.devicePixelRatio || 1);
+                const h = canvas.height / (window.devicePixelRatio || 1);
+                
+                ctx.fillStyle = '#0a0a0f';
+                ctx.fillRect(0, 0, w, h);
+                
+                // Draw separator
+                ctx.strokeStyle = 'rgba(80, 200, 120, 0.3)';
+                ctx.lineWidth = 1;
+                ctx.setLineDash([5, 5]);
+                ctx.beginPath();
+                ctx.moveTo(0, h / 2);
+                ctx.lineTo(w, h / 2);
+                ctx.stroke();
+                ctx.setLineDash([]);
+                
+                // Labels
+                ctx.fillStyle = 'rgba(109, 213, 255, 0.5)';
+                ctx.font = '10px Cinzel';
+                ctx.fillText('ABOVE', 15, 25);
+                ctx.fillStyle = 'rgba(109, 213, 255, 0.5)';
+                ctx.fillText('BELOW', 15, h - 15);
+                
+                // Calculate upper orb based on mode
+                switch (modes[currentMode]) {
+                    case 'Mirror':
+                        upperOrb.x = lowerOrb.x;
+                        upperOrb.y = 1 - lowerOrb.y;
+                        break;
+                    case 'Scale':
+                        upperOrb.x = 0.5 + (lowerOrb.x - 0.5) * 0.5;
+                        upperOrb.y = 0.5 + (lowerOrb.y - 0.5) * 0.5;
+                        break;
+                    case 'Rotate':
+                        const cx = 0.5, cy = 0.5;
+                        const dx = lowerOrb.x - cx;
+                        const dy = lowerOrb.y - cy;
+                        upperOrb.x = cx - dy;
+                        upperOrb.y = cy + dx;
+                        break;
+                    case 'Invert':
+                        upperOrb.x = 1 - lowerOrb.x;
+                        upperOrb.y = 1 - lowerOrb.y;
+                        break;
+                }
+                
+                // Blend with link strength
+                upperOrb.x = 0.5 + (upperOrb.x - 0.5) * linkStrength;
+                upperOrb.y = 0.3 + (upperOrb.y - 0.3) * linkStrength;
+                
+                // Draw correspondence lines
+                ctx.strokeStyle = 'rgba(109, 213, 255, 0.2)';
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.moveTo(lowerOrb.x * w, lowerOrb.y * h);
+                ctx.lineTo(upperOrb.x * w, upperOrb.y * h);
+                ctx.stroke();
+                
+                // Draw lower orb
+                const lowerGlow = ctx.createRadialGradient(
+                    lowerOrb.x * w, lowerOrb.y * h, 0,
+                    lowerOrb.x * w, lowerOrb.y * h, 40
+                );
+                lowerGlow.addColorStop(0, 'rgba(109, 213, 255, 0.8)');
+                lowerGlow.addColorStop(1, 'rgba(109, 213, 255, 0)');
+                ctx.fillStyle = lowerGlow;
+                ctx.beginPath();
+                ctx.arc(lowerOrb.x * w, lowerOrb.y * h, 40, 0, Math.PI * 2);
+                ctx.fill();
+                
+                ctx.fillStyle = '#6dd5ff';
+                ctx.beginPath();
+                ctx.arc(lowerOrb.x * w, lowerOrb.y * h, 15, 0, Math.PI * 2);
+                ctx.fill();
+                
+                // Draw upper orb
+                const upperGlow = ctx.createRadialGradient(
+                    upperOrb.x * w, upperOrb.y * h, 0,
+                    upperOrb.x * w, upperOrb.y * h, 50
+                );
+                upperGlow.addColorStop(0, 'rgba(230, 200, 76, 0.8)');
+                upperGlow.addColorStop(1, 'rgba(230, 200, 76, 0)');
+                ctx.fillStyle = upperGlow;
+                ctx.beginPath();
+                ctx.arc(upperOrb.x * w, upperOrb.y * h, 50, 0, Math.PI * 2);
+                ctx.fill();
+                
+                ctx.fillStyle = '#e6c84c';
+                ctx.beginPath();
+                ctx.arc(upperOrb.x * w, upperOrb.y * h, 12, 0, Math.PI * 2);
+                ctx.fill();
+                
+                // Draw sacred geometry overlay
+                ctx.strokeStyle = 'rgba(109, 213, 255, 0.15)';
+                ctx.lineWidth = 0.5;
+                
+                // Circle in lower
+                ctx.beginPath();
+                ctx.arc(lowerOrb.x * w, lowerOrb.y * h, 60, 0, Math.PI * 2);
+                ctx.stroke();
+                
+                // Transformed circle in upper
+                ctx.strokeStyle = 'rgba(230, 200, 76, 0.2)';
+                const scale = modes[currentMode] === 'Scale' ? 0.7 : 1;
+                ctx.beginPath();
+                ctx.arc(upperOrb.x * w, upperOrb.y * h, 60 * scale, 0, Math.PI * 2);
+                ctx.stroke();
+                
+                if (!state.reducedMotion) {
+                    animId = requestAnimationFrame(draw);
+                }
+            }
+            
+            canvas.addEventListener('mousedown', (e) => {
+                const rect = canvas.getBoundingClientRect();
+                const x = (e.clientX - rect.left) / rect.width;
+                const y = (e.clientY - rect.top) / rect.height;
+                if (y > 0.5) {
+                    isDragging = true;
+                    lowerOrb.x = x;
+                    lowerOrb.y = y;
+                }
+            });
+            
+            canvas.addEventListener('mousemove', (e) => {
+                if (isDragging) {
+                    const rect = canvas.getBoundingClientRect();
+                    lowerOrb.x = Math.max(0.1, Math.min(0.9, (e.clientX - rect.left) / rect.width));
+                    lowerOrb.y = Math.max(0.55, Math.min(0.9, (e.clientY - rect.top) / rect.height));
+                }
+            });
+            
+            canvas.addEventListener('mouseup', () => isDragging = false);
+            canvas.addEventListener('mouseleave', () => isDragging = false);
+            
+            modeBtn.addEventListener('click', () => {
+                currentMode = (currentMode + 1) % modes.length;
+                modeBtn.textContent = 'Mode: ' + modes[currentMode];
+            });
+            
+            linkSlider.addEventListener('input', (e) => {
+                linkStrength = e.target.value / 100;
+            });
+            
+            draw();
+        })();
+        
+        /* ========================================
+           VIBRATION INTERACTION
+           ======================================== */
+        (function initVibration() {
+            const canvas = document.getElementById('vibration-canvas');
+            const ctx = canvas.getContext('2d');
+            const toggleBtn = document.getElementById('vibration-toggle');
+            const baseSlider = document.getElementById('vibration-base');
+            
+            let particles = [];
+            let frequency = 0.3;
+            let isActive = false;
+            let time = 0;
+            
+            function resize() {
+                const rect = canvas.parentElement.getBoundingClientRect();
+                const dpr = window.devicePixelRatio || 1;
+                canvas.width = rect.width * dpr;
+                canvas.height = rect.height * dpr;
+                ctx.scale(dpr, dpr);
+            }
+            
+            function initParticles() {
+                particles = [];
+                const count = 150;
+                for (let i = 0; i < count; i++) {
+                    particles.push({
+                        x: Math.random() * (canvas.width / (window.devicePixelRatio || 1)),
+                        y: Math.random() * (canvas.height / (window.devicePixelRatio || 1)),
+                        baseX: 0,
+                        baseY: 0,
+                        vx: (Math.random() - 0.5) * 0.5,
+                        vy: (Math.random() - 0.5) * 0.5,
+                        phase: Math.random() * Math.PI * 2,
+                        speed: Math.random() * 0.02 + 0.01
+                    });
+                    particles[i].baseX = particles[i].x;
+                    particles[i].baseY = particles[i].y;
+                }
+            }
+            
+            function draw() {
+                resize();
+                const w = canvas.width / (window.devicePixelRatio || 1);
+                const h = canvas.height / (window.devicePixelRatio || 1);
+                
+                ctx.fillStyle = '#0a0a0f';
+                ctx.fillRect(0, 0, w, h);
+                
+                if (isActive) {
+                    time += frequency * 0.05;
+                }
+                
+                const vibAmount = frequency * 30;
+                const blur = frequency > 0.6 ? (frequency - 0.6) * 5 : 0;
+                
+                particles.forEach((p, i) => {
+                    const x = p.baseX + Math.sin(time + p.phase) * vibAmount * p.speed * 50;
+                    const y = p.baseY + Math.cos(time * 1.3 + p.phase) * vibAmount * p.speed * 50;
+                    
+                    // Boundary wrapping
+                    p.baseX = ((p.baseX + p.vx * frequency) % w + w) % w;
+                    p.baseY = ((p.baseY + p.vy * frequency) % h + h) % h;
+                    
+                    const alpha = 0.3 + frequency * 0.7;
+                    const color = `rgba(255, 109, 155, ${alpha})`;
+                    
+                    if (blur > 0.1) {
+                        // High frequency = blur effect
+                        ctx.fillStyle = `rgba(255, 109, 155, ${alpha * 0.3})`;
+                        ctx.beginPath();
+                        ctx.arc(x, y, 4 + blur * 2, 0, Math.PI * 2);
+                        ctx.fill();
+                    } else {
+                        ctx.fillStyle = color;
+                        ctx.beginPath();
+                        ctx.arc(x, y, 3, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+                    
+                    // Draw connections at low frequency
+                    if (frequency < 0.4) {
+                        for (let j = i + 1; j < particles.length; j++) {
+                            const p2 = particles[j];
+                            const dx = x - (p2.baseX + Math.sin(time + p2.phase) * vibAmount * p2.speed * 50);
+                            const dy = y - (p2.baseY + Math.cos(time * 1.3 + p2.phase) * vibAmount * p2.speed * 50);
+                            const dist = Math.sqrt(dx * dx + dy * dy);
+                            if (dist < 50) {
+                                ctx.strokeStyle = `rgba(255, 109, 155, ${(1 - dist / 50) * 0.2})`;
+                                ctx.lineWidth = 0.5;
+                                ctx.beginPath();
+                                ctx.moveTo(x, y);
+                                ctx.lineTo(p2.baseX + Math.sin(time + p2.phase) * vibAmount * p2.speed * 50, 
+                                          p2.baseY + Math.cos(time * 1.3 + p2.phase) * vibAmount * p2.speed * 50);
+                                ctx.stroke();
+                            }
+                        }
                     }
                 });
-            }, { threshold: 0.3 });
-
-            odeParagraphs.forEach(p => observer.observe(p));
-        }
-
-        // Initialize
+                
+                // Frequency indicator
+                ctx.fillStyle = 'rgba(255, 109, 155, 0.8)';
+                ctx.font = '12px Cinzel';
+                ctx.fillText(`Frequency: ${(frequency * 100).toFixed(0)}%`, 15, 25);
+                
+                if (!state.reducedMotion) {
+                    requestAnimationFrame(draw);
+                }
+            }
+            
+            canvas.addEventListener('click', (e) => {
+                frequency = Math.min(1, frequency + 0.15);
+                baseSlider.value = frequency * 100;
+            });
+            
+            toggleBtn.addEventListener('click', () => {
+                isActive = !isActive;
+                toggleBtn.textContent = isActive ? 'Pause Field' : 'Start Field';
+            });
+            
+            baseSlider.addEventListener('input', (e) => {
+                frequency = e.target.value / 100;
+            });
+            
+            initParticles();
+            draw();
+        })();
+        
+        /* ========================================
+           POLARITY INTERACTION
+           ======================================== */
+        (function initPolarity() {
+            const canvas = document.getElementById('polarity-canvas');
+            const ctx = canvas.getContext('2d');
+            const slider = document.getElementById('polarity-slider');
+            const flipBtn = document.getElementById('polarity-flip');
+            const labelLeft = document.getElementById('polarity-label-left');
+            const labelRight = document.getElementById('polarity-label-right');
+            
+            let position = 0.5;
+            let polarityLabels = ['Cold', 'Hot'];
+            let shapes = [];
+            
+            function resize() {
+                const rect = canvas.parentElement.getBoundingClientRect();
+                const dpr = window.devicePixelRatio || 1;
+                canvas.width = rect.width * dpr;
+                canvas.height = rect.height * dpr;
+                ctx.scale(dpr, dpr);
+            }
+            
+            function initShapes() {
+                shapes = [];
+                const w = canvas.width / (window.devicePixelRatio || 1);
+                const h = canvas.height / (window.devicePixelRatio || 1);
+                for (let i = 0; i < 5; i++) {
+                    shapes.push({
+                        x: Math.random() * w,
+                        y: Math.random() * h,
+                        size: Math.random() * 40 + 30,
+                        sides: Math.floor(Math.random() * 4) + 3,
+                        rotation: Math.random() * Math.PI * 2
+                    });
+                }
+            }
+            
+            function lerp(a, b, t) {
+                return a + (b - a) * t;
+            }
+            
+            function lerpColor(color1, color2, t) {
+                const c1 = hexToRgb(color1);
+                const c2 = hexToRgb(color2);
+                const r = Math.round(lerp(c1.r, c2.r, t));
+                const g = Math.round(lerp(c1.g, c2.g, t));
+                const b = Math.round(lerp(c1.b, c2.b, t));
+                return `rgb(${r}, ${g}, ${b})`;
+            }
+            
+            function hexToRgb(hex) {
+                const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+                return result ? {
+                    r: parseInt(result[1], 16),
+                    g: parseInt(result[2], 16),
+                    b: parseInt(result[3], 16)
+                } : { r: 0, g: 0, b: 0 };
+            }
+            
+            function draw() {
+                resize();
+                const w = canvas.width / (window.devicePixelRatio || 1);
+                const h = canvas.height / (window.devicePixelRatio || 1);
+                
+                // Background gradient based on polarity
+                const coldColor = '#1a3a5c';
+                const hotColor = '#5c1a1a';
+                const bgColor = lerpColor(coldColor, hotColor, position);
+                ctx.fillStyle = bgColor;
+                ctx.fillRect(0, 0, w, h);
+                
+                // Draw shapes
+                shapes.forEach((shape, i) => {
+                    shape.rotation += 0.002;
+                    
+                    const hue1 = lerp(240, 0, position); // blue to red
+                    const hue2 = lerp(180, 60, position); // cyan to yellow
+                    const color = `hsla(${hue1}, 60%, ${50 + position * 20}%, ${0.3 + position * 0.4})`;
+                    const strokeColor = `hsla(${hue2}, 70%, 60%, 0.8)`;
+                    
+                    ctx.save();
+                    ctx.translate(shape.x, shape.y);
+                    ctx.rotate(shape.rotation);
+                    
+                    ctx.fillStyle = color;
+                    ctx.strokeStyle = strokeColor;
+                    ctx.lineWidth = 2;
+                    
+                    ctx.beginPath();
+                    for (let j = 0; j < shape.sides; j++) {
+                        const angle = (j / shape.sides) * Math.PI * 2;
+                        const x = Math.cos(angle) * shape.size;
+                        const y = Math.sin(angle) * shape.size;
+                        if (j === 0) ctx.moveTo(x, y);
+                        else ctx.lineTo(x, y);
+                    }
+                    ctx.closePath();
+                    ctx.fill();
+                    ctx.stroke();
+                    
+                    ctx.restore();
+                });
+                
+                // Polarity meter
+                const meterWidth = 200;
+                const meterX = (w - meterWidth) / 2;
+                const meterY = h - 40;
+                
+                // Gradient bar
+                const gradient = ctx.createLinearGradient(meterX, 0, meterX + meterWidth, 0);
+                gradient.addColorStop(0, '#1a3a5c');
+                gradient.addColorStop(0.5, '#333');
+                gradient.addColorStop(1, '#5c1a1a');
+                
+                ctx.fillStyle = gradient;
+                ctx.fillRect(meterX, meterY, meterWidth, 8);
+                
+                // Position indicator
+                const indicatorX = meterX + position * meterWidth;
+                ctx.fillStyle = '#ffd76d';
+                ctx.beginPath();
+                ctx.arc(indicatorX, meterY + 4, 10, 0, Math.PI * 2);
+                ctx.fill();
+                
+                // Labels
+                ctx.fillStyle = '#fff';
+                ctx.font = '12px Cinzel';
+                ctx.textAlign = 'left';
+                ctx.fillText(labelLeft.textContent, meterX, meterY + 30);
+                ctx.textAlign = 'right';
+                ctx.fillText(labelRight.textContent, meterX + meterWidth, meterY + 30);
+                
+                if (!state.reducedMotion) {
+                    requestAnimationFrame(draw);
+                }
+            }
+            
+            slider.addEventListener('input', (e) => {
+                position = e.target.value / 100;
+            });
+            
+            flipBtn.addEventListener('click', () => {
+                polarityLabels = [polarityLabels[1], polarityLabels[0]];
+                labelLeft.textContent = polarityLabels[0];
+                labelRight.textContent = polarityLabels[1];
+                position = 1 - position;
+                slider.value = position * 100;
+            });
+            
+            initShapes();
+            draw();
+        })();
+        
+        /* ========================================
+           RHYTHM INTERACTION
+           ======================================== */
+        (function initRhythm() {
+            const canvas = document.getElementById('rhythm-canvas');
+            const ctx = canvas.getContext('2d');
+            const pushBtn = document.getElementById('rhythm-push');
+            const dampenBtn = document.getElementById('rhythm-dampen');
+            const frictionSlider = document.getElementById('rhythm-friction');
+            
+            let pendulum = {
+                angle: 0,
+                velocity: 0,
+                length: 150,
+                gravity: 0.001,
+                damping: 0.995
+            };
+            
+            function resize() {
+                const rect = canvas.parentElement.getBoundingClientRect();
+                const dpr = window.devicePixelRatio || 1;
+                canvas.width = rect.width * dpr;
+                canvas.height = rect.height * dpr;
+                ctx.scale(dpr, dpr);
+            }
+            
+            function draw() {
+                resize();
+                const w = canvas.width / (window.devicePixelRatio || 1);
+                const h = canvas.height / (window.devicePixelRatio || 1);
+                
+                const cx = w / 2;
+                const cy = 80;
+                const friction = frictionSlider.value / 100;
+                
+                ctx.fillStyle = '#0a0a0f';
+                ctx.fillRect(0, 0, w, h);
+                
+                // Physics
+                const gravityForce = pendulum.gravity * Math.sin(pendulum.angle);
+                pendulum.velocity += gravityForce;
+                pendulum.velocity *= (1 - friction * 0.02);
+                pendulum.angle += pendulum.velocity;
+                
+                // Calculate bob position
+                const bobX = cx + Math.sin(pendulum.angle) * pendulum.length;
+                const bobY = cy + Math.cos(pendulum.angle) * pendulum.length;
+                
+                // Draw pivot
+                ctx.fillStyle = '#2d8659';
+                ctx.beginPath();
+                ctx.arc(cx, cy, 8, 0, Math.PI * 2);
+                ctx.fill();
+                
+                // Draw string
+                ctx.strokeStyle = '#50C878';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.moveTo(cx, cy);
+                ctx.lineTo(bobX, bobY);
+                ctx.stroke();
+                
+                // Draw arc path (ghost)
+                ctx.strokeStyle = 'rgba(80, 200, 120, 0.2)';
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.arc(cx, cy, pendulum.length, -Math.PI / 3, Math.PI / 3);
+                ctx.stroke();
+                
+                // Draw bob with glow
+                const glow = ctx.createRadialGradient(bobX, bobY, 0, bobX, bobY, 50);
+                glow.addColorStop(0, 'rgba(107, 255, 184, 0.6)');
+                glow.addColorStop(1, 'rgba(107, 255, 184, 0)');
+                ctx.fillStyle = glow;
+                ctx.beginPath();
+                ctx.arc(bobX, bobY, 50, 0, Math.PI * 2);
+                ctx.fill();
+                
+                ctx.fillStyle = '#6dffb8';
+                ctx.beginPath();
+                ctx.arc(bobX, bobY, 20, 0, Math.PI * 2);
+                ctx.fill();
+                
+                // Energy indicator
+                const energy = Math.abs(pendulum.velocity) * 100;
+                ctx.fillStyle = 'rgba(107, 255, 184, 0.8)';
+                ctx.font = '12px Cinzel';
+                ctx.fillText(`Energy: ${energy.toFixed(1)}`, 15, 25);
+                ctx.fillText(`Friction: ${(friction * 100).toFixed(0)}%`, 15, 45);
+                
+                // Reset indicator
+                if (Math.abs(pendulum.velocity) < 0.001 && Math.abs(pendulum.angle) < 0.01) {
+                    ctx.fillStyle = 'rgba(230, 200, 76, 0.8)';
+                    ctx.font = '14px Cinzel';
+                    ctx.textAlign = 'center';
+                    ctx.fillText('Center restored', cx, h - 30);
+                    ctx.textAlign = 'left';
+                }
+                
+                if (!state.reducedMotion) {
+                    requestAnimationFrame(draw);
+                }
+            }
+            
+            pushBtn.addEventListener('click', () => {
+                pendulum.velocity += (Math.random() > 0.5 ? 1 : -1) * 0.15;
+            });
+            
+            dampenBtn.addEventListener('click', () => {
+                pendulum.velocity *= 0.5;
+            });
+            
+            draw();
+        })();
+        
+        /* ========================================
+           CAUSE & EFFECT INTERACTION
+           ======================================== */
+        (function initCauseEffect() {
+            const canvas = document.getElementById('cause-effect-canvas');
+            const ctx = canvas.getContext('2d');
+            const clearBtn = document.getElementById('cause-clear');
+            const delaySlider = document.getElementById('cause-delay');
+            const playBtn = document.getElementById('cause-play');
+            
+            let nodes = [];
+            let effects = [];
+            let connections = [];
+            let nextId = 0;
+            let time = 0;
+            
+            function resize() {
+                const rect = canvas.parentElement.getBoundingClientRect();
+                const dpr = window.devicePixelRatio || 1;
+                canvas.width = rect.width * dpr;
+                canvas.height = rect.height * dpr;
+                ctx.scale(dpr, dpr);
+            }
+            
+            function addCause(x, y) {
+                const node = {
+                    id: nextId++,
+                    x: x,
+                    y: y,
+                    age: 0,
+                    effects: []
+                };
+                nodes.push(node);
+                
+                // Spawn effects
+                const effectCount = Math.floor(Math.random() * 3) + 2;
+                const delay = (100 - delaySlider.value) * 2;
+                
+                for (let i = 0; i < effectCount; i++) {
+                    setTimeout(() => {
+                        const angle = (i / effectCount) * Math.PI * 2 + Math.random() * 0.5;
+                        const dist = 80 + Math.random() * 60;
+                        effects.push({
+                            id: nextId++,
+                            x: x,
+                            y: y,
+                            targetX: x + Math.cos(angle) * dist,
+                            targetY: y + Math.sin(angle) * dist,
+                            progress: 0,
+                            parentId: node.id,
+                            strength: 1
+                        });
+                        connections.push({
+                            from: node.id,
+                            to: nextId - 1,
+                            progress: 0
+                        });
+                    }, delay * (i + 1));
+                }
+            }
+            
+            function draw() {
+                resize();
+                const w = canvas.width / (window.devicePixelRatio || 1);
+                const h = canvas.height / (window.devicePixelRatio || 1);
+                
+                ctx.fillStyle = '#0a0a0f';
+                ctx.fillRect(0, 0, w, h);
+                
+                time += 0.016;
+                
+                // Update effects
+                effects.forEach(effect => {
+                    if (effect.progress < 1) {
+                        effect.progress += 0.02;
+                        effect.x = effect.x + (effect.targetX - effect.x) * 0.05;
+                        effect.y = effect.y + (effect.targetY - effect.y) * 0.05;
+                        
+                        // Spawn secondary effects
+                        if (effect.progress > 0.5 && Math.random() < 0.02) {
+                            const angle = Math.random() * Math.PI * 2;
+                            const dist = 30 + Math.random() * 40;
+                            effects.push({
+                                id: nextId++,
+                                x: effect.x,
+                                y: effect.y,
+                                targetX: effect.x + Math.cos(angle) * dist,
+                                targetY: effect.y + Math.sin(angle) * dist,
+                                progress: 0,
+                                parentId: effect.id,
+                                strength: effect.strength * 0.7
+                            });
+                        }
+                    }
+                    effect.strength *= 0.998;
+                });
+                
+                // Remove dead effects
+                effects = effects.filter(e => e.strength > 0.05);
+                
+                // Age nodes
+                nodes.forEach(node => node.age++);
+                
+                // Draw connections
+                ctx.strokeStyle = 'rgba(255, 155, 109, 0.3)';
+                ctx.lineWidth = 1;
+                connections.forEach(conn => {
+                    const fromNode = nodes.find(n => n.id === conn.from) || effects.find(e => e.id === conn.from);
+                    const toNode = effects.find(e => e.id === conn.to);
+                    if (fromNode && toNode) {
+                        conn.progress = Math.min(1, conn.progress + 0.03);
+                        const progress = conn.progress;
+                        ctx.beginPath();
+                        ctx.moveTo(fromNode.x, fromNode.y);
+                        ctx.lineTo(
+                            fromNode.x + (toNode.x - fromNode.x) * progress,
+                            fromNode.y + (toNode.y - fromNode.y) * progress
+                        );
+                        ctx.stroke();
+                    }
+                });
+                
+                // Draw causes
+                nodes.forEach(node => {
+                    const pulse = Math.sin(time * 3) * 0.2 + 0.8;
+                    
+                    // Glow
+                    const glow = ctx.createRadialGradient(node.x, node.y, 0, node.x, node.y, 40);
+                    glow.addColorStop(0, `rgba(255, 155, 109, ${0.6 * pulse})`);
+                    glow.addColorStop(1, 'rgba(255, 155, 109, 0)');
+                    ctx.fillStyle = glow;
+                    ctx.beginPath();
+                    ctx.arc(node.x, node.y, 40, 0, Math.PI * 2);
+                    ctx.fill();
+                    
+                    ctx.fillStyle = '#ff9b6d';
+                    ctx.beginPath();
+                    ctx.arc(node.x, node.y, 12, 0, Math.PI * 2);
+                    ctx.fill();
+                });
+                
+                // Draw effects
+                effects.forEach(effect => {
+                    if (effect.progress > 0) {
+                        const size = 8 * effect.strength * Math.min(1, effect.progress);
+                        
+                        const glow = ctx.createRadialGradient(effect.x, effect.y, 0, effect.x, effect.y, size * 3);
+                        glow.addColorStop(0, `rgba(255, 155, 109, ${effect.strength * 0.5})`);
+                        glow.addColorStop(1, 'rgba(255, 155, 109, 0)');
+                        ctx.fillStyle = glow;
+                        ctx.beginPath();
+                        ctx.arc(effect.x, effect.y, size * 3, 0, Math.PI * 2);
+                        ctx.fill();
+                        
+                        ctx.fillStyle = `rgba(255, 155, 109, ${effect.strength})`;
+                        ctx.beginPath();
+                        ctx.arc(effect.x, effect.y, size, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+                });
+                
+                // Stats
+                ctx.fillStyle = 'rgba(255, 155, 109, 0.8)';
+                ctx.font = '12px Cinzel';
+                ctx.fillText(`Causes: ${nodes.length}`, 15, 25);
+                ctx.fillText(`Effects: ${effects.length}`, 15, 45);
+                
+                if (!state.reducedMotion) {
+                    requestAnimationFrame(draw);
+                }
+            }
+            
+            canvas.addEventListener('click', (e) => {
+                const rect = canvas.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                addCause(x, y);
+            });
+            
+            clearBtn.addEventListener('click', () => {
+                nodes = [];
+                effects = [];
+                connections = [];
+                nextId = 0;
+            });
+            
+            draw();
+        })();
+        
+        /* ========================================
+           CREATIVE DUALITY INTERACTION
+           ======================================== */
+        (function initDuality() {
+            const canvas = document.getElementById('duality-canvas');
+            const ctx = canvas.getContext('2d');
+            const seedBtn = document.getElementById('duality-seed');
+            const clearBtn = document.getElementById('duality-clear');
+            const activeSlider = document.getElementById('duality-active');
+            const receptiveSlider = document.getElementById('duality-receptive');
+            
+            let seeds = [];
+            let particles = [];
+            let time = 0;
+            
+            function resize() {
+                const rect = canvas.parentElement.getBoundingClientRect();
+                const dpr = window.devicePixelRatio || 1;
+                canvas.width = rect.width * dpr;
+                canvas.height = rect.height * dpr;
+                ctx.scale(dpr, dpr);
+            }
+            
+            function initParticles() {
+                particles = [];
+                const count = 300;
+                for (let i = 0; i < count; i++) {
+                    particles.push({
+                        x: Math.random() * (canvas.width / (window.devicePixelRatio || 1)),
+                        y: Math.random() * (canvas.height / (window.devicePixelRatio || 1)),
+                        vx: 0,
+                        vy: 0,
+                        life: Math.random() * 100,
+                        maxLife: 100 + Math.random() * 100
+                    });
+                }
+            }
+            
+            function draw() {
+                resize();
+                const w = canvas.width / (window.devicePixelRatio || 1);
+                const h = canvas.height / (window.devicePixelRatio || 1);
+                
+                ctx.fillStyle = '#0a0a0f';
+                ctx.fillRect(0, 0, w, h);
+                
+                const active = activeSlider.value / 100;
+                const receptive = receptiveSlider.value / 100;
+                
+                time += 0.02;
+                
+                // Field visualization
+                const fieldIntensity = (active + receptive) / 2;
+                for (let i = 0; i < particles.length; i++) {
+                    const p = particles[i];
+                    
+                    // Apply forces from seeds
+                    let fx = 0, fy = 0;
+                    seeds.forEach(seed => {
+                        const dx = seed.x - p.x;
+                        const dy = seed.y - p.y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        
+                        if (dist < 200 && dist > 5) {
+                            // Active force (outward spiral)
+                            const angle = Math.atan2(dy, dx);
+                            const spiralAngle = angle + time + dist * 0.02;
+                            fx += Math.cos(spiralAngle) * active * 0.5;
+                            fy += Math.sin(spiralAngle) * active * 0.5;
+                            
+                            // Receptive force (inward flow)
+                            fx -= (dx / dist) * receptive * 0.3;
+                            fy -= (dy / dist) * receptive * 0.3;
+                        }
+                    });
+                    
+                    p.vx = (p.vx + fx) * 0.95;
+                    p.vy = (p.vy + fy) * 0.95;
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    p.life++;
+                    
+                    // Wrap around
+                    if (p.x < 0) p.x = w;
+                    if (p.x > w) p.x = 0;
+                    if (p.y < 0) p.y = h;
+                    if (p.y > h) p.y = 0;
+                    
+                    // Reset if too old
+                    if (p.life > p.maxLife) {
+                        p.x = Math.random() * w;
+                        p.y = Math.random() * h;
+                        p.vx = 0;
+                        p.vy = 0;
+                        p.life = 0;
+                    }
+                    
+                    // Draw particle
+                    const lifeRatio = p.life / p.maxLife;
+                    const alpha = Math.sin(lifeRatio * Math.PI) * fieldIntensity;
+                    
+                    // Color based on active/receptive balance
+                    const r = Math.round(184 + active * 71);
+                    const g = Math.round(109 + (active + receptive) * 73);
+                    const b = Math.round(255 - receptive * 136);
+                    
+                    ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${alpha * 0.8})`;
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+                
+                // Draw seeds
+                seeds.forEach((seed, i) => {
+                    // Pulsing glow
+                    const pulse = Math.sin(time * 2 + i) * 0.3 + 0.7;
+                    const size = 8 + pulse * 4;
+                    
+                    // Outer glow
+                    const glow = ctx.createRadialGradient(seed.x, seed.y, 0, seed.x, seed.y, 40);
+                    glow.addColorStop(0, `rgba(184, 109, 255, ${0.5 * pulse})`);
+                    glow.addColorStop(1, 'rgba(184, 109, 255, 0)');
+                    ctx.fillStyle = glow;
+                    ctx.beginPath();
+                    ctx.arc(seed.x, seed.y, 40, 0, Math.PI * 2);
+                    ctx.fill();
+                    
+                    // Inner seed
+                    ctx.fillStyle = '#b86dff';
+                    ctx.beginPath();
+                    ctx.arc(seed.x, seed.y, size, 0, Math.PI * 2);
+                    ctx.fill();
+                    
+                    // Core
+                    ctx.fillStyle = '#fff';
+                    ctx.beginPath();
+                    ctx.arc(seed.x, seed.y, 3, 0, Math.PI * 2);
+                    ctx.fill();
+                });
+                
+                // Stats
+                ctx.fillStyle = 'rgba(184, 109, 255, 0.8)';
+                ctx.font = '12px Cinzel';
+                ctx.fillText(`Seeds: ${seeds.length}`, 15, 25);
+                ctx.fillText(`Active: ${(active * 100).toFixed(0)}%`, 15, 45);
+                ctx.fillText(`Receptive: ${(receptive * 100).toFixed(0)}%`, 15, 65);
+                
+                if (!state.reducedMotion) {
+                    requestAnimationFrame(draw);
+                }
+            }
+            
+            canvas.addEventListener('click', (e) => {
+                const rect = canvas.getBoundingClientRect();
+                seeds.push({
+                    x: e.clientX - rect.left,
+                    y: e.clientY - rect.top
+                });
+            });
+            
+            seedBtn.addEventListener('click', () => {
+                const w = canvas.width / (window.devicePixelRatio || 1);
+                const h = canvas.height / (window.devicePixelRatio || 1);
+                seeds.push({
+                    x: w / 2 + (Math.random() - 0.5) * 100,
+                    y: h / 2 + (Math.random() - 0.5) * 100
+                });
+            });
+            
+            clearBtn.addEventListener('click', () => {
+                seeds = [];
+            });
+            
+            initParticles();
+            draw();
+        })();
+        
+        /* ========================================
+           INITIALIZATION
+           ======================================== */
         document.addEventListener('DOMContentLoaded', () => {
-            createStars();
-            initScrollReveal();
+            // Trigger initial section visibility
+            sections.forEach(section => {
+                if (section.getBoundingClientRect().top < window.innerHeight) {
+                    section.classList.add('visible');
+                }
+            });
         });
     </script>
 </body>
