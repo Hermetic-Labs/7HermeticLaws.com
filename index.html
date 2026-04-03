@@ -1325,8 +1325,8 @@ body {
                 
                 this.masterGain = this.ctx.createGain();
                 this.masterGain.gain.setValueAtTime(0, this.ctx.currentTime);
-                // Significantly lower volume so it acts as background under the voice
-                this.masterGain.gain.linearRampToValueAtTime(0.025, this.ctx.currentTime + 5); 
+                // Primary ambient layer volume (raised since there's no audiobook)
+                this.masterGain.gain.linearRampToValueAtTime(0.08, this.ctx.currentTime + 5); 
                 this.masterGain.connect(this.ctx.destination);
 
                 // Reverb (simple delay network for infinite space)
@@ -1461,7 +1461,7 @@ body {
             
             setVolume(v) {
                 if (this.masterGain) {
-                    this.masterGain.gain.linearRampToValueAtTime(v * 0.025, this.ctx.currentTime + 0.5);
+                    this.masterGain.gain.linearRampToValueAtTime(v * 0.08, this.ctx.currentTime + 0.5);
                 }
             }
         };
@@ -2689,15 +2689,40 @@ body {
         })();
         
         /* ========================================
-           INITIALIZATION
+           INITIALIZATION & SCROLL OBSERVER (Read Logic)
            ======================================== */
         document.addEventListener('DOMContentLoaded', () => {
-            // Trigger initial section visibility
-            sections.forEach(section => {
-                if (section.getBoundingClientRect().top < window.innerHeight) {
-                    section.classList.add('visible');
-                }
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            // IntersectionObserver for reading progress & fade-ins
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    // Fade in content
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                    // Update read logic / navigation highlight
+                    if (entry.isIntersecting && entry.intersectionRatio >= 0.2) {
+                        const id = entry.target.getAttribute('id');
+                        navLinks.forEach(link => {
+                            if (link.getAttribute('href') === '#' + id) {
+                                link.classList.add('active');
+                            } else {
+                                link.classList.remove('active');
+                            }
+                        });
+                    }
+                });
+            }, {
+                root: null,
+                rootMargin: '0px',
+                threshold: [0.1, 0.2] // Trigger at 10% for fade-in, 20% for nav highlight
             });
+            
+            sections.forEach(section => observer.observe(section));
+            
+            HermeticPlayer.init();
         });
     </script>
 </body>
