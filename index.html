@@ -14,22 +14,34 @@
     
     <style>
         /* ========================================
-           DESIGN SYSTEM
+           SACRED MATH DESIGN SYSTEM
+           All values derived from φ, π, Fibonacci
+           "As above, so below" — in code.
            ======================================== */
         :root {
-            /* Colors - Dark Mystical */
+            /* ── The Sacred Constants ── */
+            --phi: 1.6180339887;
+            --phi-sq: 2.6180339887;
+            --phi-inv: 0.6180339887;
+            --phi-inv-sq: 0.3819660113;
+            --pi-norm: 0.3183098862;  /* 1/π for normalizing */
+            --sqrt2: 1.4142135624;
+            --sqrt3: 1.7320508076;
+            --sqrt5: 2.2360679775;
+            
+            /* ── Colors — Dark Mystical ── */
             --void: #050508;
             --deep: #0a0a0f;
             --surface: #111118;
             --surface-raised: #1a1a24;
             
-            /* Emerald - Primary */
+            /* Emerald — Primary */
             --emerald-dim: #1a4d2e;
             --emerald: #2d8659;
             --emerald-bright: #50C878;
             --emerald-glow: rgba(80, 200, 120, 0.4);
             
-            /* Gold - Sacred Accent */
+            /* Gold — Sacred Accent */
             --gold-dim: #8b7355;
             --gold: #c9a227;
             --gold-bright: #e6c84c;
@@ -49,16 +61,52 @@
             --cause-effect-color: #ff9b6d;
             --duality-color: #b86dff;
             
-            /* Spacing */
-            --section-padding: clamp(4rem, 10vh, 8rem);
-            --content-max: 1200px;
+            /* ── Phi-Scale Typography ──
+               Each step = previous × φ
+               Seed: 1rem (16px) */
+            --text-xs:   0.382rem;   /* 1/φ² ≈ 6.1px  */
+            --text-sm:   0.618rem;   /* 1/φ  ≈ 9.9px  */
+            --text-base: 1rem;       /* seed  = 16px   */
+            --text-lg:   1.618rem;   /* φ    ≈ 25.9px  */
+            --text-xl:   2.618rem;   /* φ²   ≈ 41.9px  */
+            --text-2xl:  4.236rem;   /* φ³   ≈ 67.8px  */
+            --text-3xl:  6.854rem;   /* φ⁴   ≈ 109.7px */
             
-            /* Motion */
-            --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
-            --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
-            --duration-fast: 200ms;
-            --duration-normal: 400ms;
-            --duration-slow: 800ms;
+            /* ── Fibonacci Spacing Scale ──
+               Fib sequence × 0.25rem (4px base quantum)
+               1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144 */
+            --space-1:   0.25rem;    /* fib(1) = 4px   */
+            --space-2:   0.5rem;     /* fib(2) = 8px   */
+            --space-3:   0.75rem;    /* fib(3) = 12px  */
+            --space-5:   1.25rem;    /* fib(5) = 20px  */
+            --space-8:   2rem;       /* fib(8) = 32px  */
+            --space-13:  3.25rem;    /* fib(13)= 52px  */
+            --space-21:  5.25rem;    /* fib(21)= 84px  */
+            --space-34:  8.5rem;     /* fib(34)= 136px */
+            --space-55:  13.75rem;   /* fib(55)= 220px */
+            --space-89:  22.25rem;   /* fib(89)= 356px */
+            
+            /* ── Sacred Timing ──
+               Base quantum: 100ms, scaled by φ */
+            --duration-instant: 62ms;    /* 100/φ      */
+            --duration-fast:    100ms;    /* base       */
+            --duration-normal:  162ms;    /* 100×φ      */
+            --duration-slow:    262ms;    /* 100×φ²     */
+            --duration-ritual:  424ms;    /* 100×φ³     */
+            --duration-sacred:  1618ms;   /* 1000×φ     */
+            --duration-eternal: 2618ms;   /* 1000×φ²    */
+            
+            /* ── Sacred Easing (φ-derived Béziers) ── */
+            --ease-phi: cubic-bezier(0.618, 0, 0.382, 1);
+            --ease-phi-in: cubic-bezier(0.618, 0, 1, 1);
+            --ease-phi-out: cubic-bezier(0, 0, 0.382, 1);
+            --ease-bounce: cubic-bezier(0.382, 1.618, 0.618, 1);
+            
+            /* ── Golden Layout ── */
+            --content-major: 61.8%;   /* φ⁻¹ as percentage */
+            --content-minor: 38.2%;   /* 1 − φ⁻¹           */
+            --section-padding: clamp(var(--space-21), 10vh, var(--space-55));
+            --content-max: 1200px;
         }
         
         /* ========================================
@@ -94,7 +142,7 @@ body {
             font-family: 'Cormorant Garamond', Georgia, serif;
             background: var(--void);
             color: var(--text-primary);
-            line-height: 1.7;
+            line-height: 1.618; /* φ */
             overflow-x: hidden;
             min-height: 100vh;
         }
@@ -123,12 +171,12 @@ body {
             border-radius: 50%;
             filter: blur(100px);
             opacity: 0.15;
-            animation: drift 20s ease-in-out infinite;
+            animation: drift 16.18s var(--ease-phi) infinite; /* 10×φ seconds */
         }
         
         .ambient-orb--emerald {
-            width: 600px;
-            height: 600px;
+            width: 377px;   /* Fibonacci */
+            height: 377px;
             background: var(--emerald);
             top: -200px;
             right: -200px;
@@ -136,8 +184,8 @@ body {
         }
         
         .ambient-orb--gold {
-            width: 400px;
-            height: 400px;
+            width: 233px;   /* Fibonacci (377/233 ≈ φ) */
+            height: 233px;
             background: var(--gold);
             bottom: -100px;
             left: -100px;
@@ -165,7 +213,7 @@ body {
             justify-content: space-between;
             align-items: center;
             background: linear-gradient(to bottom, var(--void), transparent);
-            transition: background var(--duration-normal) var(--ease-smooth);
+            transition: background var(--duration-ritual) var(--ease-phi);
         }
         
         .nav.scrolled {
@@ -203,7 +251,7 @@ body {
             text-decoration: none;
             padding: 0.5rem 0.75rem;
             border-radius: 4px;
-            transition: all var(--duration-fast) var(--ease-smooth);
+            transition: all var(--duration-fast) var(--ease-phi);
             letter-spacing: 0.1em;
             text-transform: uppercase;
         }
@@ -227,8 +275,8 @@ body {
             justify-content: center;
             opacity: 0;
             transform: translateY(40px);
-            transition: opacity var(--duration-slow) var(--ease-smooth),
-                        transform var(--duration-slow) var(--ease-smooth);
+            transition: opacity var(--duration-sacred) var(--ease-phi),
+                        transform var(--duration-sacred) var(--ease-phi);
         }
         
         .section.visible {
@@ -251,9 +299,9 @@ body {
         }
         
         .hero-orb {
-            width: 300px;
-            height: 300px;
-            margin: 0 auto 3rem;
+            width: 233px;   /* Fibonacci(13) in px-ish */
+            height: 233px;
+            margin: 0 auto var(--space-13);
             position: relative;
             animation: float 6s ease-in-out infinite;
         }
@@ -270,7 +318,7 @@ body {
         
         .hero-title {
             font-family: 'Cinzel', serif;
-            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-size: clamp(var(--text-xl), 8vw, var(--text-2xl));
             font-weight: 700;
             color: var(--gold-bright);
             letter-spacing: 0.1em;
@@ -280,7 +328,7 @@ body {
         
         .hero-subtitle {
             font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(1.1rem, 3vw, 1.5rem);
+            font-size: clamp(var(--text-base), 3vw, var(--text-lg));
             font-style: italic;
             color: var(--text-secondary);
             margin-bottom: 3rem;
@@ -290,14 +338,14 @@ body {
         .hero-laws {
             display: flex;
             justify-content: center;
-            gap: 1.5rem;
+            gap: var(--space-5);
             flex-wrap: wrap;
             margin-bottom: 4rem;
         }
         
         .hero-law {
-            width: 60px;
-            height: 60px;
+            width: 55px;    /* Fibonacci */
+            height: 55px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -308,7 +356,7 @@ body {
             color: var(--text-primary);
             background: var(--surface-raised);
             border: 1px solid var(--surface);
-            transition: all var(--duration-normal) var(--ease-smooth);
+            transition: all var(--duration-normal) var(--ease-phi);
             cursor: pointer;
             position: relative;
         }
@@ -319,7 +367,7 @@ body {
             inset: -4px;
             border-radius: 50%;
             border: 1px solid transparent;
-            transition: border-color var(--duration-normal) var(--ease-smooth);
+            transition: border-color var(--duration-normal) var(--ease-phi);
         }
         
         .hero-law:hover {
@@ -345,7 +393,7 @@ body {
             font-size: 0.8rem;
             letter-spacing: 0.2em;
             text-transform: uppercase;
-            animation: bounce 2s ease-in-out infinite;
+            animation: bounce 1.618s var(--ease-phi) infinite; /* φ seconds */
         }
         
         @keyframes bounce {
@@ -383,7 +431,7 @@ body {
         
         .law-title {
             font-family: 'Cinzel', serif;
-            font-size: clamp(2rem, 6vw, 3.5rem);
+            font-size: clamp(var(--text-lg), 6vw, var(--text-xl));
             font-weight: 700;
             margin-bottom: 1rem;
             letter-spacing: 0.05em;
@@ -407,7 +455,7 @@ body {
         
         .law-content {
             display: grid;
-            grid-template-columns: 1fr 1.5fr;
+            grid-template-columns: var(--content-minor) var(--content-major);
             gap: 3rem;
             align-items: center;
             max-width: var(--content-max);
@@ -484,7 +532,7 @@ body {
             color: var(--text-secondary);
             border-radius: 6px;
             cursor: pointer;
-            transition: all var(--duration-fast) var(--ease-smooth);
+            transition: all var(--duration-fast) var(--ease-phi);
             letter-spacing: 0.05em;
         }
         
@@ -502,6 +550,7 @@ body {
             width: 120px;
             height: 4px;
             -webkit-appearance: none;
+            appearance: none;
             background: var(--surface-raised);
             border-radius: 2px;
             cursor: pointer;
@@ -549,9 +598,9 @@ body {
         }
         
         .footer-symbol {
-            width: 60px;
-            height: 60px;
-            margin: 0 auto 1.5rem;
+            width: 55px;   /* Fibonacci */
+            height: 55px;
+            margin: 0 auto var(--space-5);
             opacity: 0.5;
         }
         
@@ -579,8 +628,183 @@ body {
         /* ========================================
            AUDIO INTEGRATION PLACEHOLDER
            ======================================== */
-        .audio-integration {
-            display: none; /* User will implement this */
+        /* ========================================
+           HERMETIC AUDIO PLAYER
+           Golden-ratio proportioned, opt-in
+           ======================================== */
+        .hermetic-player {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 200;
+            background: rgba(5, 5, 8, 0.95);
+            backdrop-filter: blur(13px);  /* Fibonacci */
+            border-top: 1px solid rgba(80, 200, 120, 0.15);
+            padding: var(--space-3) var(--space-8);
+            display: flex;
+            align-items: center;
+            gap: var(--space-5);
+            transform: translateY(100%);
+            transition: transform var(--duration-ritual) var(--ease-phi);
+            font-family: 'Cinzel', serif;
+        }
+        
+        .hermetic-player.active {
+            transform: translateY(0);
+        }
+        
+        .hermetic-player__toggle {
+            position: fixed;
+            bottom: var(--space-5);
+            right: var(--space-8);
+            z-index: 201;
+            background: rgba(10, 10, 15, 0.9);
+            border: 1px solid var(--emerald-dim);
+            color: var(--emerald-bright);
+            font-family: 'Cinzel', serif;
+            font-size: var(--text-sm);
+            padding: var(--space-2) var(--space-5);
+            border-radius: 34px;  /* Fibonacci */
+            cursor: pointer;
+            transition: all var(--duration-normal) var(--ease-phi);
+            letter-spacing: 0.1em;
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+        
+        .hermetic-player__toggle:hover {
+            background: rgba(45, 134, 89, 0.2);
+            border-color: var(--emerald);
+        }
+        
+        .hermetic-player__toggle.playing {
+            border-color: var(--gold);
+            color: var(--gold-bright);
+        }
+        
+        .hermetic-player.active ~ .hermetic-player__toggle {
+            bottom: calc(var(--space-21) + var(--space-3));
+        }
+        
+        .player-btn {
+            background: none;
+            border: 1px solid var(--surface-raised);
+            color: var(--emerald-bright);
+            width: 34px;    /* Fibonacci */
+            height: 34px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--duration-fast) var(--ease-phi);
+            flex-shrink: 0;
+        }
+        
+        .player-btn:hover {
+            background: rgba(80, 200, 120, 0.15);
+            border-color: var(--emerald);
+        }
+        
+        .player-btn svg {
+            width: 14px;
+            height: 14px;
+            fill: currentColor;
+        }
+        
+        .player-chapter {
+            font-size: var(--text-sm);
+            color: var(--text-secondary);
+            letter-spacing: 0.05em;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 233px;  /* Fibonacci */
+            flex-shrink: 0;
+        }
+        
+        .player-chapter__title {
+            color: var(--gold-bright);
+            font-size: 0.55rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            display: block;
+            margin-bottom: 2px;
+        }
+        
+        .player-progress {
+            flex: 1;
+            height: 3px;
+            background: var(--surface-raised);
+            border-radius: 2px;
+            cursor: pointer;
+            position: relative;
+            min-width: 89px;  /* Fibonacci */
+        }
+        
+        .player-progress__fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--emerald), var(--gold));
+            border-radius: 2px;
+            width: 0%;
+            transition: width 100ms linear;
+        }
+        
+        .player-progress__time {
+            font-size: 0.5rem;
+            color: var(--text-muted);
+            font-family: 'Cormorant Garamond', serif;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        
+        .player-volume {
+            display: flex;
+            align-items: center;
+            gap: var(--space-1);
+            flex-shrink: 0;
+        }
+        
+        .player-volume input[type="range"] {
+            width: 55px;  /* Fibonacci */
+            height: 3px;
+            -webkit-appearance: none;
+            appearance: none;
+            background: var(--surface-raised);
+            border-radius: 2px;
+            cursor: pointer;
+        }
+        
+        .player-volume input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 13px;  /* Fibonacci */
+            height: 13px;
+            border-radius: 50%;
+            background: var(--emerald);
+            cursor: pointer;
+        }
+        
+        /* Adjust body padding when player is active */
+        body.player-active {
+            padding-bottom: var(--space-21);
+        }
+        
+        @media (max-width: 768px) {
+            .hermetic-player {
+                flex-wrap: wrap;
+                gap: var(--space-2);
+                padding: var(--space-2) var(--space-3);
+            }
+            .player-chapter {
+                max-width: 144px;  /* Fibonacci */
+                font-size: 0.5rem;
+            }
+            .player-volume {
+                display: none;
+            }
         }
     </style>
 </head>
@@ -845,21 +1069,451 @@ body {
             <circle cx="30" cy="30" r="4" fill="var(--emerald-bright)"/>
         </svg>
         <p class="footer-text">Seven Hermetic Laws &middot; The Way of Hermes &middot; As Above, So Below</p>
+        <p class="footer-text" style="margin-top: 0.618rem; font-size: 0.5rem; opacity: 0.5;">Narration: <a href="https://archive.org/details/kybalion_ghs_librivox" style="color: inherit; text-decoration: underline;" target="_blank">The Kybalion &mdash; LibriVox (Algy Pug)</a> &middot; Public Domain &middot; Design proportioned by &phi; &middot; Spacing by Fibonacci</p>
     </footer>
     
-    <!-- Audio Integration Point (for user to implement) -->
-    <div class="audio-integration" id="audio-player">
-        <!-- User will implement audio player here -->
+    <!-- Hermetic Audio Player -->
+    <div class="hermetic-player" id="hermetic-player">
+        <button class="player-btn" id="player-play" title="Play/Pause">
+            <svg viewBox="0 0 24 24" id="player-play-icon"><polygon points="5,3 19,12 5,21"/></svg>
+        </button>
+        
+        <div class="player-chapter" id="player-chapter">
+            <span class="player-chapter__title">Chapter</span>
+            <span id="player-chapter-name">The Kybalion</span>
+        </div>
+        
+        <div class="player-progress" id="player-progress">
+            <div class="player-progress__fill" id="player-progress-fill"></div>
+        </div>
+        
+        <span class="player-progress__time" id="player-time">0:00 / 0:00</span>
+        
+        <div class="player-volume">
+            <svg style="width:13px; height:13px; fill:var(--text-muted)" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.06c1.48-.74 2.5-2.26 2.5-4.03z"/></svg>
+            <input type="range" id="player-volume" min="0" max="100" value="80" title="Volume">
+        </div>
+        
+        <button class="player-btn" id="player-prev" title="Previous Chapter" style="width:26px;height:26px">
+            <svg viewBox="0 0 24 24" style="width:11px;height:11px"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+        </button>
+        <button class="player-btn" id="player-next" title="Next Chapter" style="width:26px;height:26px">
+            <svg viewBox="0 0 24 24" style="width:11px;height:11px"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
+        </button>
     </div>
+    
+    <button class="hermetic-player__toggle" id="player-toggle">
+        <svg style="width:13px; height:13px; fill:currentColor" viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+        <span id="player-toggle-text">Narration</span>
+    </button>
     
     <script>
         /* ========================================
-           GLOBAL STATE & UTILITIES
+           GLOBAL STATE & SACRED MATH ENGINE
            ======================================== */
+        
+        /* ── Sacred Constants ── */
+        const PHI     = (1 + Math.sqrt(5)) / 2;  // 1.6180339887...
+        const PHI_SQ  = PHI * PHI;                // 2.6180339887...
+        const PHI_INV = 1 / PHI;                  // 0.6180339887...
+        const TAU     = Math.PI * 2;              // 6.2831853071...
+        const GOLDEN_ANGLE = Math.PI * (3 - Math.sqrt(5)); // 137.507...° in radians
+        const SQRT2   = Math.SQRT2;
+        const SQRT3   = Math.sqrt(3);
+        const SQRT5   = Math.sqrt(5);
+        const FIB     = [1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377];
+        
+        /* ── Sacred Geometry Drawing Utilities ── */
+        const SacredGeometry = {
+            // Draw a Flower of Life pattern
+            flowerOfLife(ctx, cx, cy, r, rings = 2, color = 'rgba(80, 200, 120, 0.15)') {
+                ctx.strokeStyle = color;
+                ctx.lineWidth = 0.5;
+                // Center circle
+                ctx.beginPath();
+                ctx.arc(cx, cy, r, 0, TAU);
+                ctx.stroke();
+                
+                // Surrounding rings
+                for (let ring = 1; ring <= rings; ring++) {
+                    for (let i = 0; i < 6 * ring; i++) {
+                        const angle = (i / (6 * ring)) * TAU;
+                        const x = cx + Math.cos(angle) * r * ring;
+                        const y = cy + Math.sin(angle) * r * ring;
+                        ctx.beginPath();
+                        ctx.arc(x, y, r, 0, TAU);
+                        ctx.stroke();
+                    }
+                }
+            },
+            
+            // Draw a golden spiral
+            goldenSpiral(ctx, cx, cy, maxR, color = 'rgba(230, 200, 76, 0.3)', turns = 4) {
+                ctx.strokeStyle = color;
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                const steps = turns * 89; // Fibonacci precision
+                for (let i = 0; i <= steps; i++) {
+                    const t = i / steps;
+                    const angle = t * turns * TAU;
+                    const r = maxR * Math.pow(PHI, (angle / TAU) - turns) * PHI;
+                    const x = cx + Math.cos(angle) * r;
+                    const y = cy + Math.sin(angle) * r;
+                    if (i === 0) ctx.moveTo(x, y);
+                    else ctx.lineTo(x, y);
+                }
+                ctx.stroke();
+            },
+            
+            // Draw a vesica piscis
+            vesicaPiscis(ctx, cx, cy, r, color = 'rgba(109, 213, 255, 0.2)') {
+                const d = r; // separation = radius for true vesica
+                ctx.strokeStyle = color;
+                ctx.lineWidth = 0.8;
+                ctx.beginPath();
+                ctx.arc(cx - d/2, cy, r, 0, TAU);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.arc(cx + d/2, cy, r, 0, TAU);
+                ctx.stroke();
+            },
+            
+            // Generate phyllotaxis points (sunflower spiral)
+            phyllotaxis(count, cx, cy, scale = 5) {
+                const points = [];
+                for (let i = 0; i < count; i++) {
+                    const angle = i * GOLDEN_ANGLE;
+                    const r = scale * Math.sqrt(i);
+                    points.push({
+                        x: cx + Math.cos(angle) * r,
+                        y: cy + Math.sin(angle) * r,
+                        angle,
+                        index: i
+                    });
+                }
+                return points;
+            },
+            
+            // Draw concentric Fibonacci rings
+            fibonacciRings(ctx, cx, cy, baseR, color = 'rgba(80, 200, 120, 0.1)') {
+                ctx.strokeStyle = color;
+                ctx.lineWidth = 0.5;
+                FIB.forEach((f, i) => {
+                    if (i < 8) {
+                        ctx.beginPath();
+                        ctx.arc(cx, cy, baseR * f / 8, 0, TAU);
+                        ctx.stroke();
+                    }
+                });
+            }
+        };
+        
         const state = {
             scrollY: 0,
             sections: [],
             reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches
+        };
+        
+        /* ========================================
+           HERMETIC AUDIO PLAYER
+           ======================================== */
+        const HermeticPlayer = {
+            audio: null,
+            isPlaying: false,
+            currentChapter: 0,
+            playerActive: false,
+            
+            chapters: [
+                { id: 'intro',   title: 'Introduction',               file: 'assets/audio/kybalion_00_3initiates.mp3', section: 'hero' },
+                { id: 'ch1',     title: 'The Hermetic Philosophy',    file: 'assets/audio/kybalion_01_3initiates.mp3', section: 'hero' },
+                { id: 'ch2',     title: 'The Seven Hermetic Principles', file: 'assets/audio/kybalion_02_3initiates.mp3', section: 'hero' },
+                { id: 'ch3',     title: 'Mental Transmutation',       file: 'assets/audio/kybalion_03_3initiates.mp3', section: 'mentalism' },
+                { id: 'ch4',     title: 'The All',                    file: 'assets/audio/kybalion_04_3initiates.mp3', section: 'mentalism' },
+                { id: 'ch5',     title: 'The Mental Universe',        file: 'assets/audio/kybalion_05_3initiates.mp3', section: 'mentalism' },
+                { id: 'ch6',     title: 'The Divine Paradox',         file: 'assets/audio/kybalion_06_3initiates.mp3', section: 'correspondence' },
+                { id: 'ch7',     title: '"The All" in All',           file: 'assets/audio/kybalion_07_3initiates.mp3', section: 'correspondence' },
+                { id: 'ch8',     title: 'Planes of Correspondence',   file: 'assets/audio/kybalion_08_3initiates.mp3', section: 'correspondence' },
+                { id: 'ch9',     title: 'Vibration',                  file: 'assets/audio/kybalion_09_3initiates.mp3', section: 'vibration' },
+                { id: 'ch10',    title: 'Polarity',                   file: 'assets/audio/kybalion_10_3initiates.mp3', section: 'polarity' },
+                { id: 'ch11',    title: 'Rhythm',                     file: 'assets/audio/kybalion_11_3initiates.mp3', section: 'rhythm' },
+                { id: 'ch12',    title: 'Causation',                  file: 'assets/audio/kybalion_12_3initiates.mp3', section: 'cause-effect' },
+                { id: 'ch13',    title: 'Gender',                     file: 'assets/audio/kybalion_13_3initiates.mp3', section: 'duality' },
+                { id: 'ch14',    title: 'Mental Gender',              file: 'assets/audio/kybalion_14_3initiates.mp3', section: 'duality' },
+                { id: 'ch15',    title: 'Hermetic Axioms',            file: 'assets/audio/kybalion_15_3initiates.mp3', section: 'duality' },
+            ],
+            
+            init() {
+                this.audio = new Audio();
+                this.audio.preload = 'metadata';
+                
+                const toggle = document.getElementById('player-toggle');
+                const playBtn = document.getElementById('player-play');
+                const prevBtn = document.getElementById('player-prev');
+                const nextBtn = document.getElementById('player-next');
+                const progress = document.getElementById('player-progress');
+                const volumeSlider = document.getElementById('player-volume');
+                
+                toggle.addEventListener('click', () => this.togglePlayer());
+                playBtn.addEventListener('click', () => this.togglePlayback());
+                prevBtn.addEventListener('click', () => this.prevChapter());
+                nextBtn.addEventListener('click', () => this.nextChapter());
+                
+                progress.addEventListener('click', (e) => {
+                    if (!this.audio.duration) return;
+                    const rect = progress.getBoundingClientRect();
+                    const pct = (e.clientX - rect.left) / rect.width;
+                    this.audio.currentTime = pct * this.audio.duration;
+                });
+                
+                volumeSlider.addEventListener('input', (e) => {
+                    this.audio.volume = e.target.value / 100;
+                    this.saveState();
+                });
+                
+                this.audio.addEventListener('timeupdate', () => this.updateProgress());
+                this.audio.addEventListener('ended', () => this.nextChapter());
+                this.audio.addEventListener('error', () => {
+                    console.warn('Audio file not found:', this.chapters[this.currentChapter]?.file);
+                });
+                
+                // Restore state
+                this.loadState();
+            },
+            
+            togglePlayer() {
+                this.playerActive = !this.playerActive;
+                const player = document.getElementById('hermetic-player');
+                const toggle = document.getElementById('player-toggle');
+                
+                player.classList.toggle('active', this.playerActive);
+                document.body.classList.toggle('player-active', this.playerActive);
+                
+                if (this.playerActive && !this.isPlaying) {
+                    this.loadChapter(this.currentChapter);
+                }
+            },
+            
+            togglePlayback() {
+                if (this.isPlaying) {
+                    this.audio.pause();
+                    this.isPlaying = false;
+                } else {
+                    if (!this.audio.src || this.audio.src === location.href) {
+                        this.loadChapter(this.currentChapter);
+                    }
+                    this.audio.play().catch(() => {
+                        console.warn('Audio playback requires user gesture or file not found');
+                    });
+                    this.isPlaying = true;
+                }
+                this.updatePlayIcon();
+                this.saveState();
+            },
+            
+            loadChapter(index) {
+                if (index < 0 || index >= this.chapters.length) return;
+                this.currentChapter = index;
+                const chapter = this.chapters[index];
+                this.audio.src = chapter.file;
+                
+                document.getElementById('player-chapter-name').textContent = chapter.title;
+                document.getElementById('player-toggle').classList.toggle('playing', this.isPlaying);
+                document.getElementById('player-toggle-text').textContent = this.isPlaying ? chapter.title : 'Narration';
+                
+                this.saveState();
+            },
+            
+            nextChapter() {
+                const next = this.currentChapter + 1;
+                if (next < this.chapters.length) {
+                    this.loadChapter(next);
+                    if (this.isPlaying) this.audio.play().catch(() => {});
+                } else {
+                    this.isPlaying = false;
+                    this.updatePlayIcon();
+                }
+            },
+            
+            prevChapter() {
+                if (this.audio.currentTime > 3) {
+                    this.audio.currentTime = 0;
+                } else {
+                    const prev = Math.max(0, this.currentChapter - 1);
+                    this.loadChapter(prev);
+                    if (this.isPlaying) this.audio.play().catch(() => {});
+                }
+            },
+            
+            updateProgress() {
+                if (!this.audio.duration) return;
+                const pct = (this.audio.currentTime / this.audio.duration) * 100;
+                document.getElementById('player-progress-fill').style.width = pct + '%';
+                
+                const fmt = (t) => {
+                    const m = Math.floor(t / 60);
+                    const s = Math.floor(t % 60).toString().padStart(2, '0');
+                    return m + ':' + s;
+                };
+                document.getElementById('player-time').textContent = 
+                    fmt(this.audio.currentTime) + ' / ' + fmt(this.audio.duration);
+            },
+            
+            updatePlayIcon() {
+                const icon = document.getElementById('player-play-icon');
+                if (this.isPlaying) {
+                    icon.innerHTML = '<rect x="5" y="3" width="4" height="18"/><rect x="15" y="3" width="4" height="18"/>';
+                } else {
+                    icon.innerHTML = '<polygon points="5,3 19,12 5,21"/>';
+                }
+                document.getElementById('player-toggle').classList.toggle('playing', this.isPlaying);
+                document.getElementById('player-toggle-text').textContent = 
+                    this.isPlaying ? this.chapters[this.currentChapter].title : 'Narration';
+            },
+            
+            // Map section ID to first matching chapter
+            goToSection(sectionId) {
+                const idx = this.chapters.findIndex(c => c.section === sectionId);
+                if (idx !== -1 && idx !== this.currentChapter) {
+                    this.loadChapter(idx);
+                    if (this.isPlaying) this.audio.play().catch(() => {});
+                }
+            },
+            
+            saveState() {
+                try {
+                    localStorage.setItem('hermetic:audio', JSON.stringify({
+                        chapter: this.currentChapter,
+                        volume: this.audio.volume,
+                        playerActive: this.playerActive
+                    }));
+                } catch(e) {}
+            },
+            
+            loadState() {
+                try {
+                    const saved = JSON.parse(localStorage.getItem('hermetic:audio'));
+                    if (saved) {
+                        this.currentChapter = saved.chapter || 0;
+                        this.audio.volume = saved.volume ?? 0.8;
+                        document.getElementById('player-volume').value = this.audio.volume * 100;
+                        if (saved.playerActive) {
+                            this.playerActive = true;
+                            document.getElementById('hermetic-player').classList.add('active');
+                            document.body.classList.add('player-active');
+                            this.loadChapter(this.currentChapter);
+                        }
+                    }
+                } catch(e) {}
+            }
+        };
+        
+        // Init player
+        HermeticPlayer.init();
+        
+        /* ========================================
+           AMBIENT MEDITATION DRONE
+           Procedural audio via Web Audio API
+           Frequencies derived from sacred math
+           ======================================== */
+        const AmbientDrone = {
+            ctx: null,
+            nodes: [],
+            masterGain: null,
+            isActive: false,
+            
+            start() {
+                if (this.isActive) return;
+                
+                // Create AudioContext on user gesture
+                if (!this.ctx) {
+                    this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+                }
+                if (this.ctx.state === 'suspended') {
+                    this.ctx.resume();
+                }
+                
+                this.masterGain = this.ctx.createGain();
+                this.masterGain.gain.setValueAtTime(0, this.ctx.currentTime);
+                this.masterGain.gain.linearRampToValueAtTime(0.08, this.ctx.currentTime + 3); // Gentle fade-in
+                this.masterGain.connect(this.ctx.destination);
+                
+                // Sacred frequencies
+                const OM = 136.1;              // OM frequency (Year tone)
+                const PHI_TONE = OM * PHI_INV; // ~84.1 Hz — deep sub-harmonic
+                const FIFTH = OM * 1.5;        // ~204.2 Hz — perfect fifth
+                
+                // Layer 1: Deep OM drone
+                this._addOsc('sine', OM, 0.4);
+                
+                // Layer 2: Sub-harmonic (phi-derived)
+                this._addOsc('sine', PHI_TONE, 0.25);
+                
+                // Layer 3: Gentle fifth above
+                this._addOsc('sine', FIFTH, 0.15);
+                
+                // Layer 4: Shimmer — very quiet, slowly detuned for movement
+                const shimmer = this.ctx.createOscillator();
+                shimmer.type = 'sine';
+                shimmer.frequency.setValueAtTime(OM * 2, this.ctx.currentTime);
+                // Gentle LFO on the shimmer
+                const lfo = this.ctx.createOscillator();
+                lfo.type = 'sine';
+                lfo.frequency.value = 1 / PHI; // ~0.618 Hz — breathing pace
+                const lfoGain = this.ctx.createGain();
+                lfoGain.gain.value = 2; // ± 2Hz detune
+                lfo.connect(lfoGain);
+                lfoGain.connect(shimmer.frequency);
+                lfo.start();
+                
+                const shimmerGain = this.ctx.createGain();
+                shimmerGain.gain.value = 0.06;
+                shimmer.connect(shimmerGain);
+                shimmerGain.connect(this.masterGain);
+                shimmer.start();
+                
+                this.nodes.push(shimmer, lfo);
+                this.isActive = true;
+            },
+            
+            _addOsc(type, freq, vol) {
+                const osc = this.ctx.createOscillator();
+                osc.type = type;
+                osc.frequency.value = freq;
+                const gain = this.ctx.createGain();
+                gain.gain.value = vol;
+                osc.connect(gain);
+                gain.connect(this.masterGain);
+                osc.start();
+                this.nodes.push(osc);
+            },
+            
+            stop() {
+                if (!this.isActive || !this.masterGain) return;
+                // Fade out over 2 seconds
+                this.masterGain.gain.linearRampToValueAtTime(0, this.ctx.currentTime + 2);
+                setTimeout(() => {
+                    this.nodes.forEach(n => { try { n.stop(); } catch(e) {} });
+                    this.nodes = [];
+                    this.isActive = false;
+                }, 2500);
+            },
+            
+            setVolume(v) {
+                if (this.masterGain) {
+                    this.masterGain.gain.linearRampToValueAtTime(v, this.ctx.currentTime + 0.5);
+                }
+            }
+        };
+        
+        // Wire ambient to player state
+        const _origTogglePlayback = HermeticPlayer.togglePlayback.bind(HermeticPlayer);
+        HermeticPlayer.togglePlayback = function() {
+            _origTogglePlayback();
+            if (this.isPlaying) {
+                AmbientDrone.start();
+            } else {
+                AmbientDrone.stop();
+            }
         };
         
         // Utility: Create and manage animation loop
@@ -912,15 +1566,19 @@ body {
         const nav = document.getElementById('nav');
         const sections = document.querySelectorAll('.section');
         
-        // Intersection Observer for section visibility
+        // Intersection Observer for section visibility + audio auto-chapter
         const sectionObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
                     updateNavHighlight(entry.target.id);
+                    // Auto-switch audio chapter when scrolling (if playing)
+                    if (HermeticPlayer.isPlaying && HermeticPlayer.playerActive) {
+                        HermeticPlayer.goToSection(entry.target.id);
+                    }
                 }
             });
-        }, { threshold: 0.2 });
+        }, { threshold: 0.3 });
         
         sections.forEach(section => sectionObserver.observe(section));
         
@@ -993,10 +1651,12 @@ body {
                 ctx.fillRect(0, 0, w, h);
                 
                 if (!manifested) {
-                    // Draw void
+                    // Draw void with Fibonacci rings
+                    SacredGeometry.fibonacciRings(ctx, w/2, h/2, 89, 'rgba(45, 134, 89, 0.08)');
+                    
                     ctx.fillStyle = '#1a1a24';
                     ctx.beginPath();
-                    ctx.arc(w/2, h/2, 80, 0, Math.PI * 2);
+                    ctx.arc(w/2, h/2, 55, 0, TAU); // Fibonacci radius
                     ctx.fill();
                     
                     ctx.fillStyle = '#2d8659';
@@ -1008,17 +1668,17 @@ body {
                     manifestProgress = Math.min(1, manifestProgress + 0.02);
                     
                     // Draw connecting lines based on clarity
-                    const maxDist = 100 + currentClarity * 100;
+                    const maxDist = 89 + currentClarity * 55; // Fibonacci distances
                     const lineOpacity = currentClarity * manifestProgress;
                     
                     for (let i = 0; i < particles.length; i++) {
                         const p = particles[i];
                         
-                        // Crystallize toward sacred geometry
-                        const targetAngle = p.angle + manifestProgress * Math.PI;
-                        const targetDist = 50 + seededRandom(p.x, p.y) * 150 * currentClarity;
-                        p.targetX = w/2 + Math.cos(targetAngle + i * 0.1) * targetDist;
-                        p.targetY = h/2 + Math.sin(targetAngle + i * 0.1) * targetDist;
+                        // Crystallize using golden angle distribution
+                        const goldenPos = i * GOLDEN_ANGLE;
+                        const targetDist = 34 + seededRandom(p.x, p.y) * 89 * currentClarity; // Fibonacci
+                        p.targetX = w/2 + Math.cos(goldenPos + manifestProgress * Math.PI) * targetDist;
+                        p.targetY = h/2 + Math.sin(goldenPos + manifestProgress * Math.PI) * targetDist;
                         
                         p.x += (p.targetX - p.x) * 0.05;
                         p.y += (p.targetY - p.y) * 0.05;
@@ -1027,7 +1687,7 @@ body {
                         const color = `rgba(155, 109, 255, ${0.3 + currentClarity * 0.7})`;
                         ctx.fillStyle = color;
                         ctx.beginPath();
-                        ctx.arc(p.x, p.y, p.size * manifestProgress, 0, Math.PI * 2);
+                        ctx.arc(p.x, p.y, p.size * manifestProgress, 0, TAU);
                         ctx.fill();
                         
                         // Draw lines to nearby particles
@@ -1047,23 +1707,22 @@ body {
                         }
                     }
                     
-                    // Draw central geometry
+                    // Draw Flower of Life as central sacred geometry
                     if (manifestProgress > 0.5) {
                         const geoOpacity = (manifestProgress - 0.5) * 2;
-                        ctx.strokeStyle = `rgba(230, 200, 76, ${geoOpacity * currentClarity})`;
-                        ctx.lineWidth = 1;
-                        
-                        // Hexagon
-                        ctx.beginPath();
-                        for (let i = 0; i < 6; i++) {
-                            const angle = i * Math.PI / 3 - Math.PI / 2;
-                            const x = w/2 + Math.cos(angle) * 60 * currentClarity;
-                            const y = h/2 + Math.sin(angle) * 60 * currentClarity;
-                            if (i === 0) ctx.moveTo(x, y);
-                            else ctx.lineTo(x, y);
+                        const flowerR = 21 * currentClarity * PHI; // Fibonacci × phi
+                        SacredGeometry.flowerOfLife(
+                            ctx, w/2, h/2, flowerR, 
+                            Math.floor(currentClarity * 3),
+                            `rgba(230, 200, 76, ${geoOpacity * currentClarity * 0.4})`
+                        );
+                        // Golden spiral overlay
+                        if (currentClarity > 0.6) {
+                            SacredGeometry.goldenSpiral(
+                                ctx, w/2, h/2, 55 * currentClarity,
+                                `rgba(80, 200, 120, ${geoOpacity * 0.2})`, 3
+                            );
                         }
-                        ctx.closePath();
-                        ctx.stroke();
                     }
                 }
                 
@@ -1133,13 +1792,14 @@ body {
                 ctx.fillStyle = '#0a0a0f';
                 ctx.fillRect(0, 0, w, h);
                 
-                // Draw separator
+                // Draw separator at φ⁻¹ position ("As Above, So Below" in sacred proportion)
+                const splitY = h * PHI_INV; // 61.8% — the golden split
                 ctx.strokeStyle = 'rgba(80, 200, 120, 0.3)';
                 ctx.lineWidth = 1;
                 ctx.setLineDash([5, 5]);
                 ctx.beginPath();
-                ctx.moveTo(0, h / 2);
-                ctx.lineTo(w, h / 2);
+                ctx.moveTo(0, splitY);
+                ctx.lineTo(w, splitY);
                 ctx.stroke();
                 ctx.setLineDash([]);
                 
@@ -1219,21 +1879,29 @@ body {
                 ctx.arc(upperOrb.x * w, upperOrb.y * h, 12, 0, Math.PI * 2);
                 ctx.fill();
                 
-                // Draw sacred geometry overlay
-                ctx.strokeStyle = 'rgba(109, 213, 255, 0.15)';
-                ctx.lineWidth = 0.5;
+                // Draw sacred geometry overlay — Vesica Piscis + Fibonacci rings
+                const midX = (lowerOrb.x + upperOrb.x) / 2 * w;
+                const midY = (lowerOrb.y + upperOrb.y) / 2 * h;
                 
-                // Circle in lower
-                ctx.beginPath();
-                ctx.arc(lowerOrb.x * w, lowerOrb.y * h, 60, 0, Math.PI * 2);
-                ctx.stroke();
+                // Vesica Piscis between the two orbs
+                SacredGeometry.vesicaPiscis(
+                    ctx, midX, midY, 
+                    34 * linkStrength,  // Fibonacci radius
+                    `rgba(109, 213, 255, ${0.12 * linkStrength})`
+                );
                 
-                // Transformed circle in upper
-                ctx.strokeStyle = 'rgba(230, 200, 76, 0.2)';
-                const scale = modes[currentMode] === 'Scale' ? 0.7 : 1;
-                ctx.beginPath();
-                ctx.arc(upperOrb.x * w, upperOrb.y * h, 60 * scale, 0, Math.PI * 2);
-                ctx.stroke();
+                // Fibonacci rings around lower orb
+                SacredGeometry.fibonacciRings(
+                    ctx, lowerOrb.x * w, lowerOrb.y * h,
+                    55, 'rgba(109, 213, 255, 0.06)'
+                );
+                
+                // Fibonacci rings around upper orb (scaled by mode)
+                const scale = modes[currentMode] === 'Scale' ? PHI_INV : 1;
+                SacredGeometry.fibonacciRings(
+                    ctx, upperOrb.x * w, upperOrb.y * h,
+                    55 * scale, 'rgba(230, 200, 76, 0.06)'
+                );
                 
                 if (!state.reducedMotion) {
                     animId = requestAnimationFrame(draw);
@@ -1298,7 +1966,7 @@ body {
             
             function initParticles() {
                 particles = [];
-                const count = 150;
+                const count = 144; // Fibonacci
                 for (let i = 0; i < count; i++) {
                     particles.push({
                         x: Math.random() * (canvas.width / (window.devicePixelRatio || 1)),
@@ -1327,8 +1995,8 @@ body {
                     time += frequency * 0.05;
                 }
                 
-                const vibAmount = frequency * 30;
-                const blur = frequency > 0.6 ? (frequency - 0.6) * 5 : 0;
+                const vibAmount = frequency * 21; // Fibonacci base
+                const blur = frequency > PHI_INV ? (frequency - PHI_INV) * 5 : 0; // phi threshold
                 
                 particles.forEach((p, i) => {
                     const x = p.baseX + Math.sin(time + p.phase) * vibAmount * p.speed * 50;
@@ -1355,24 +2023,34 @@ body {
                     }
                     
                     // Draw connections at low frequency
-                    if (frequency < 0.4) {
+                    if (frequency < PHI_INV) { // Connect below golden threshold
                         for (let j = i + 1; j < particles.length; j++) {
                             const p2 = particles[j];
-                            const dx = x - (p2.baseX + Math.sin(time + p2.phase) * vibAmount * p2.speed * 50);
-                            const dy = y - (p2.baseY + Math.cos(time * 1.3 + p2.phase) * vibAmount * p2.speed * 50);
+                            const dx = x - (p2.baseX + Math.sin(time + p2.phase) * vibAmount * p2.speed * 34);
+                            const dy = y - (p2.baseY + Math.cos(time * PHI + p2.phase) * vibAmount * p2.speed * 34);
                             const dist = Math.sqrt(dx * dx + dy * dy);
-                            if (dist < 50) {
-                                ctx.strokeStyle = `rgba(255, 109, 155, ${(1 - dist / 50) * 0.2})`;
+                            if (dist < 55) { // Fibonacci connection distance
+                                ctx.strokeStyle = `rgba(255, 109, 155, ${(1 - dist / 55) * 0.2})`;
                                 ctx.lineWidth = 0.5;
                                 ctx.beginPath();
                                 ctx.moveTo(x, y);
-                                ctx.lineTo(p2.baseX + Math.sin(time + p2.phase) * vibAmount * p2.speed * 50, 
-                                          p2.baseY + Math.cos(time * 1.3 + p2.phase) * vibAmount * p2.speed * 50);
+                                ctx.lineTo(p2.baseX + Math.sin(time + p2.phase) * vibAmount * p2.speed * 34, 
+                                          p2.baseY + Math.cos(time * PHI + p2.phase) * vibAmount * p2.speed * 34);
                                 ctx.stroke();
                             }
                         }
                     }
                 });
+                
+                // Golden spiral energy overlay at high frequency
+                if (frequency > PHI_INV) {
+                    const spiralOpacity = (frequency - PHI_INV) * 0.6;
+                    SacredGeometry.goldenSpiral(
+                        ctx, w/2, h/2, w * 0.3 * frequency,
+                        `rgba(255, 109, 155, ${spiralOpacity})`, 
+                        Math.floor(2 + frequency * 3)
+                    );
+                }
                 
                 // Frequency indicator
                 ctx.fillStyle = 'rgba(255, 109, 155, 0.8)';
@@ -1569,9 +2247,9 @@ body {
             let pendulum = {
                 angle: 0,
                 velocity: 0,
-                length: 150,
-                gravity: 0.001,
-                damping: 0.995
+                length: 144,              // Fibonacci
+                gravity: 1 / (PHI_SQ * 1000), // 1/φ² normalized ≈ 0.000382
+                damping: PHI_INV              // φ⁻¹ ≈ 0.618
             };
             
             function resize() {
@@ -1625,6 +2303,12 @@ body {
                 ctx.arc(cx, cy, pendulum.length, -Math.PI / 3, Math.PI / 3);
                 ctx.stroke();
                 
+                // Golden spiral trail behind pendulum
+                SacredGeometry.goldenSpiral(
+                    ctx, cx, cy, pendulum.length * 0.6,
+                    'rgba(107, 255, 184, 0.06)', 2
+                );
+                
                 // Draw bob with glow
                 const glow = ctx.createRadialGradient(bobX, bobY, 0, bobX, bobY, 50);
                 glow.addColorStop(0, 'rgba(107, 255, 184, 0.6)');
@@ -1636,7 +2320,7 @@ body {
                 
                 ctx.fillStyle = '#6dffb8';
                 ctx.beginPath();
-                ctx.arc(bobX, bobY, 20, 0, Math.PI * 2);
+                ctx.arc(bobX, bobY, 21, 0, TAU); // Fibonacci 21
                 ctx.fill();
                 
                 // Energy indicator
@@ -1705,14 +2389,14 @@ body {
                 };
                 nodes.push(node);
                 
-                // Spawn effects
-                const effectCount = Math.floor(Math.random() * 3) + 2;
-                const delay = (100 - delaySlider.value) * 2;
+                // Spawn effects at golden angle positions
+                const effectCount = FIB[Math.floor(Math.random() * 3) + 2]; // 2, 3, or 5
+                const delay = (100 - delaySlider.value) * PHI;
                 
                 for (let i = 0; i < effectCount; i++) {
                     setTimeout(() => {
-                        const angle = (i / effectCount) * Math.PI * 2 + Math.random() * 0.5;
-                        const dist = 80 + Math.random() * 60;
+                        const angle = i * GOLDEN_ANGLE; // Golden angle = 137.5°
+                        const dist = FIB[5] + Math.random() * FIB[8]; // 8 + random * 21
                         effects.push({
                             id: nextId++,
                             x: x,
@@ -1885,7 +2569,7 @@ body {
             
             function initParticles() {
                 particles = [];
-                const count = 300;
+                const count = 233; // Fibonacci
                 for (let i = 0; i < count; i++) {
                     particles.push({
                         x: Math.random() * (canvas.width / (window.devicePixelRatio || 1)),
@@ -1923,16 +2607,16 @@ body {
                         const dy = seed.y - p.y;
                         const dist = Math.sqrt(dx * dx + dy * dy);
                         
-                        if (dist < 200 && dist > 5) {
-                            // Active force (outward spiral)
+                        if (dist < 144 && dist > 5) { // Fibonacci influence radius
+                            // Active force (golden angle spiral)
                             const angle = Math.atan2(dy, dx);
-                            const spiralAngle = angle + time + dist * 0.02;
+                            const spiralAngle = angle + time + dist * GOLDEN_ANGLE * 0.01;
                             fx += Math.cos(spiralAngle) * active * 0.5;
                             fy += Math.sin(spiralAngle) * active * 0.5;
                             
-                            // Receptive force (inward flow)
-                            fx -= (dx / dist) * receptive * 0.3;
-                            fy -= (dy / dist) * receptive * 0.3;
+                            // Receptive force (inward flow, phi-scaled)
+                            fx -= (dx / dist) * receptive * PHI_INV;
+                            fy -= (dy / dist) * receptive * PHI_INV;
                         }
                     });
                     
@@ -1972,31 +2656,37 @@ body {
                     ctx.fill();
                 }
                 
-                // Draw seeds
+                // Draw seeds with vesica piscis
                 seeds.forEach((seed, i) => {
                     // Pulsing glow
-                    const pulse = Math.sin(time * 2 + i) * 0.3 + 0.7;
-                    const size = 8 + pulse * 4;
+                    const pulse = Math.sin(time * PHI + i * GOLDEN_ANGLE) * 0.3 + 0.7;
+                    const size = FIB[4] + pulse * FIB[3]; // 5 + pulse * 3
                     
                     // Outer glow
-                    const glow = ctx.createRadialGradient(seed.x, seed.y, 0, seed.x, seed.y, 40);
+                    const glow = ctx.createRadialGradient(seed.x, seed.y, 0, seed.x, seed.y, 34);
                     glow.addColorStop(0, `rgba(184, 109, 255, ${0.5 * pulse})`);
                     glow.addColorStop(1, 'rgba(184, 109, 255, 0)');
                     ctx.fillStyle = glow;
                     ctx.beginPath();
-                    ctx.arc(seed.x, seed.y, 40, 0, Math.PI * 2);
+                    ctx.arc(seed.x, seed.y, 34, 0, TAU); // Fibonacci glow radius
                     ctx.fill();
+                    
+                    // Vesica piscis around each seed
+                    SacredGeometry.vesicaPiscis(
+                        ctx, seed.x, seed.y, 21 * pulse,
+                        `rgba(184, 109, 255, ${0.15 * pulse})`
+                    );
                     
                     // Inner seed
                     ctx.fillStyle = '#b86dff';
                     ctx.beginPath();
-                    ctx.arc(seed.x, seed.y, size, 0, Math.PI * 2);
+                    ctx.arc(seed.x, seed.y, size, 0, TAU);
                     ctx.fill();
                     
                     // Core
                     ctx.fillStyle = '#fff';
                     ctx.beginPath();
-                    ctx.arc(seed.x, seed.y, 3, 0, Math.PI * 2);
+                    ctx.arc(seed.x, seed.y, 3, 0, TAU);
                     ctx.fill();
                 });
                 
