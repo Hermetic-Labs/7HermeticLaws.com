@@ -1419,7 +1419,10 @@ body {
             ctx: null,
             nodes: [],
             masterGain: null,
+            delay: null,
             isActive: false,
+            schedulerId: null,
+            scale: [],
             
             start() {
                 if (this.isActive) return;
@@ -1434,73 +1437,143 @@ body {
                 
                 this.masterGain = this.ctx.createGain();
                 this.masterGain.gain.setValueAtTime(0, this.ctx.currentTime);
-                this.masterGain.gain.linearRampToValueAtTime(0.08, this.ctx.currentTime + 3); // Gentle fade-in
+                // Significantly lower volume so it acts as background under the voice
+                this.masterGain.gain.linearRampToValueAtTime(0.025, this.ctx.currentTime + 5); 
                 this.masterGain.connect(this.ctx.destination);
+
+                // Reverb (simple delay network for infinite space)
+                this.delay = this.ctx.createDelay();
+                this.delay.delayTime.value = 1.618; // Phi proportioned echo
+                const feedback = this.ctx.createGain();
+                feedback.gain.value = 0.4;
                 
-                // Sacred frequencies
-                const OM = 136.1;              // OM frequency (Year tone)
-                const PHI_TONE = OM * PHI_INV; // ~84.1 Hz — deep sub-harmonic
-                const FIFTH = OM * 1.5;        // ~204.2 Hz — perfect fifth
+                // Lowpass the delay so it gets darker as it echoes
+                const delayFilter = this.ctx.createBiquadFilter();
+                delayFilter.type = 'lowpass';
+                delayFilter.frequency.value = 1000;
+
+                this.delay.connect(delayFilter);
+                delayFilter.connect(feedback);
+                feedback.connect(this.delay);
+                this.delay.connect(this.masterGain);
                 
-                // Layer 1: Deep OM drone
-                this._addOsc('sine', OM, 0.4);
+                // Sacred OM scale (136.1 Hz fundamental)
+                const OM = 136.1;
+                this.scale = [
+                    OM,             // Root
+                    OM * 1.125,     // 9/8 (Major 2nd)
+                    OM * 1.25,      // 5/4 (Major 3rd)
+                    OM * 1.5,       // 3/2 (Perfect 5th)
+                    OM * 1.666,     // 5/3 (Major 6th)
+                    OM * 2,         // Octave
+                    OM * 2.25,      // Octave + 2nd
+                    OM * 2.5        // Octave + 3rd
+                ];
                 
-                // Layer 2: Sub-harmonic (phi-derived)
-                this._addOsc('sine', PHI_TONE, 0.25);
+                // Layer 1: Very deep OM continuous sub-drone
+                this._addDroneOsc('sine', OM * 0.5, 0.4);
                 
-                // Layer 3: Gentle fifth above
-                this._addOsc('sine', FIFTH, 0.15);
-                
-                // Layer 4: Shimmer — very quiet, slowly detuned for movement
-                const shimmer = this.ctx.createOscillator();
-                shimmer.type = 'sine';
-                shimmer.frequency.setValueAtTime(OM * 2, this.ctx.currentTime);
-                // Gentle LFO on the shimmer
-                const lfo = this.ctx.createOscillator();
-                lfo.type = 'sine';
-                lfo.frequency.value = 1 / PHI; // ~0.618 Hz — breathing pace
-                const lfoGain = this.ctx.createGain();
-                lfoGain.gain.value = 2; // ± 2Hz detune
-                lfo.connect(lfoGain);
-                lfoGain.connect(shimmer.frequency);
-                lfo.start();
-                
-                const shimmerGain = this.ctx.createGain();
-                shimmerGain.gain.value = 0.06;
-                shimmer.connect(shimmerGain);
-                shimmerGain.connect(this.masterGain);
-                shimmer.start();
-                
-                this.nodes.push(shimmer, lfo);
                 this.isActive = true;
+                this._scheduleNote();
             },
             
-            _addOsc(type, freq, vol) {
+            _addDroneOsc(type, freq, vol) {
                 const osc = this.ctx.createOscillator();
                 osc.type = type;
                 osc.frequency.value = freq;
                 const gain = this.ctx.createGain();
                 gain.gain.value = vol;
-                osc.connect(gain);
+                
+                // Soft lowpass
+                const filter = this.ctx.createBiquadFilter();
+                filter.type = 'lowpass';
+                filter.frequency.value = 300; // Keep it very subby
+
+                osc.connect(filter);
+                filter.connect(gain);
                 gain.connect(this.masterGain);
+                
                 osc.start();
                 this.nodes.push(osc);
             },
+
+            _playNote() {
+                if (!this.isActive) return;
+
+                const freq = this.scale[Math.floor(Math.random() * this.scale.length)];
+                const osc = this.ctx.createOscillator();
+                osc.type = Math.random() > 0.6 ? 'sine' : 'triangle';
+                osc.frequency.value = freq;
+
+                const gain = this.ctx.createGain();
+                gain.gain.setValueAtTime(0, this.ctx.currentTime);
+                // Generative ADSR: Slow attack, long release
+                const attack = 3 + Math.random() * 3;
+                const release = 4 + Math.random() * 5;
+                
+                gain.gain.linearRampToValueAtTime(0.1 + Math.random() * 0.1, this.ctx.currentTime + attack);
+                gain.gain.linearRampToValueAtTime(0, this.ctx.currentTime + attack + release);
+
+                // Filter each note for softness
+                const filter = this.ctx.createBiquadFilter();
+                filter.type = 'lowpass';
+                filter.frequency.value = 600 + Math.random() * 600;
+
+                // Ping-pong pan
+                const panner = this.ctx.createStereoPanner ? this.ctx.createStereoPanner() : this.ctx.createPanner();
+                if (panner.pan) {
+                    panner.pan.value = (Math.random() * 1.6) - 0.8;
+                } else {
+                    panner.setPosition((Math.random() * 1.6) - 0.8, 0, 0);
+                }
+
+                osc.connect(filter);
+                filter.connect(panner);
+                panner.connect(gain);
+                gain.connect(this.masterGain);      // Dry signal
+                gain.connect(this.delay);           // Wet reverberated signal
+
+                osc.start(this.ctx.currentTime);
+                osc.stop(this.ctx.currentTime + attack + release);
+            },
+
+            _scheduleNote() {
+                if (!this.isActive) return;
+                this._playNote();
+                
+                // Sometimes play a crystalline chord (spawn a second note immediately)
+                if (Math.random() > 0.6) {
+                    setTimeout(() => this._playNote(), Math.random() * 1000);
+                } // Occasionally spawn a third
+                if (Math.random() > 0.85) {
+                    setTimeout(() => this._playNote(), Math.random() * 2000);
+                }
+
+                // Schedule next generation based on golden ratio intervals (2.5s to 7s)
+                const nextTime = (1.5 + Math.random() * PHI * 2.5) * 1000;
+                this.schedulerId = setTimeout(() => this._scheduleNote(), nextTime);
+            },
             
             stop() {
-                if (!this.isActive || !this.masterGain) return;
-                // Fade out over 2 seconds
-                this.masterGain.gain.linearRampToValueAtTime(0, this.ctx.currentTime + 2);
+                if (!this.isActive) return;
+                clearTimeout(this.schedulerId);
+
+                if (this.masterGain) {
+                    this.masterGain.gain.cancelScheduledValues(this.ctx.currentTime);
+                    // Fade out slowly
+                    this.masterGain.gain.linearRampToValueAtTime(0, this.ctx.currentTime + 3);
+                }
+
                 setTimeout(() => {
                     this.nodes.forEach(n => { try { n.stop(); } catch(e) {} });
                     this.nodes = [];
                     this.isActive = false;
-                }, 2500);
+                }, 3500);
             },
             
             setVolume(v) {
                 if (this.masterGain) {
-                    this.masterGain.gain.linearRampToValueAtTime(v, this.ctx.currentTime + 0.5);
+                    this.masterGain.gain.linearRampToValueAtTime(v * 0.025, this.ctx.currentTime + 0.5);
                 }
             }
         };
