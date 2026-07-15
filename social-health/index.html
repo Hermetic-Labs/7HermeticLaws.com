@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hermetic Labs — Social Media Intelligence Report</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0c0c14;
+    --surface: #14141f;
+    --surface-alt: #1a1a2e;
+    --border: #2a2a3e;
+    --text: #e8e8ef;
+    --text-muted: #9898b0;
+    --accent: #6c5ce7;
+    --accent-glow: rgba(108, 92, 231, 0.15);
+    --green: #00d68f;
+    --red: #ff6b6b;
+    --yellow: #ffd93d;
+    --orange: #ff9f43;
+    --blue: #4ecdc4;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.65;
+    font-size: 14px;
+  }
+
+  @media print {
+    body { background: #fff; color: #111; font-size: 11px; }
+    .page-break { page-break-before: always; }
+    .no-print { display: none; }
+    section { break-inside: avoid; }
+    .card { border: 1px solid #ddd; background: #fafafa; }
+    .cover { background: #111 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .stat-value { color: #111; }
+    .tag { border: 1px solid #ccc; color: #333; background: #f5f5f5; }
+  }
+
+  .cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(135deg, #0c0c14 0%, #1a1a2e 50%, #0c0c14 100%);
+    padding: 4rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cover::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(ellipse at center, rgba(108, 92, 231, 0.08) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .cover h1 {
+    font-size: 3.5rem;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    background: linear-gradient(135deg, #fff 0%, #6c5ce7 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+  }
+
+  .cover .subtitle { font-size: 1.2rem; color: var(--text-muted); font-weight: 300; margin-bottom: 2rem; }
+  .cover .meta-line { font-size: 0.85rem; color: var(--text-muted); opacity: 0.7; }
+
+  .cover .org-badge {
+    display: inline-block;
+    padding: 0.5rem 1.5rem;
+    border: 1px solid var(--accent);
+    border-radius: 50px;
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .container { max-width: 1000px; margin: 0 auto; padding: 2rem; }
+  section { margin-bottom: 3rem; }
+
+  h2 {
+    font-size: 1.8rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.3rem;
+    position: relative;
+    padding-left: 1rem;
+  }
+
+  h2::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.15em;
+    height: 1.2em;
+    width: 4px;
+    background: var(--accent);
+    border-radius: 2px;
+  }
+
+  .section-subtitle { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem; padding-left: 1rem; }
+  h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.8rem; color: var(--text); }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+
+  .stat-card {
+    background: var(--surface-alt);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.2rem;
+    text-align: center;
+  }
+
+  .stat-value { font-size: 2rem; font-weight: 800; color: var(--accent); }
+  .stat-label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 0.3rem; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 0.85rem; margin-bottom: 1rem; }
+
+  thead th {
+    background: var(--surface-alt);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    padding: 0.7rem 0.8rem;
+    text-align: left;
+    border-bottom: 2px solid var(--border);
+  }
+
+  tbody td { padding: 0.6rem 0.8rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tbody tr:hover { background: var(--accent-glow); }
+
+  .badge {
+    display: inline-block;
+    padding: 0.15rem 0.6rem;
+    border-radius: 50px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .badge-green { background: rgba(0, 214, 143, 0.15); color: var(--green); }
+  .badge-red { background: rgba(255, 107, 107, 0.15); color: var(--red); }
+  .badge-yellow { background: rgba(255, 217, 61, 0.15); color: var(--yellow); }
+  .badge-blue { background: rgba(78, 205, 196, 0.15); color: var(--blue); }
+  .badge-purple { background: rgba(108, 92, 231, 0.15); color: var(--accent); }
+
+  .tag-cloud { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+
+  .tag {
+    display: inline-block;
+    padding: 0.25rem 0.6rem;
+    background: var(--surface-alt);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    font-family: 'Inter', monospace;
+  }
+
+  .tag.primary { border-color: var(--accent); color: var(--accent); }
+
+  .checklist { list-style: none; padding: 0; }
+  .checklist li { padding: 0.6rem 0; border-bottom: 1px solid var(--border); display: flex; align-items: flex-start; gap: 0.6rem; }
+  .checklist li:last-child { border-bottom: none; }
+
+  .check-icon {
+    width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--border);
+    flex-shrink: 0; margin-top: 0.1rem; display: flex; align-items: center;
+    justify-content: center; font-size: 0.65rem;
+  }
+
+  .check-icon.urgent { background: var(--red); border-color: var(--red); color: #fff; }
+  .check-icon.high { background: var(--yellow); border-color: var(--yellow); color: #111; }
+
+  .priority-label { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-left: auto; flex-shrink: 0; }
+
+  .callout {
+    border-left: 4px solid var(--accent);
+    background: var(--accent-glow);
+    padding: 1rem 1.2rem;
+    border-radius: 0 8px 8px 0;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+  }
+
+  .callout.warning { border-color: var(--yellow); background: rgba(255, 217, 61, 0.08); }
+  .callout.danger { border-color: var(--red); background: rgba(255, 107, 107, 0.08); }
+  .callout.success { border-color: var(--green); background: rgba(0, 214, 143, 0.08); }
+
+  .divider { height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent); margin: 3rem 0; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  @media (max-width: 700px) { .two-col { grid-template-columns: 1fr; } .stats-grid { grid-template-columns: repeat(2, 1fr); } }
+
+  .footer { text-align: center; padding: 2rem; color: var(--text-muted); font-size: 0.75rem; border-top: 1px solid var(--border); margin-top: 3rem; }
+  strong { color: var(--text); }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* === CHARTS === */
+  .chart-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.2rem; margin-bottom: 2rem; }
+  .gauge-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: center;
+  }
+  .gauge-card .gauge-label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 0.5rem; }
+  .gauge-card .gauge-sub { font-size: 0.7rem; color: var(--text-muted); margin-top: 0.2rem; }
+  .gauge-ring { position: relative; width: 120px; height: 120px; margin: 0 auto; }
+  .gauge-ring svg { transform: rotate(-90deg); }
+  .gauge-ring .center-text {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    font-size: 1.4rem; font-weight: 800; color: var(--text);
+  }
+  .gauge-ring .center-sub {
+    position: absolute; top: 65%; left: 50%; transform: translate(-50%, -50%);
+    font-size: 0.6rem; color: var(--text-muted); text-transform: uppercase;
+  }
+
+  .progress-row { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.8rem; }
+  .progress-row .prog-label { width: 140px; font-size: 0.8rem; color: var(--text-muted); flex-shrink: 0; }
+  .progress-row .prog-bar { flex: 1; height: 24px; background: var(--surface-alt); border-radius: 12px; overflow: hidden; position: relative; }
+  .progress-row .prog-fill { height: 100%; border-radius: 12px; transition: width 0.6s ease; position: relative; }
+  .progress-row .prog-fill::after {
+    content: attr(data-val);
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: #fff;
+  }
+  .progress-row .prog-target { font-size: 0.7rem; color: var(--text-muted); width: 60px; text-align: right; flex-shrink: 0; }
+
+  /* === EXAMPLES === */
+  .example-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+  .example-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.2rem;
+    transition: border-color 0.2s;
+  }
+  .example-card:hover { border-color: var(--accent); }
+  .example-card .ex-org { font-weight: 700; font-size: 0.95rem; margin-bottom: 0.3rem; }
+  .example-card .ex-handle { color: var(--accent); font-size: 0.8rem; margin-bottom: 0.5rem; }
+  .example-card .ex-stats { display: flex; gap: 1rem; margin-bottom: 0.5rem; }
+  .example-card .ex-stat { text-align: center; }
+  .example-card .ex-stat .num { font-size: 1.1rem; font-weight: 800; color: var(--text); }
+  .example-card .ex-stat .lbl { font-size: 0.6rem; color: var(--text-muted); text-transform: uppercase; }
+  .example-card .ex-note { font-size: 0.75rem; color: var(--text-muted); line-height: 1.5; }
+
+  /* === WEEKLY REPORT === */
+  .report-mock {
+    background: var(--surface);
+    border: 2px dashed var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .report-mock .mock-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .report-mock .mock-title { font-weight: 800; font-size: 1.1rem; }
+  .report-mock .mock-date { color: var(--text-muted); font-size: 0.8rem; }
+  .mini-chart { display: flex; align-items: flex-end; gap: 3px; height: 40px; }
+  .mini-bar { width: 12px; border-radius: 3px 3px 0 0; background: var(--accent); opacity: 0.7; }
+
+  /* === DONE SECTION === */
+  .done-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+  .done-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .done-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--blue));
+  }
+  .done-card .done-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+  .done-card .done-title { font-weight: 700; font-size: 0.9rem; margin-bottom: 0.3rem; }
+  .done-card .done-desc { font-size: 0.75rem; color: var(--text-muted); line-height: 1.5; }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="org-badge">Confidential &middot; Internal Use</div>
+  <h1>Social Media<br>Intelligence Report</h1>
+  <p class="subtitle">Hermetic Labs &middot; HALT &middot; The Exchange</p>
+  <p class="meta-line">Platform Audit &middot; Content Strategy &middot; Hashtag Intelligence &middot; Competitive Landscape</p>
+</div>
+
+<div class="container">
+
+<section>
+  <h2>Executive Summary</h2>
+  <p class="section-subtitle">Where we are, where we need to go</p>
+  <div class="callout">
+    <strong>Starting position: effectively zero &mdash; and that's by design.</strong> The infrastructure layer has been built first. Social presence is the last mile. This report consolidates findings from live platform audits (LinkedIn, Meta), internal system intelligence, competitive landscape research, and NGO target mapping.
+  </div>
+  <div class="stats-grid">
+    <div class="stat-card"><div class="stat-value">4</div><div class="stat-label">LinkedIn Followers</div></div>
+    <div class="stat-card"><div class="stat-value">3</div><div class="stat-label">Facebook Pages</div></div>
+    <div class="stat-card"><div class="stat-value">3</div><div class="stat-label">Published Posts (Meta)</div></div>
+    <div class="stat-card"><div class="stat-value">10+</div><div class="stat-label">Draft Cards (Meta)</div></div>
+    <div class="stat-card"><div class="stat-value">64</div><div class="stat-label">Pre-Written Posts</div></div>
+    <div class="stat-card"><div class="stat-value">146</div><div class="stat-label">Curated Hashtags</div></div>
+    <div class="stat-card"><div class="stat-value">60+</div><div class="stat-label">Campaign Images</div></div>
+    <div class="stat-card"><div class="stat-value">42</div><div class="stat-label">Localized Logos</div></div>
+  </div>
+</section>
+
+<!-- ═══════════════ DASHBOARD CHARTS ═══════════════ -->
+<section>
+  <h2>Progress Dashboard</h2>
+  <p class="section-subtitle">Current vs. 90-day targets &mdash; where we are and where we need to be</p>
+
+  <div class="chart-grid">
+    <div class="gauge-card">
+      <div class="gauge-ring">
+        <svg width="120" height="120" viewBox="0 0 120 120">
+          <circle cx="60" cy="60" r="52" fill="none" stroke="#2a2a3e" stroke-width="10"/>
+          <circle cx="60" cy="60" r="52" fill="none" stroke="#ff6b6b" stroke-width="10" stroke-dasharray="327" stroke-dashoffset="314" stroke-linecap="round"/>
+        </svg>
+        <div class="center-text">4</div>
+        <div class="center-sub">of 100</div>
+      </div>
+      <div class="gauge-label">LinkedIn Followers</div>
+      <div class="gauge-sub">Target: 100 in 90 days</div>
+    </div>
+    <div class="gauge-card">
+      <div class="gauge-ring">
+        <svg width="120" height="120" viewBox="0 0 120 120">
+          <circle cx="60" cy="60" r="52" fill="none" stroke="#2a2a3e" stroke-width="10"/>
+          <circle cx="60" cy="60" r="52" fill="none" stroke="#ffd93d" stroke-width="10" stroke-dasharray="327" stroke-dashoffset="324" stroke-linecap="round"/>
+        </svg>
+        <div class="center-text">3</div>
+        <div class="center-sub">of 250</div>
+      </div>
+      <div class="gauge-label">Facebook Followers</div>
+      <div class="gauge-sub">Target: 250 across all pages</div>
+    </div>
+    <div class="gauge-card">
+      <div class="gauge-ring">
+        <svg width="120" height="120" viewBox="0 0 120 120">
+          <circle cx="60" cy="60" r="52" fill="none" stroke="#2a2a3e" stroke-width="10"/>
+          <circle cx="60" cy="60" r="52" fill="none" stroke="#ff6b6b" stroke-width="10" stroke-dasharray="327" stroke-dashoffset="327" stroke-linecap="round"/>
+        </svg>
+        <div class="center-text">0</div>
+        <div class="center-sub">of 500</div>
+      </div>
+      <div class="gauge-label">Instagram Followers</div>
+      <div class="gauge-sub">Target: 500 in 90 days</div>
+    </div>
+    <div class="gauge-card">
+      <div class="gauge-ring">
+        <svg width="120" height="120" viewBox="0 0 120 120">
+          <circle cx="60" cy="60" r="52" fill="none" stroke="#2a2a3e" stroke-width="10"/>
+          <circle cx="60" cy="60" r="52" fill="none" stroke="#6c5ce7" stroke-width="10" stroke-dasharray="327" stroke-dashoffset="312" stroke-linecap="round"/>
+        </svg>
+        <div class="center-text">3</div>
+        <div class="center-sub">of 64</div>
+      </div>
+      <div class="gauge-label">Posts Published</div>
+      <div class="gauge-sub">64 in cadence pipeline</div>
+    </div>
+  </div>
+
+  <h3>Content &amp; Page Readiness</h3>
+  <div class="card">
+    <div class="progress-row">
+      <div class="prog-label">Page Completeness</div>
+      <div class="prog-bar"><div class="prog-fill" style="width:45%;background:var(--yellow);" data-val="45%"></div></div>
+      <div class="prog-target">Goal: 100%</div>
+    </div>
+    <div class="progress-row">
+      <div class="prog-label">Content Published</div>
+      <div class="prog-bar"><div class="prog-fill" style="width:5%;background:var(--red);" data-val="3 / 64"></div></div>
+      <div class="prog-target">Goal: 64</div>
+    </div>
+    <div class="progress-row">
+      <div class="prog-label">Drafts Ready</div>
+      <div class="prog-bar"><div class="prog-fill" style="width:16%;background:var(--accent);" data-val="10 / 64"></div></div>
+      <div class="prog-target">Goal: 64</div>
+    </div>
+    <div class="progress-row">
+      <div class="prog-label">Hashtags Mapped</div>
+      <div class="prog-bar"><div class="prog-fill" style="width:100%;background:var(--green);" data-val="146 &check;"></div></div>
+      <div class="prog-target">Done</div>
+    </div>
+    <div class="progress-row">
+      <div class="prog-label">Campaign Images</div>
+      <div class="prog-bar"><div class="prog-fill" style="width:100%;background:var(--green);" data-val="60+ &check;"></div></div>
+      <div class="prog-target">Done</div>
+    </div>
+    <div class="progress-row">
+      <div class="prog-label">LinkedIn Plan</div>
+      <div class="prog-bar"><div class="prog-fill" style="width:0%;background:var(--red);" data-val="Not Started"></div></div>
+      <div class="prog-target">Goal: Active</div>
+    </div>
+    <div class="progress-row">
+      <div class="prog-label">Instagram Setup</div>
+      <div class="prog-bar"><div class="prog-fill" style="width:0%;background:var(--red);" data-val="Not Started"></div></div>
+      <div class="prog-target">Goal: Active</div>
+    </div>
+    <div class="progress-row">
+      <div class="prog-label">Engagement Rate</div>
+      <div class="prog-bar"><div class="prog-fill" style="width:2%;background:var(--red);" data-val="~0.5%"></div></div>
+      <div class="prog-target">Goal: 3%+</div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong>Reading the gauges:</strong> Red = critical (needs immediate attention). Yellow = in progress. Green = done. The rings show current count vs. 90-day target. The bars show task completion. These numbers update in the weekly report.
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section>
+  <h2>LinkedIn Audit</h2>
+  <p class="section-subtitle">Company page: Hermetic Labs LLC</p>
+  <div class="two-col">
+    <div class="card">
+      <h3>Page Profile</h3>
+      <table><tbody>
+        <tr><td><strong>Name</strong></td><td>Hermetic Labs LLC</td></tr>
+        <tr><td><strong>Industry</strong></td><td>Software Development</td></tr>
+        <tr><td><strong>Size</strong></td><td>2&ndash;10 employees</td></tr>
+        <tr><td><strong>HQ</strong></td><td>Fayetteville, GA</td></tr>
+        <tr><td><strong>Founded</strong></td><td>2024</td></tr>
+        <tr><td><strong>Followers</strong></td><td>4</td></tr>
+        <tr><td><strong>Website</strong></td><td>7hermeticlabs.com</td></tr>
+        <tr><td><strong>Specialties</strong></td><td>AR, VR, AI, Mixed Reality, UI, UX, API</td></tr>
+      </tbody></table>
+    </div>
+    <div class="card">
+      <h3>Content Assessment</h3>
+      <table><tbody>
+        <tr><td><strong>Total Posts</strong></td><td>~10</td></tr>
+        <tr><td><strong>Post Types</strong></td><td>Text, Document, Video</td></tr>
+        <tr><td><strong>Content Quality</strong></td><td><span class="badge badge-green">High</span></td></tr>
+        <tr><td><strong>Engagement</strong></td><td><span class="badge badge-red">Near Zero</span></td></tr>
+        <tr><td><strong>Custom URL</strong></td><td><span class="badge badge-red">Missing</span></td></tr>
+        <tr><td><strong>Cover Image</strong></td><td><span class="badge badge-green">Present</span></td></tr>
+        <tr><td><strong>About Section</strong></td><td><span class="badge badge-green">Strong</span></td></tr>
+      </tbody></table>
+    </div>
+  </div>
+  <div class="callout warning" style="margin-top:1rem;">
+    <strong>Specialties need updating.</strong> Current list (AR, VR, AI, Mixed Reality) doesn't mention healthcare, triage, defense, humanitarian tech, or open source &mdash; the exact keywords procurement officers search for.
+  </div>
+</section>
+
+<div class="divider"></div>
+<div class="page-break"></div>
+
+<section>
+  <h2>Meta Ecosystem Audit</h2>
+  <p class="section-subtitle">Facebook, Instagram, Threads &mdash; Business Portfolio</p>
+
+  <h3>Pages Under Management</h3>
+  <div class="card">
+    <table>
+      <thead><tr><th>Page Name</th><th>Category</th><th>Followers</th><th>Cover</th><th>Profile Pic</th><th>Custom URL</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td><strong>HALT : Hermetic Anonymous Local Triage</strong></td><td>Medical &amp; Health</td><td>3</td><td><span class="badge badge-green">Yes</span></td><td><span class="badge badge-green">Yes</span></td><td><span class="badge badge-red">No</span></td><td><span class="badge badge-green">Active</span></td></tr>
+        <tr><td><strong>Hermetic Labs, LLC</strong></td><td>Software Company</td><td>&mdash;</td><td><span class="badge badge-yellow">Check</span></td><td><span class="badge badge-green">Yes</span></td><td><span class="badge badge-red">No</span></td><td><span class="badge badge-green">Active</span></td></tr>
+        <tr><td><strong>The Exchange : 7hermeticloops.com</strong></td><td>&mdash;</td><td>&mdash;</td><td><span class="badge badge-yellow">Check</span></td><td><span class="badge badge-yellow">Check</span></td><td><span class="badge badge-red">No</span></td><td><span class="badge badge-green">Active</span></td></tr>
+        <tr><td><strong>Humanitarian Aid Organizations Guide</strong></td><td>&mdash;</td><td>&mdash;</td><td><span class="badge badge-yellow">Check</span></td><td><span class="badge badge-yellow">Check</span></td><td><span class="badge badge-red">No</span></td><td><span class="badge badge-blue">Satellite</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>HALT Page Details</h3>
+  <div class="card">
+    <table><tbody>
+      <tr><td><strong>Address</strong></td><td>805 S Glynn St, STE 127, Fayetteville, GA 30214</td></tr>
+      <tr><td><strong>Phone</strong></td><td>+44 20 8132 9870</td></tr>
+      <tr><td><strong>Email</strong></td><td>frontdesk@7hermeticlabs.com</td></tr>
+      <tr><td><strong>Websites</strong></td><td>7hermeticlabs.health &middot; 7hermeticlabs.com</td></tr>
+      <tr><td><strong>Hours</strong></td><td>Always open</td></tr>
+      <tr><td><strong>Reviews</strong></td><td>Not yet rated (0 reviews)</td></tr>
+      <tr><td><strong>Languages Listed</strong></td><td>Arabic, Persian, Urdu, Kurdish, French, Pashtoo, Ukrainian, Russian, Somali, Hausa, Yoruba, Igbo, IsiZulu, IsiXhosa, Malagasy, Spanish, Portuguese, Italian, German, Dutch, Polish, Hindi, Bengali, Marathi, Tamil +more</td></tr>
+    </tbody></table>
+  </div>
+
+  <h3>Published Content (Last 90 Days)</h3>
+  <div class="card">
+    <table>
+      <thead><tr><th>Post</th><th>Type</th><th>Date</th><th>Reach</th><th>Views</th><th>Interactions</th><th>Likes</th><th>Comments</th><th>Shares</th></tr></thead>
+      <tbody>
+        <tr><td>"HermetiQ is our early exploration&hellip;"</td><td><span class="badge badge-purple">Photo</span></td><td>Jun 7</td><td>6</td><td>65</td><td>4</td><td>4</td><td>0</td><td>0</td></tr>
+        <tr><td>"Explore what's taking shape&hellip;"</td><td><span class="badge badge-blue">Reel</span></td><td>Jun 3</td><td>6</td><td>68</td><td>2</td><td>2</td><td>0</td><td>0</td></tr>
+        <tr><td>"This post has no text"</td><td><span class="badge badge-blue">Reel</span></td><td>Jun 2</td><td>5</td><td>55</td><td>2</td><td>2</td><td>0</td><td>0</td></tr>
+      </tbody>
+    </table>
+    <p style="color:var(--text-muted);font-size:0.8rem;margin-top:0.5rem;">All via Hermetic Labs, LLC page. 0 comments, 0 shares. Reach: 5&ndash;6 per post.</p>
+  </div>
+
+  <h3>Draft Content Vault</h3>
+  <div class="card">
+    <p style="margin-bottom:0.8rem;"><strong>10+ draft cards</strong> stored on Meta servers under HALT page, batch-created <strong>May 27, 2026</strong>.</p>
+    <table>
+      <thead><tr><th>Draft Title</th><th>Type</th><th>Date</th></tr></thead>
+      <tbody>
+        <tr><td>"If They Can Hear It, the System Can Speak It"</td><td>Photo</td><td>May 29</td></tr>
+        <tr><td>"The gap between commercial tech and humanitarian reality&hellip;"</td><td>Photo+Text</td><td>May 27</td></tr>
+        <tr><td>"This is an adoption invitation. To the builders&hellip;"</td><td>Photo+Text</td><td>May 27</td></tr>
+        <tr><td>"If a patient cannot communicate their symptoms&hellip;"</td><td>Photo</td><td>May 27</td></tr>
+        <tr><td>"HALT closes the operational loop&hellip;"</td><td>Photo</td><td>May 27</td></tr>
+        <tr><td>"Child support does not belong entirely outside the system&hellip;"</td><td>Photo</td><td>May 27</td></tr>
+        <tr><td>"When a new volunteer arrives mid-shift&hellip;"</td><td>Photo</td><td>May 27</td></tr>
+        <tr><td>"HALT is not a generic 'tech for good' concept&hellip;"</td><td>Photo</td><td>May 27</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<div class="divider"></div>
+<div class="page-break"></div>
+
+<section>
+  <h2>Content Arsenal</h2>
+  <p class="section-subtitle">Pre-built assets ready for deployment</p>
+
+  <h3>Campaign Image Libraries</h3>
+  <div class="stats-grid">
+    <div class="stat-card"><div class="stat-value" style="font-size:1.5rem;">20</div><div class="stat-label">Zero Bars Campaign</div><p style="font-size:0.7rem;color:var(--text-muted);margin-top:0.3rem;">Disaster/field &mdash; broken phones, camps, floods, generators, choppers</p></div>
+    <div class="stat-card"><div class="stat-value" style="font-size:1.5rem;">20</div><div class="stat-label">Paper Trail Campaign</div><p style="font-size:0.7rem;color:var(--text-muted);margin-top:0.3rem;">Paperwork degradation &mdash; rain, mud, fire, ink, torn forms</p></div>
+    <div class="stat-card"><div class="stat-value" style="font-size:1.5rem;">20+</div><div class="stat-label">Shoe Lace Campaign</div><p style="font-size:0.7rem;color:var(--text-muted);margin-top:0.3rem;">Assets staged</p></div>
+    <div class="stat-card"><div class="stat-value" style="font-size:1.5rem;">42</div><div class="stat-label">Localized Logos</div><p style="font-size:0.7rem;color:var(--text-muted);margin-top:0.3rem;">One per language &mdash; instant carousel</p></div>
+  </div>
+
+  <h3>64-Post Content Cadence (Ready to Deploy)</h3>
+  <div class="card">
+    <table><tbody>
+      <tr><td><strong>Total Posts</strong></td><td>64</td></tr>
+      <tr><td><strong>Cadence</strong></td><td>3x/week (Mon/Wed/Fri)</td></tr>
+      <tr><td><strong>Date Range</strong></td><td>June 1 &ndash; October 26, 2026</td></tr>
+      <tr><td><strong>Platforms</strong></td><td>Facebook, Instagram, Threads (simultaneous)</td></tr>
+      <tr><td><strong>Each Post Includes</strong></td><td>Headline, full caption, image mapping, hashtags</td></tr>
+    </tbody></table>
+  </div>
+
+  <h3>8 Narrative Lanes</h3>
+  <div class="two-col">
+    <div class="card">
+      <ul style="list-style:none;padding:0;">
+        <li style="padding:0.3rem 0;">&#127973; <strong>Field Hospital Ops</strong> &mdash; ward visibility, bed tracking</li>
+        <li style="padding:0.3rem 0;">&#128506; <strong>Spatial Map</strong> &mdash; command surface, inventory overlays</li>
+        <li style="padding:0.3rem 0;">&#129528; <strong>Teddy Talk</strong> &mdash; pediatric module, child-facing comms</li>
+        <li style="padding:0.3rem 0;">&#9881; <strong>Engineering</strong> &mdash; mesh, offline-first, deployment</li>
+      </ul>
+    </div>
+    <div class="card">
+      <ul style="list-style:none;padding:0;">
+        <li style="padding:0.3rem 0;">&#127758; <strong>Multilingual</strong> &mdash; 42+ language UI, translation layer</li>
+        <li style="padding:0.3rem 0;">&#128203; <strong>Intake &amp; Triage</strong> &mdash; MARCH protocol, mass casualty</li>
+        <li style="padding:0.3rem 0;">&#129309; <strong>Open Source / DWB</strong> &mdash; Developers Without Borders</li>
+        <li style="padding:0.3rem 0;">&#128230; <strong>Supply &amp; Logistics</strong> &mdash; inventory, medevac, handoff</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+<div class="page-break"></div>
+
+<section>
+  <h2>Hashtag Intelligence</h2>
+  <p class="section-subtitle">146 curated hashtags organized by category</p>
+
+  <h3>&#128308; Core / Brand (Use on every post)</h3>
+  <div class="tag-cloud" style="margin-bottom:1.5rem;">
+    <span class="tag primary">#HumanitarianTech</span><span class="tag primary">#DigitalHealth</span><span class="tag primary">#TechForGood</span><span class="tag primary">#OpenSource</span><span class="tag primary">#OfflineFirst</span><span class="tag primary">#DevelopersWithoutBorders</span><span class="tag primary">#EmergencyMedicine</span><span class="tag primary">#FieldOperations</span><span class="tag primary">#HealthTech</span><span class="tag primary">#CrisisResponse</span>
+  </div>
+
+  <h3>&#127973; Healthcare &amp; Medical</h3>
+  <div class="tag-cloud" style="margin-bottom:1.5rem;">
+    <span class="tag">#AIinHealthcare</span><span class="tag">#ClinicalDecisionSupport</span><span class="tag">#ClinicalOps</span><span class="tag">#ContinuityOfCare</span><span class="tag">#EmergencyCare</span><span class="tag">#FieldHospital</span><span class="tag">#FieldMedicine</span><span class="tag">#GlobalHealth</span><span class="tag">#HealthcareDesign</span><span class="tag">#HealthcareInnovation</span><span class="tag">#HealthcareIT</span><span class="tag">#HealthcareManagement</span><span class="tag">#HealthData</span><span class="tag">#HealthEquity</span><span class="tag">#HealthIT</span><span class="tag">#HealthSystems</span><span class="tag">#InclusiveHealth</span><span class="tag">#MedicalDesign</span><span class="tag">#MedicalEthics</span><span class="tag">#MedicalLogistics</span><span class="tag">#MedicalSoftware</span><span class="tag">#MedicalTech</span><span class="tag">#MedicalTechnology</span><span class="tag">#PatientCare</span><span class="tag">#PatientSafety</span>
+  </div>
+
+  <h3>&#128118; Pediatric &amp; Family</h3>
+  <div class="tag-cloud" style="margin-bottom:1.5rem;">
+    <span class="tag">#ChildHealth</span><span class="tag">#ChildLife</span><span class="tag">#ChildLifeSpecialist</span><span class="tag">#ChildProtection</span><span class="tag">#FamilyReunification</span><span class="tag">#PediatricCare</span><span class="tag">#PediatricNursing</span><span class="tag">#Pediatrics</span><span class="tag">#TraumaInformedCare</span><span class="tag">#PsychologicalFirstAid</span>
+  </div>
+
+  <h3>&#127758; Humanitarian &amp; Crisis</h3>
+  <div class="tag-cloud" style="margin-bottom:1.5rem;">
+    <span class="tag">#CampManagement</span><span class="tag">#CrisisComms</span><span class="tag">#CrisisManagement</span><span class="tag">#CrisisTech</span><span class="tag">#DisasterManagement</span><span class="tag">#DisasterRelief</span><span class="tag">#DisasterResponse</span><span class="tag">#EmergencyComms</span><span class="tag">#EmergencyPreparedness</span><span class="tag">#EmergencyResponse</span><span class="tag">#EMS</span><span class="tag">#FirstResponders</span><span class="tag">#Humanitarian</span><span class="tag">#HumanitarianAid</span><span class="tag">#HumanitarianRelief</span><span class="tag">#HumanRights</span><span class="tag">#MassCasualty</span><span class="tag">#Medevac</span><span class="tag">#NGO</span><span class="tag">#NGOs</span><span class="tag">#Preparedness</span><span class="tag">#Resilience</span>
+  </div>
+
+  <h3>&#9881; Technology &amp; Engineering</h3>
+  <div class="tag-cloud" style="margin-bottom:1.5rem;">
+    <span class="tag">#CodeForGood</span><span class="tag">#CyberSecurity</span><span class="tag">#DataPrivacy</span><span class="tag">#DistributedSystems</span><span class="tag">#EdgeComputing</span><span class="tag">#MeshNetwork</span><span class="tag">#MeshNetworking</span><span class="tag">#OfflineSoftware</span><span class="tag">#OfflineTech</span><span class="tag">#OpenSourceCommunity</span><span class="tag">#OpenSourceHealth</span><span class="tag">#OpenSourceSoftware</span><span class="tag">#SoftwareArchitecture</span><span class="tag">#SoftwareEngineering</span><span class="tag">#SystemDesign</span><span class="tag">#SystemsEngineering</span><span class="tag">#TechCommunity</span><span class="tag">#TechInnovation</span><span class="tag">#UX</span><span class="tag">#UXDesign</span><span class="tag">#WebRTC</span>
+  </div>
+
+  <h3>&#128483; Language &amp; Communication</h3>
+  <div class="tag-cloud" style="margin-bottom:1.5rem;">
+    <span class="tag">#LanguageAccess</span><span class="tag">#LanguageBarriers</span><span class="tag">#Localization</span><span class="tag">#MachineTranslation</span><span class="tag">#MedicalInterpreter</span><span class="tag">#MedicalTranslation</span><span class="tag">#Multilingual</span><span class="tag">#SpeechTech</span><span class="tag">#Translation</span><span class="tag">#TranslationServices</span>
+  </div>
+
+  <h3>&#128230; Operations &amp; Logistics</h3>
+  <div class="tag-cloud" style="margin-bottom:1.5rem;">
+    <span class="tag">#CommandAndControl</span><span class="tag">#CommandCenter</span><span class="tag">#Coordination</span><span class="tag">#Deployment</span><span class="tag">#FieldOps</span><span class="tag">#FieldTested</span><span class="tag">#GIS</span><span class="tag">#InventoryControl</span><span class="tag">#InventoryManagement</span><span class="tag">#Logistics</span><span class="tag">#LogisticsTech</span><span class="tag">#OperationsManagement</span><span class="tag">#ShiftWork</span><span class="tag">#SiteManagement</span><span class="tag">#SupplyChain</span><span class="tag">#TaskManagement</span>
+  </div>
+
+  <div class="callout success">
+    <strong>Usage Guide:</strong> Pick 3&ndash;5 from Core/Brand + 3&ndash;5 from the relevant category per post. Instagram: up to 30 hashtags. Meta recommends 3&ndash;5 for best reach. LinkedIn: 3 max for professional credibility. Rotate category tags to avoid algorithm fatigue.
+  </div>
+</section>
+
+<div class="divider"></div>
+<div class="page-break"></div>
+
+<section>
+  <h2>Competitive Landscape</h2>
+  <p class="section-subtitle">Nobody is doing everything HALT does</p>
+  <div class="card">
+    <table>
+      <thead><tr><th>Tool</th><th>What It Does</th><th>Where HALT Wins</th></tr></thead>
+      <tbody>
+        <tr><td><strong>OpenMRS</strong></td><td>Open-source EMR, Raspberry Pi</td><td>Heavy, needs tech staff. HALT is zero-config USB</td></tr>
+        <tr><td><strong>DHIS2</strong></td><td>Health data collection/surveillance</td><td>Data aggregation, not triage/coordination</td></tr>
+        <tr><td><strong>HospitalRun</strong></td><td>Offline-first open-source HIS</td><td>Archival periods. HALT actively shipping</td></tr>
+        <tr><td><strong>TriageOS</strong></td><td>PWA for WHO IMCI triage</td><td>Childhood illness only. HALT full spectrum</td></tr>
+        <tr><td><strong>CommCare</strong></td><td>Mobile health, offline-capable</td><td>Community health, not acute triage</td></tr>
+        <tr><td><strong>WHO IITT</strong></td><td>Triage protocol standard</td><td>Protocol, not software. HALT implements it</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout">
+    <strong>HALT's unique position:</strong> No one else offers offline-first + on-device AI + spatial mapping + mesh networking + 42-language UI + mass casualty mode + pediatric module + printable fallback + zero telemetry + commodity hardware &mdash; simultaneously.
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section>
+  <h2>NGO Adoption Targets</h2>
+  <p class="section-subtitle">Top-down: biggest names first, build social proof, work down</p>
+  <h3>Tier 1 &mdash; Global Heavyweights</h3>
+  <div class="card">
+    <table>
+      <thead><tr><th>Organization</th><th>Why They'd Care</th><th>Door</th></tr></thead>
+      <tbody>
+        <tr><td><strong>WHO</strong></td><td>Aligns with Global Strategy on Digital Health</td><td>GIDH</td></tr>
+        <tr><td><strong>MSF</strong></td><td>TIC innovation fund, seeking offline field tools</td><td>TIC open calls</td></tr>
+        <tr><td><strong>ICRC</strong></td><td>Open-source preference, built ALMANACH</td><td>DigitHarium</td></tr>
+        <tr><td><strong>UNHCR</strong></td><td>Digital Innovation Fund for refugees</td><td>UN Partner Portal</td></tr>
+        <tr><td><strong>UNICEF</strong></td><td>Venture Fund: $100K equity-free. <strong>HALT qualifies.</strong></td><td>Next open call</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <h3>Tier 2 &mdash; Operational Partners</h3>
+  <div class="card">
+    <table>
+      <thead><tr><th>Organization</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Direct Relief</strong></td><td>Field hospital supply chains</td></tr>
+        <tr><td><strong>Partners in Health</strong></td><td>Human-in-the-loop AI for triage</td></tr>
+        <tr><td><strong>OCHA</strong></td><td>Coordinates all UN humanitarian response</td></tr>
+        <tr><td><strong>International Medical Corps</strong></td><td>Field hospital specialists</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<div class="divider"></div>
+<div class="page-break"></div>
+
+<section>
+  <h2>Action Items</h2>
+  <p class="section-subtitle">Prioritized checklist for the social media team</p>
+
+  <h3>&#128308; Urgent &mdash; Fix the Foundation</h3>
+  <div class="card">
+    <ul class="checklist">
+      <li><div class="check-icon urgent">!</div> Set custom URLs for ALL Facebook pages<div class="priority-label" style="color:var(--red);">Urgent</div></li>
+      <li><div class="check-icon urgent">!</div> Add cover photos to Hermetic Labs LLC and The Exchange pages<div class="priority-label" style="color:var(--red);">Urgent</div></li>
+      <li><div class="check-icon urgent">!</div> Update LinkedIn specialties: Healthcare Tech, Digital Health, Humanitarian Tech, Open Source<div class="priority-label" style="color:var(--red);">Urgent</div></li>
+      <li><div class="check-icon urgent">!</div> Connect Instagram auto-share to Facebook<div class="priority-label" style="color:var(--red);">Urgent</div></li>
+      <li><div class="check-icon urgent">!</div> Set up Instagram profile: bio, profile photo, link in bio<div class="priority-label" style="color:var(--red);">Urgent</div></li>
+    </ul>
+  </div>
+
+  <h3>&#128992; High &mdash; Deploy Content</h3>
+  <div class="card">
+    <ul class="checklist">
+      <li><div class="check-icon high">&#9654;</div> Begin publishing from the 64-post cadence<div class="priority-label" style="color:var(--yellow);">High</div></li>
+      <li><div class="check-icon high">&#9654;</div> Activate the 10+ draft cards already in Meta<div class="priority-label" style="color:var(--yellow);">High</div></li>
+      <li><div class="check-icon high">&#9654;</div> Create "42 Languages" carousel post<div class="priority-label" style="color:var(--yellow);">Quick Win</div></li>
+      <li><div class="check-icon high">&#9654;</div> Create a LinkedIn content plan (currently zero)<div class="priority-label" style="color:var(--yellow);">High</div></li>
+      <li><div class="check-icon high">&#9654;</div> Define engagement KPIs and weekly tracking<div class="priority-label" style="color:var(--yellow);">High</div></li>
+      <li><div class="check-icon high">&#9654;</div> Use hashtag categories (Section 5) &mdash; rotate by theme<div class="priority-label" style="color:var(--yellow);">High</div></li>
+    </ul>
+  </div>
+
+  <h3>&#128994; Growth &mdash; Build the Audience</h3>
+  <div class="card">
+    <ul class="checklist">
+      <li><div class="check-icon" style="border-color:var(--green);">&rarr;</div> LinkedIn connection campaign: digital health pros, NGO procurement<div class="priority-label" style="color:var(--green);">Ongoing</div></li>
+      <li><div class="check-icon" style="border-color:var(--green);">&rarr;</div> Create "Raspberry Pi Bedside" Reel concept<div class="priority-label" style="color:var(--green);">Creative</div></li>
+      <li><div class="check-icon" style="border-color:var(--green);">&rarr;</div> Engage in humanitarian tech comment sections (MSF, WHO, ICRC)<div class="priority-label" style="color:var(--green);">Ongoing</div></li>
+      <li><div class="check-icon" style="border-color:var(--green);">&rarr;</div> Consider dedicated HALT LinkedIn page<div class="priority-label" style="color:var(--green);">Strategic</div></li>
+      <li><div class="check-icon" style="border-color:var(--green);">&rarr;</div> Platform-specific strategy (LinkedIn &ne; Instagram &ne; Facebook)<div class="priority-label" style="color:var(--green);">Strategic</div></li>
+    </ul>
+  </div>
+
+  <div class="callout" style="margin-top:1.5rem;">
+    <strong>Key Stat:</strong> 93% of individual humanitarian aid workers are already experimenting with AI tools &mdash; but only 8% of organizations have achieved wide-scale integration. HALT fills that gap. The workers are ready. The organizations are slow. HALT meets them where they are. <em>This is the social narrative.</em>
+  </div>
+</section>
+
+<div class="divider"></div>
+<div class="page-break"></div>
+
+<!-- ═══════════════ FIELD EXAMPLES ═══════════════ -->
+<section>
+  <h2>Examples &mdash; What Good Looks Like</h2>
+  <p class="section-subtitle">These are the orgs already doing humanitarian social well &mdash; study their feeds, not their software</p>
+
+  <h3>NGOs Crushing Social Media (Learn From Them)</h3>
+  <div class="example-grid">
+    <div class="example-card">
+      <div class="ex-org">M&eacute;decins Sans Fronti&egrave;res (MSF)</div>
+      <div class="ex-handle">@doctorswithoutborders</div>
+      <div class="ex-stats">
+        <div class="ex-stat"><div class="num">3.8M</div><div class="lbl">IG Followers</div></div>
+        <div class="ex-stat"><div class="num">2.1M</div><div class="lbl">FB Followers</div></div>
+        <div class="ex-stat"><div class="num">1.5M</div><div class="lbl">X Followers</div></div>
+      </div>
+      <div class="ex-note"><strong>What they do right:</strong> Raw field photography, staff stories ("I'm a nurse in Sudan"), short-form Reels showing real patients. Emotional, never technical. CTA always = donate or share.</div>
+    </div>
+    <div class="example-card">
+      <div class="ex-org">International Committee of the Red Cross</div>
+      <div class="ex-handle">@icrc</div>
+      <div class="ex-stats">
+        <div class="ex-stat"><div class="num">1.2M</div><div class="lbl">IG Followers</div></div>
+        <div class="ex-stat"><div class="num">3.5M</div><div class="lbl">FB Followers</div></div>
+        <div class="ex-stat"><div class="num">697K</div><div class="lbl">LinkedIn</div></div>
+      </div>
+      <div class="ex-note"><strong>What they do right:</strong> Educational carousels ("What is IHL?"), infographics, annual reports as social content, bilingual posts (EN/FR). Strong LinkedIn thought leadership.</div>
+    </div>
+    <div class="example-card">
+      <div class="ex-org">UNICEF</div>
+      <div class="ex-handle">@unicef</div>
+      <div class="ex-stats">
+        <div class="ex-stat"><div class="num">14M</div><div class="lbl">IG Followers</div></div>
+        <div class="ex-stat"><div class="num">14M</div><div class="lbl">FB Followers</div></div>
+        <div class="ex-stat"><div class="num">2.8M</div><div class="lbl">LinkedIn</div></div>
+      </div>
+      <div class="ex-note"><strong>What they do right:</strong> Child-focused stories, celebrity partnerships, data visualizations ("1 in 3 children"), global campaign hashtags (#ForEveryChild). The gold standard for reach.</div>
+    </div>
+    <div class="example-card">
+      <div class="ex-org">Direct Relief</div>
+      <div class="ex-handle">@directrelief</div>
+      <div class="ex-stats">
+        <div class="ex-stat"><div class="num">118K</div><div class="lbl">IG Followers</div></div>
+        <div class="ex-stat"><div class="num">330K</div><div class="lbl">FB Followers</div></div>
+        <div class="ex-stat"><div class="num">47K</div><div class="lbl">LinkedIn</div></div>
+      </div>
+      <div class="ex-note"><strong>What they do right:</strong> Supply chain storytelling &mdash; "this box went from warehouse to field hospital." Medical supply photography. Transparent impact reporting.</div>
+    </div>
+    <div class="example-card">
+      <div class="ex-org">Dimagi (CommCare)</div>
+      <div class="ex-handle">@dimaboreal</div>
+      <div class="ex-stats">
+        <div class="ex-stat"><div class="num">8K</div><div class="lbl">IG Followers</div></div>
+        <div class="ex-stat"><div class="num">24K</div><div class="lbl">LinkedIn</div></div>
+      </div>
+      <div class="ex-note"><strong>Why this matters:</strong> They're the closest thing to HALT in social strategy &mdash; a health-tech company marketing to NGOs. Study their LinkedIn. That's our lane in 6 months.</div>
+    </div>
+    <div class="example-card">
+      <div class="ex-org">Partners in Health</div>
+      <div class="ex-handle">@partnersinhealth</div>
+      <div class="ex-stats">
+        <div class="ex-stat"><div class="num">181K</div><div class="lbl">IG Followers</div></div>
+        <div class="ex-stat"><div class="num">410K</div><div class="lbl">FB Followers</div></div>
+        <div class="ex-stat"><div class="num">120K</div><div class="lbl">LinkedIn</div></div>
+      </div>
+      <div class="ex-note"><strong>What they do right:</strong> Staff spotlights, community health worker stories, before/after facility builds. Every post has a human face.</div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong>The pattern:</strong> None of these orgs lead with technology. They lead with <em>people</em>. HALT's social content should show the <strong>humans using the tool</strong> &mdash; medics, volunteers, families &mdash; not the tool itself. Software screenshots are for the developer community (LinkedIn/GitHub). Instagram and Facebook are for the <em>story</em>.
+  </div>
+</section>
+
+<div class="divider"></div>
+<div class="page-break"></div>
+
+<!-- ═══════════════ WEEKLY REPORT TEMPLATE ═══════════════ -->
+<section>
+  <h2>Weekly Report Template</h2>
+  <p class="section-subtitle">Submit every Friday &mdash; this is what it looks like</p>
+
+  <div class="report-mock">
+    <div class="mock-header">
+      <div>
+        <div class="mock-title">Weekly Social Media Report</div>
+        <div class="mock-date">Week of July 14 &ndash; July 20, 2026 &middot; Week 3 of 21</div>
+      </div>
+      <span class="badge badge-yellow">Ramp-Up Phase</span>
+    </div>
+
+    <h3 style="margin-top:0;">&#128200; This Week's Numbers</h3>
+    <table>
+      <thead><tr><th>Platform</th><th>Followers</th><th>&Delta; This Week</th><th>Posts Published</th><th>Reach</th><th>Engagement</th><th>Comments</th><th>Shares</th></tr></thead>
+      <tbody>
+        <tr><td><strong>LinkedIn</strong></td><td>4</td><td style="color:var(--text-muted);">+0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+        <tr><td><strong>Facebook (HALT)</strong></td><td>3</td><td style="color:var(--text-muted);">+0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+        <tr><td><strong>Facebook (HL)</strong></td><td>&mdash;</td><td style="color:var(--text-muted);">+0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+        <tr><td><strong>Instagram</strong></td><td>0</td><td style="color:var(--text-muted);">+0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+        <tr style="background:var(--accent-glow);"><td><strong>TOTAL</strong></td><td><strong>7</strong></td><td><strong>+0</strong></td><td><strong>0</strong></td><td><strong>0</strong></td><td><strong>0</strong></td><td><strong>0</strong></td><td><strong>0</strong></td></tr>
+      </tbody>
+    </table>
+
+    <div class="two-col" style="margin-top:1rem;">
+      <div>
+        <h3>&#128172; Engagement Log</h3>
+        <div class="card" style="background:var(--surface-alt);">
+          <table>
+            <thead><tr><th>Who</th><th>Action</th><th>Our Response</th><th>Tier</th></tr></thead>
+            <tbody>
+              <tr><td colspan="4" style="text-align:center;color:var(--text-muted);font-style:italic;">No engagements this week &mdash; page setup phase</td></tr>
+            </tbody>
+          </table>
+          <p style="font-size:0.7rem;color:var(--text-muted);margin-top:0.5rem;"><strong>How to fill this:</strong> When someone likes, comments, shares, or follows &mdash; log who they are, what they did, how you responded, and whether they fit Tier 1/2/3 from the NGO target list.</p>
+        </div>
+      </div>
+      <div>
+        <h3>&#128202; Weekly Trend</h3>
+        <div class="card" style="background:var(--surface-alt);padding:1rem;">
+          <div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;">
+            <span style="font-size:0.7rem;color:var(--text-muted);">FOLLOWERS OVER TIME</span>
+            <span style="font-size:0.7rem;color:var(--text-muted);">Last 8 weeks</span>
+          </div>
+          <div class="mini-chart">
+            <div class="mini-bar" style="height:5px;"></div>
+            <div class="mini-bar" style="height:5px;"></div>
+            <div class="mini-bar" style="height:5px;"></div>
+            <div class="mini-bar" style="height:7px;"></div>
+            <div class="mini-bar" style="height:7px;"></div>
+            <div class="mini-bar" style="height:7px;"></div>
+            <div class="mini-bar" style="height:7px;"></div>
+            <div class="mini-bar" style="height:7px;background:var(--yellow);"></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;margin-top:0.3rem;">
+            <span style="font-size:0.6rem;color:var(--text-muted);">Wk 1</span>
+            <span style="font-size:0.6rem;color:var(--text-muted);">Wk 8</span>
+          </div>
+          <p style="font-size:0.7rem;color:var(--text-muted);margin-top:0.5rem;">As followers grow, these bars will visually show the trendline. Flat = needs attention. Climbing = working.</p>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="margin-top:1.5rem;">&#127919; Where We Stand vs. 90-Day Goals</h3>
+    <div class="card" style="background:var(--surface-alt);">
+      <div class="progress-row">
+        <div class="prog-label">LinkedIn (100)</div>
+        <div class="prog-bar"><div class="prog-fill" style="width:4%;background:var(--red);" data-val="4"></div></div>
+        <div class="prog-target">4%</div>
+      </div>
+      <div class="progress-row">
+        <div class="prog-label">Facebook (250)</div>
+        <div class="prog-bar"><div class="prog-fill" style="width:1%;background:var(--red);" data-val="3"></div></div>
+        <div class="prog-target">1%</div>
+      </div>
+      <div class="progress-row">
+        <div class="prog-label">Instagram (500)</div>
+        <div class="prog-bar"><div class="prog-fill" style="width:0%;background:var(--red);" data-val="0"></div></div>
+        <div class="prog-target">0%</div>
+      </div>
+      <div class="progress-row">
+        <div class="prog-label">Posts (64)</div>
+        <div class="prog-bar"><div class="prog-fill" style="width:5%;background:var(--yellow);" data-val="3"></div></div>
+        <div class="prog-target">5%</div>
+      </div>
+    </div>
+
+    <h3 style="margin-top:1.5rem;">&#128221; Notes &amp; Next Week Plan</h3>
+    <div class="card" style="background:var(--surface-alt);">
+      <p style="font-style:italic;color:var(--text-muted);font-size:0.85rem;">This is where you write:</p>
+      <ul style="font-size:0.85rem;margin-top:0.5rem;padding-left:1.2rem;">
+        <li>What went out this week</li>
+        <li>What performed best / worst</li>
+        <li>What's planned for next week (which posts from the cadence?)</li>
+        <li>Any blockers (e.g., need a cover photo designed, approval on a caption)</li>
+        <li>Wins worth celebrating (first organic follower, first comment, etc.)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout success">
+    <strong>Cadence:</strong> Submit this report every Friday by EOD. It doesn't need to be long &mdash; just accurate. The engagement log is the most important part. Every interaction is a lead.
+  </div>
+</section>
+
+<div class="divider"></div>
+<div class="page-break"></div>
+
+<!-- ═══════════════ WHAT DOES DONE LOOK LIKE ═══════════════ -->
+<section>
+  <h2>What Does &ldquo;Done&rdquo; Look Like</h2>
+  <p class="section-subtitle">When you can put the work down and just watch</p>
+
+  <div class="done-grid">
+    <div class="done-card">
+      <div class="done-icon">&#9989;</div>
+      <div class="done-title">All Pages Complete</div>
+      <div class="done-desc">Every Facebook page has: custom URL, cover photo, profile pic, full About section, hours, contact info, website links. LinkedIn specialties updated. Instagram profile filled out with bio and link.</div>
+    </div>
+    <div class="done-card">
+      <div class="done-icon">&#128197;</div>
+      <div class="done-title">Cadence Running</div>
+      <div class="done-desc">All 64 posts from the cadence are either published or scheduled. 3x/week rhythm is established. You're no longer figuring out &ldquo;what to post&rdquo; &mdash; you're just executing the plan.</div>
+    </div>
+    <div class="done-card">
+      <div class="done-icon">&#128200;</div>
+      <div class="done-title">Weekly Reports Flowing</div>
+      <div class="done-desc">Every Friday, a report lands with real numbers. Engagement log has entries. Trend bars are climbing. You know exactly who engaged and how we responded.</div>
+    </div>
+    <div class="done-card">
+      <div class="done-icon">&#127919;</div>
+      <div class="done-title">Targets Hit</div>
+      <div class="done-desc">LinkedIn: 100+ followers. Facebook: 250+ combined. Instagram: 500+ followers. Engagement rate: 3%+. At least 1 comment or share per post average.</div>
+    </div>
+    <div class="done-card">
+      <div class="done-icon">&#129309;</div>
+      <div class="done-title">NGO Engagement Started</div>
+      <div class="done-desc">At least 3 Tier 1 or Tier 2 NGO accounts have interacted with our content (like, comment, share, follow). We've responded and logged every one.</div>
+    </div>
+    <div class="done-card">
+      <div class="done-icon">&#128260;</div>
+      <div class="done-title">Cross-Platform Sync</div>
+      <div class="done-desc">Instagram auto-shares to Facebook. LinkedIn has its own cadence. Hashtag strategy is rotating by theme. Everything runs without daily intervention.</div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong>The finish line:</strong> When the cadence is running, the weekly report is routine, and the engagement log has real entries &mdash; the machine is built. After that, the job shifts from <em>building</em> to <em>optimizing</em>. That's when you put the wrench down and start reading the gauges.
+  </div>
+</section>
+
+<div class="divider"></div>
+<div class="page-break"></div>
+
+<!-- ═══════════════ PLATFORM HOW-TO: META ═══════════════ -->
+<section>
+  <h2>How-To: Meta Business Suite</h2>
+  <p class="section-subtitle">Step-by-step for every task you'll need to do &mdash; bookmark this</p>
+
+  <div class="callout">
+    <strong>Access:</strong> Go to <a href="https://business.facebook.com" target="_blank">business.facebook.com</a> &rarr; log in with the business account. You'll land on the Home dashboard. Use the left sidebar to navigate between tools.
+  </div>
+
+  <h3>&#9997; Publishing a Post</h3>
+  <div class="card">
+    <ol style="padding-left:1.2rem;font-size:0.85rem;line-height:2;">
+      <li>Click <strong>"Create post"</strong> (green button, top-right of any page)</li>
+      <li>Select which page to post from (HALT, Hermetic Labs, or The Exchange) using the dropdown</li>
+      <li>Paste your caption from the cadence document</li>
+      <li>Click the <strong>photo/video icon</strong> to attach the campaign image</li>
+      <li>Add hashtags at the bottom of the caption (copy from the Hashtag Intelligence section)</li>
+      <li>To post now: click <strong>"Publish"</strong></li>
+      <li>To schedule: click the <strong>dropdown arrow</strong> next to Publish &rarr; <strong>"Schedule"</strong> &rarr; pick date/time</li>
+      <li>To save as draft: click dropdown &rarr; <strong>"Save as draft"</strong></li>
+    </ol>
+    <p style="font-size:0.75rem;color:var(--text-muted);margin-top:0.5rem;"><strong>Tip:</strong> Meta only lets you schedule 30 days out. For posts further out, save them as drafts &mdash; you can find them later under Content &rarr; Drafts.</p>
+  </div>
+
+  <h3>&#128247; Setting a Cover Photo</h3>
+  <div class="card">
+    <ol style="padding-left:1.2rem;font-size:0.85rem;line-height:2;">
+      <li>Go to the Facebook page directly (click the page name in Business Suite sidebar)</li>
+      <li>Hover over the cover photo area &rarr; click <strong>"Edit cover photo"</strong></li>
+      <li>Upload the image (recommended: 820&times;312 px for desktop, 640&times;360 for mobile)</li>
+      <li>Drag to reposition &rarr; click <strong>"Save"</strong></li>
+    </ol>
+    <p style="font-size:0.75rem;color:var(--text-muted);margin-top:0.5rem;"><strong>Files:</strong> Cover images are in the Social Media Package folder &mdash; use "windows banner.png" for HALT, "Hermetic Labs Logo Banner.png" for HL.</p>
+  </div>
+
+  <h3>&#128279; Setting a Custom Page URL</h3>
+  <div class="card">
+    <ol style="padding-left:1.2rem;font-size:0.85rem;line-height:2;">
+      <li>In Business Suite, go to <strong>Settings</strong> (gear icon, bottom-left)</li>
+      <li>Select the page you want to edit</li>
+      <li>Click <strong>"Page setup"</strong> or <strong>"General"</strong></li>
+      <li>Find <strong>"Username"</strong> &rarr; click <strong>"Edit"</strong></li>
+      <li>Type your desired username (e.g., <code>HALTtriage</code>, <code>HermeticLabs</code>)</li>
+      <li>If available, click <strong>"Save"</strong></li>
+    </ol>
+    <p style="font-size:0.75rem;color:var(--text-muted);margin-top:0.5rem;"><strong>Note:</strong> Pages need 1+ follower and must be at least a few days old. If the option is greyed out, wait or try from the Facebook mobile app.</p>
+  </div>
+
+  <h3>&#128197; Publishing Drafts</h3>
+  <div class="card">
+    <ol style="padding-left:1.2rem;font-size:0.85rem;line-height:2;">
+      <li>In Business Suite, click <strong>"Content"</strong> in the left sidebar</li>
+      <li>Click the <strong>"Drafts"</strong> tab at the top</li>
+      <li>Find the draft you want to publish</li>
+      <li>Click <strong>"Edit post"</strong> to review the caption and image</li>
+      <li>Make any changes &rarr; click <strong>"Publish"</strong> or <strong>"Schedule"</strong></li>
+    </ol>
+    <p style="font-size:0.75rem;color:var(--text-muted);margin-top:0.5rem;"><strong>Current state:</strong> There are 10+ drafts waiting under the HALT page, all from May 27. Start publishing these.</p>
+  </div>
+
+  <h3>&#128202; Checking Insights</h3>
+  <div class="card">
+    <ol style="padding-left:1.2rem;font-size:0.85rem;line-height:2;">
+      <li>Click <strong>"Insights"</strong> in the left sidebar</li>
+      <li>At the top, make sure you're looking at the right page (use the page selector dropdown)</li>
+      <li><strong>Overview:</strong> Shows reach, engagement, followers at a glance</li>
+      <li><strong>Content:</strong> Shows individual post performance (reach, clicks, reactions)</li>
+      <li><strong>Audience:</strong> Shows who your followers are (age, gender, location)</li>
+      <li>Set date range to "Last 28 days" for weekly reporting</li>
+      <li>Click <strong>"Export data"</strong> (top-right) to download as CSV/XLSX for the weekly report</li>
+    </ol>
+  </div>
+
+  <h3>&#128246; Connecting Instagram</h3>
+  <div class="card">
+    <ol style="padding-left:1.2rem;font-size:0.85rem;line-height:2;">
+      <li>Go to <strong>Settings</strong> &rarr; <strong>"Linked accounts"</strong> or <strong>"Instagram"</strong></li>
+      <li>Click <strong>"Connect account"</strong></li>
+      <li>Log in with the Instagram credentials</li>
+      <li>Authorize Meta Business Suite access</li>
+      <li>Once connected, when creating posts you'll see a toggle to <strong>"Share to Instagram"</strong></li>
+    </ol>
+    <p style="font-size:0.75rem;color:var(--text-muted);margin-top:0.5rem;"><strong>Important:</strong> Instagram must be a Professional/Business account (not Personal) to connect. Switch in IG Settings &rarr; Account &rarr; Switch to Professional Account.</p>
+  </div>
+</section>
+
+<div class="divider"></div>
+<div class="page-break"></div>
+
+<!-- ═══════════════ PLATFORM HOW-TO: LINKEDIN ═══════════════ -->
+<section>
+  <h2>How-To: LinkedIn</h2>
+  <p class="section-subtitle">Company page management &mdash; task by task</p>
+
+  <div class="callout">
+    <strong>Access:</strong> Go to <a href="https://linkedin.com" target="_blank">linkedin.com</a> &rarr; log in &rarr; click your profile icon (top-right) &rarr; under "Manage," click <strong>"Hermetic Labs LLC"</strong> to switch to the company page admin view.
+  </div>
+
+  <h3>&#9997; Publishing a Post</h3>
+  <div class="card">
+    <ol style="padding-left:1.2rem;font-size:0.85rem;line-height:2;">
+      <li>Make sure you're in the <strong>company page admin view</strong> (not your personal profile)</li>
+      <li>Click <strong>"Start a post"</strong> at the top of the page</li>
+      <li>Paste your caption (shorter than Meta &mdash; LinkedIn rewards concise, professional text)</li>
+      <li>Attach an image using the photo icon</li>
+      <li>Add <strong>3 hashtags max</strong> (more looks spammy on LinkedIn)</li>
+      <li>Click <strong>"Post"</strong> to publish immediately</li>
+      <li>To schedule: click the <strong>clock icon</strong> next to Post &rarr; pick date/time</li>
+    </ol>
+    <p style="font-size:0.75rem;color:var(--text-muted);margin-top:0.5rem;"><strong>LinkedIn tone:</strong> More professional than Instagram/Facebook. Lead with insights, data, or thought leadership. "We built X because Y" &mdash; not "Check out our cool app!"</p>
+  </div>
+
+  <h3>&#128736; Updating Company Specialties</h3>
+  <div class="card">
+    <ol style="padding-left:1.2rem;font-size:0.85rem;line-height:2;">
+      <li>Go to the company page &rarr; click <strong>"Edit Page"</strong> (pencil icon near the top)</li>
+      <li>Scroll to <strong>"Specialties"</strong></li>
+      <li>Remove: AR, VR, Mixed Reality (not relevant to current strategy)</li>
+      <li>Add: Healthcare Technology, Digital Health, Humanitarian Technology, Field Medical Systems, Open Source, Emergency Response Technology</li>
+      <li>Click <strong>"Save"</strong></li>
+    </ol>
+  </div>
+
+  <h3>&#128100; Building Connections (Follower Growth)</h3>
+  <div class="card">
+    <ol style="padding-left:1.2rem;font-size:0.85rem;line-height:2;">
+      <li>Use the <strong>"Invite connections"</strong> button on the company page (Admin Tools)</li>
+      <li>Search for people by title: "Digital Health," "Humanitarian Technology," "NGO IT"</li>
+      <li>Invite 20&ndash;30 per week (LinkedIn limits invites)</li>
+      <li>Comment on posts from WHO, MSF, ICRC, UNICEF &mdash; be insightful, not promotional</li>
+      <li>Share relevant industry articles with company page commentary</li>
+      <li>Join LinkedIn Groups: "Digital Health," "Humanitarian Innovation," "Global Health Technology"</li>
+    </ol>
+    <p style="font-size:0.75rem;color:var(--text-muted);margin-top:0.5rem;"><strong>Key:</strong> LinkedIn organic reach comes from <em>comments on others' posts</em> more than your own publishing. Spend 15 min/day engaging with the humanitarian tech community.</p>
+  </div>
+
+  <h3>&#128202; Checking Analytics</h3>
+  <div class="card">
+    <ol style="padding-left:1.2rem;font-size:0.85rem;line-height:2;">
+      <li>Go to company page &rarr; click <strong>"Analytics"</strong> in the top nav</li>
+      <li><strong>Visitors:</strong> Who's viewing the page (industry, company size, job function)</li>
+      <li><strong>Followers:</strong> Growth over time, demographics</li>
+      <li><strong>Content:</strong> Individual post performance (impressions, clicks, engagement rate)</li>
+      <li>Use these numbers for the weekly report &mdash; LinkedIn's analytics are better than Meta's for B2B</li>
+      <li>Click <strong>"Export"</strong> to download data as CSV</li>
+    </ol>
+  </div>
+
+  <h3>&#128196; Creating a Document Post (Carousel)</h3>
+  <div class="card">
+    <ol style="padding-left:1.2rem;font-size:0.85rem;line-height:2;">
+      <li>Click <strong>"Start a post"</strong> &rarr; click the <strong>"Document"</strong> icon (looks like a page)</li>
+      <li>Upload a PDF (each page becomes a slide people swipe through)</li>
+      <li>Add a title for the document</li>
+      <li>Write a caption that hooks people into swiping ("Swipe to see how HALT works &rarr;")</li>
+      <li>Document posts get <strong>3x more engagement</strong> than text-only on LinkedIn</li>
+    </ol>
+    <p style="font-size:0.75rem;color:var(--text-muted);margin-top:0.5rem;"><strong>Idea:</strong> Turn the "42 Languages" logos into a PDF carousel &mdash; one logo per page. Upload as a document post. Instant engagement magnet.</p>
+  </div>
+</section>
+
+<div class="footer">
+  <p><strong>Hermetic Labs</strong> &middot; Social Media Intelligence Report &middot; July 15, 2026</p>
+  <p>Data: LinkedIn (live audit), Meta Business Suite (live audit), Puter System (internal intelligence)</p>
+  <p style="margin-top:0.5rem;">This page is for internal team use only.</p>
+</div>
+
+</div>
+
+<script>
+  // Prevent back/forward navigation — this page is a dead end
+  (function() {
+    history.pushState(null, '', location.href);
+    window.addEventListener('popstate', function() {
+      history.pushState(null, '', location.href);
+    });
+  })();
+</script>
+
+</body>
+</html>
