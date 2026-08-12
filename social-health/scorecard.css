@@ -12,6 +12,8 @@
 }
 
 .contributor-workspace[hidden] { display: none; }
+.workspace-message[hidden],
+#scorecardContent[hidden] { display: none; }
 
 .workspace-frame {
   width: min(1180px, 100%);

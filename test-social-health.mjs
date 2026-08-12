@@ -16,7 +16,7 @@ await page.route('https://hermetic-graph-mcp-lfrj8.azurewebsites.net/**', async 
     body: JSON.stringify({
       generatedAt: '2026-08-12T07:44:32.957Z',
       contributor: { id: 'hiteshi-baldev', name: 'Hiteshi Hitu Seo Baldev', timezone: 'Asia/Kolkata' },
-      campaign: { title: 'HALT awareness', summary: 'Build a consistent social rhythm.', platforms: ['LinkedIn'], status: 'active' },
+      campaign: { title: 'HALT awareness', summary: 'Build a consistent social rhythm.', platforms: ['LinkedIn'], status: 'active', startAt: '2026-08-10T00:00:00.000Z', endAt: '2026-08-16T00:00:00.000Z' },
       thisWeek: { weekOf: '2026-08-10', summary: 'Publish and engage.', score: 72, goals: [{ id: 'g1', title: 'Publish three posts', current: 2, target: 3, unit: 'posts', status: 'in_progress' }] },
       lastWeek: { weekOf: '2026-08-03', summary: 'Foundation week.', score: 84, rank: 1, cohortSize: 3, goals: [], wins: ['Completed profile'], improvements: ['Increase engagement'] },
       managerNote: 'Strong foundation. Keep the cadence steady.',
@@ -34,6 +34,9 @@ if ((await page.locator('#scorecardTitle').textContent()) !== 'Hiteshi Hitu Seo 
 if ((await page.locator('#thisWeekScore').textContent()) !== '72') errors.push('This-week score did not render');
 if ((await page.locator('#thisWeekGoals .goal-card').count()) !== 1) errors.push('Goal card did not render');
 if ((await page.locator('#lifecycleList .lifecycle-item').count()) !== 1) errors.push('Lifecycle item did not render');
+if (!(await page.locator('#scorecardLoading').isHidden())) errors.push('Loading panel remained visible after success');
+if (!(await page.locator('#scorecardError').isHidden())) errors.push('Error panel remained visible after success');
+if (!(await page.locator('#campaignFacts').textContent()).includes('Aug 10, 2026')) errors.push('Campaign dates shifted out of UTC calendar date');
 
 await browser.close();
 if (errors.length) {

@@ -28,6 +28,10 @@
     if (Number.isNaN(parsed.getTime())) return '';
     return new Intl.DateTimeFormat(undefined, options || { month: 'short', day: 'numeric', year: 'numeric' }).format(parsed);
   };
+  const formatCalendarDate = (value, options) => formatDate(value, {
+    timeZone: 'UTC',
+    ...(options || { month: 'short', day: 'numeric', year: 'numeric' })
+  });
   const clear = (element) => { while (element.firstChild) element.removeChild(element.firstChild); };
 
   function addFact(container, label, value) {
@@ -59,7 +63,7 @@
     setText('campaignDetails', campaign.details, '');
     addFact(facts, 'Objective', campaign.objective);
     addFact(facts, 'Audience', campaign.audience);
-    const range = [formatDate(campaign.startAt), formatDate(campaign.endAt)].filter(Boolean).join(' – ');
+    const range = [formatCalendarDate(campaign.startAt), formatCalendarDate(campaign.endAt)].filter(Boolean).join(' – ');
     addFact(facts, 'Campaign window', range);
     (campaign.platforms || []).forEach((platform) => {
       const chip = document.createElement('span');
@@ -132,7 +136,7 @@
     const goalList = byId(`${prefix}Goals`);
     const empty = byId(`${prefix}Empty`);
     clear(goalList);
-    setText(`${prefix}Date`, week ? `Week of ${formatDate(week.weekOf, { month: 'short', day: 'numeric' })}` : '', '');
+    setText(`${prefix}Date`, week ? `Week of ${formatCalendarDate(week.weekOf, { month: 'short', day: 'numeric' })}` : '', '');
     setText(`${prefix}Summary`, week && week.summary, '');
     const goals = week && Array.isArray(week.goals) ? week.goals : [];
     goals.forEach((goal) => goalList.appendChild(renderGoal(goal)));
