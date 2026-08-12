@@ -3,8 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
 <title>Hermetic Labs — Social Media Intelligence Report</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="./scorecard.css" rel="stylesheet">
 <style>
   :root {
     --bg: #0c0c14;
@@ -326,6 +328,90 @@
 </style>
 </head>
 <body>
+
+<main id="contributorWorkspace" class="contributor-workspace" hidden aria-live="polite">
+  <div class="workspace-orbit workspace-orbit-one" aria-hidden="true"></div>
+  <div class="workspace-orbit workspace-orbit-two" aria-hidden="true"></div>
+  <div class="workspace-frame">
+    <header class="workspace-header">
+      <div>
+        <p class="workspace-eyebrow">Hermetic Labs · Contributor workspace</p>
+        <h1 id="scorecardTitle">Loading scorecard…</h1>
+        <p id="scorecardSubtitle" class="workspace-subtitle">Connecting securely to Susan’s contributor graph.</p>
+      </div>
+      <div class="workspace-actions">
+        <span id="scorecardFreshness" class="live-pill"><span aria-hidden="true"></span>Connecting</span>
+        <button id="refreshScorecard" class="refresh-button" type="button">Refresh</button>
+      </div>
+    </header>
+
+    <div id="scorecardLoading" class="workspace-message">
+      <div class="loading-mark" aria-hidden="true"></div>
+      <div><strong>Preparing your weekly view</strong><p>Campaign, goals, ranking, and current assignments are loading.</p></div>
+    </div>
+
+    <div id="scorecardError" class="workspace-message workspace-error" hidden>
+      <div class="error-mark" aria-hidden="true">!</div>
+      <div><strong id="scorecardErrorTitle">This link needs attention</strong><p id="scorecardErrorMessage"></p></div>
+    </div>
+
+    <div id="scorecardContent" hidden>
+      <section class="scorecard-overview" aria-label="Weekly overview">
+        <article class="campaign-card">
+          <div class="card-kicker">Current campaign</div>
+          <div class="campaign-heading">
+            <h2 id="campaignTitle">Campaign pending</h2>
+            <span id="campaignStatus" class="status-chip">Planning</span>
+          </div>
+          <p id="campaignSummary" class="campaign-summary"></p>
+          <p id="campaignDetails" class="campaign-details"></p>
+          <dl id="campaignFacts" class="campaign-facts"></dl>
+          <div id="campaignPlatforms" class="platform-list" aria-label="Campaign platforms"></div>
+        </article>
+
+        <div class="metric-grid" aria-label="Performance summary">
+          <article class="metric-card metric-primary"><span>This week</span><strong id="thisWeekScore">—</strong><small>score</small></article>
+          <article class="metric-card"><span>Last week</span><strong id="lastWeekScore">—</strong><small>score</small></article>
+          <article class="metric-card"><span>Last week rank</span><strong id="lastWeekRank">—</strong><small id="lastWeekRankCohort">not ranked</small></article>
+          <article class="metric-card"><span>Active workflow</span><strong id="activeAssignmentCount">0</strong><small>assignments</small></article>
+        </div>
+      </section>
+
+      <section class="weekly-grid" aria-label="Weekly goals">
+        <article class="week-panel week-current">
+          <div class="panel-heading"><div><p class="card-kicker">Focus</p><h2>This week</h2></div><time id="thisWeekDate"></time></div>
+          <p id="thisWeekSummary" class="week-summary"></p>
+          <div id="thisWeekGoals" class="goal-list"></div>
+          <div id="thisWeekEmpty" class="empty-state" hidden>Susan hasn’t set this week’s goals yet.</div>
+        </article>
+
+        <article class="week-panel">
+          <div class="panel-heading"><div><p class="card-kicker">Review</p><h2>Last week</h2></div><time id="lastWeekDate"></time></div>
+          <p id="lastWeekSummary" class="week-summary"></p>
+          <div id="lastWeekGoals" class="goal-list"></div>
+          <div id="lastWeekEmpty" class="empty-state" hidden>Last week’s results haven’t been recorded yet.</div>
+          <div class="reflection-grid">
+            <div><h3>Wins</h3><ul id="lastWeekWins"></ul></div>
+            <div><h3>Next improvements</h3><ul id="lastWeekImprovements"></ul></div>
+          </div>
+        </article>
+      </section>
+
+      <section class="workflow-grid" aria-label="Contributor workflow">
+        <article class="workflow-panel">
+          <div class="panel-heading"><div><p class="card-kicker">Live from the graph</p><h2>Assignment lifecycle</h2></div></div>
+          <div id="lifecycleList" class="lifecycle-list"></div>
+          <div id="lifecycleEmpty" class="empty-state" hidden>No assignments are attached to this contributor yet.</div>
+        </article>
+        <aside class="manager-note">
+          <p class="card-kicker">Note from Susan</p>
+          <blockquote id="managerNote">No manager note has been added.</blockquote>
+          <p id="scorecardUpdatedAt" class="updated-at"></p>
+        </aside>
+      </section>
+    </div>
+  </div>
+</main>
 
 <div class="cover">
   <div class="org-badge">Confidential &middot; Internal Use</div>
@@ -1170,6 +1256,7 @@
     });
   })();
 </script>
+<script src="./scorecard.js" defer></script>
 
 </body>
 </html>
