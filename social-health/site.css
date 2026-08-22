@@ -164,6 +164,31 @@ button { color: inherit; }
 .studio-identity h2 { margin: 0; font-size: clamp(2.6rem, 5vw, 5.4rem); line-height: 0.95; letter-spacing: -0.055em; }
 .studio-identity p:not(.eyebrow) { max-width: 760px; color: var(--muted); line-height: 1.7; }
 .studio-identity a { color: var(--rgb-cyan); font-size: 0.76rem; text-decoration: none; }
+.halt-builds { margin-top: 2.25rem; padding: 2rem 0 0; border-top: 1px solid var(--line-strong); }
+.halt-builds[hidden] { display: none; }
+.halt-builds-heading { display: grid; grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.8fr); gap: 2rem; align-items: end; }
+.halt-builds-heading h3 { margin: 0; font-size: clamp(1.7rem, 3vw, 3rem); letter-spacing: -0.045em; }
+.halt-builds-heading > p { margin: 0; color: var(--muted); font-size: 0.76rem; line-height: 1.65; }
+.build-policy { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 1.4rem; border: 1px solid var(--line); }
+.build-policy div { display: grid; gap: 0.5rem; min-height: 5rem; padding: 1rem; border-right: 1px solid var(--line); }
+.build-policy div:last-child { border-right: 0; }
+.build-policy span { color: var(--dim); font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase; }
+.build-policy strong { font-size: 0.78rem; line-height: 1.5; }
+.build-policy code, .halt-build-card code { color: var(--rgb-cyan); font-family: inherit; }
+.halt-build-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 1rem; border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+.halt-build-card { display: flex; flex-direction: column; min-width: 0; padding: 1.25rem; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); background: rgba(255,255,255,0.012); }
+.halt-build-card.is-primary { background: linear-gradient(145deg, rgba(57,245,138,0.07), rgba(65,184,255,0.035)); }
+.build-badge { align-self: flex-start; padding: 0.35rem 0.5rem; border: 1px solid rgba(57,245,138,0.38); color: var(--rgb-green); font-size: 0.56rem; font-weight: 850; letter-spacing: 0.1em; text-transform: uppercase; }
+.build-badge.is-versioned { border-color: rgba(65,184,255,0.32); color: var(--rgb-cyan); }
+.halt-build-card h4 { margin: 1rem 0 0.5rem; font-size: 1.15rem; }
+.halt-build-card p { margin: 0; color: var(--muted); font-size: 0.72rem; line-height: 1.6; }
+.halt-build-actions { display: flex; flex-wrap: wrap; gap: 0.55rem; margin-top: auto; padding-top: 1.25rem; }
+.halt-build-actions a { display: inline-flex; align-items: center; justify-content: center; min-height: 2.65rem; padding: 0.65rem 0.8rem; border: 1px solid var(--line-strong); color: var(--muted); text-decoration: none; font-size: 0.68rem; font-weight: 850; }
+.halt-build-actions a:hover, .halt-build-actions a:focus-visible { border-color: var(--rgb-cyan); color: var(--rgb-cyan); outline: none; }
+.halt-build-actions .build-download-primary { border-color: var(--rgb-green); background: linear-gradient(90deg, var(--rgb-green), var(--rgb-cyan)); color: #07100d; }
+.halt-build-actions .build-download-primary:hover, .halt-build-actions .build-download-primary:focus-visible { background: transparent; color: var(--rgb-green); }
+.halt-build-footnote { margin: 0.9rem 0 0; color: var(--dim); font-size: 0.64rem; line-height: 1.6; }
+.halt-build-footnote a { color: var(--rgb-cyan); text-decoration: none; }
 .studio-project-context { padding: 2.25rem 0 0; }
 .studio-steps { list-style: none; display: grid; grid-template-columns: repeat(5, 1fr); margin: 2.25rem 0 0; padding: 0; border: 1px solid var(--line); }
 .studio-steps li { min-height: 4.5rem; display: flex; align-items: center; gap: 0.75rem; padding: 1rem; border-right: 1px solid var(--line); color: var(--dim); }
@@ -346,7 +371,8 @@ button { color: inherit; }
   .pipeline li:nth-child(-n+3) { border-bottom: 1px solid var(--line); }
   .campaign-card-public { grid-template-columns: 1fr; }
   .assignment-list-public { border-left: 0; border-top: 1px solid var(--line); }
-  .project-assets-heading, .project-pulse-heading { grid-template-columns: 1fr; gap: 0.7rem; }
+  .project-assets-heading, .project-pulse-heading, .halt-builds-heading { grid-template-columns: 1fr; gap: 0.7rem; }
+  .halt-build-grid { grid-template-columns: 1fr; }
   .site-footer { grid-template-columns: 1fr auto; }
   .site-footer > p { grid-column: 1 / -1; grid-row: 2; }
 }
@@ -370,6 +396,9 @@ button { color: inherit; }
   .project-facts { grid-column: 1; }
   .studio-identity { grid-template-columns: 1fr; }
   .studio-identity img { width: 8rem; height: 8rem; }
+  .build-policy { grid-template-columns: 1fr; }
+  .build-policy div { border-right: 0; border-bottom: 1px solid var(--line); }
+  .build-policy div:last-child { border-bottom: 0; }
   .studio-steps { grid-template-columns: 1fr; }
   .studio-steps li { min-height: 3.1rem; border-right: 0; border-bottom: 1px solid var(--line); }
   .studio-steps li:last-child { border-bottom: 0; }

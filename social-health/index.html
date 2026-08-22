@@ -22,9 +22,9 @@
   <meta name="twitter:title" content="Social Health — Hermetic Labs">
   <meta name="twitter:description" content="Turn product truth into clear public signal.">
   <meta name="twitter:image" content="https://7hermeticlaws.com/social-health/assets/social-health-og.png">
-  <link rel="stylesheet" href="./site.css?v=20260822-3">
+  <link rel="stylesheet" href="./site.css?v=20260822-4">
   <link rel="stylesheet" href="./scorecard.css?v=20260822-3">
-  <script src="./site.js?v=20260822-3" defer></script>
+  <script src="./site.js?v=20260822-4" defer></script>
   <script src="./scorecard.js?v=20260822-3" defer></script>
 </head>
 <body>
@@ -197,6 +197,48 @@
               </div>
             </div>
           </header>
+
+          <section id="haltBuilds" class="halt-builds" aria-labelledby="haltBuildsTitle">
+            <div class="halt-builds-heading">
+              <div>
+                <p class="eyebrow">Windows test packages</p>
+                <h3 id="haltBuildsTitle">Install the right HALT build.</h3>
+              </div>
+              <p>Tester links may move to a newer verified package. Partner Center links are immutable and must remain pinned to the submitted binary.</p>
+            </div>
+            <div class="build-policy" aria-label="Download-link policy">
+              <div><span>Tester and internal handoff</span><strong>Use a <code>latest</code> link when one is published.</strong></div>
+              <div><span>Microsoft Partner Center</span><strong>Use the immutable <code>1.2.18</code> link.</strong></div>
+            </div>
+            <div class="halt-build-grid">
+              <article class="halt-build-card is-primary">
+                <span class="build-badge">Tester default</span>
+                <h4>HALT Organization</h4>
+                <p>The tester link follows the current Organization package. Keep the versioned object for certification and exact-binary reference.</p>
+                <div class="halt-build-actions">
+                  <a class="build-download-primary" href="https://pub-b841d8ac01084f8f822078f923a49a87.r2.dev/builds/HALT_latest_setup.exe">Download latest</a>
+                  <a href="https://pub-b841d8ac01084f8f822078f923a49a87.r2.dev/builds/HALT_1.2.18_setup.exe">Immutable 1.2.18</a>
+                </div>
+              </article>
+              <article class="halt-build-card">
+                <span class="build-badge is-versioned">Immutable only</span>
+                <h4>HALT Caregiver</h4>
+                <p>No <code>latest</code> alias is published yet. This signed, versioned package is safe for testing and Partner Center reference.</p>
+                <div class="halt-build-actions">
+                  <a class="build-download-primary" href="https://pub-b841d8ac01084f8f822078f923a49a87.r2.dev/builds/HALT_Caregiver_1.2.18_setup.exe">Download 1.2.18</a>
+                </div>
+              </article>
+              <article class="halt-build-card">
+                <span class="build-badge is-versioned">Immutable only</span>
+                <h4>HALT Community</h4>
+                <p>No <code>latest</code> alias is published yet. This signed, versioned package is safe for testing and Partner Center reference.</p>
+                <div class="halt-build-actions">
+                  <a class="build-download-primary" href="https://pub-b841d8ac01084f8f822078f923a49a87.r2.dev/builds/HALT_Community_1.2.18_setup.exe">Download 1.2.18</a>
+                </div>
+              </article>
+            </div>
+            <p class="halt-build-footnote">Do not replace a Partner Center package URL after submission. <a href="https://learn.microsoft.com/en-us/windows/apps/publish/publish-your-app/msi/app-package-requirements" target="_blank" rel="noopener">Read Microsoft’s package requirements <span aria-hidden="true">↗</span></a></p>
+          </section>
 
           <section class="project-pulse project-pulse-top" aria-labelledby="pulseTitle">
             <div class="project-pulse-heading">
