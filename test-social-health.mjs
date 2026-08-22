@@ -112,6 +112,9 @@ if (!(await page.locator('#openProjectStudio').textContent()).includes('HALT')) 
 await page.locator('#openProjectStudio').click();
 if (!(await page.locator('#haltStudio').isVisible())) errors.push('HALT summary did not open the focused contribution studio');
 if (!(await page.locator('#haltStudio .project-assets').isVisible()) || !(await page.locator('#haltStudio .project-pulse').isVisible())) errors.push('HALT iconology and campaign pulse did not move into its workspace');
+const studioOrder = await page.locator('#haltStudio').evaluate((studio) => Array.from(studio.children).map((node) => node.id || node.className || node.tagName));
+if (studioOrder[1] !== 'studioSteps' || studioOrder[2] !== 'haltContributionForm' || studioOrder[3] !== 'studio-project-context') errors.push('Step 1 does not lead the workspace content');
+if (!(await page.locator('.studio-project-context').evaluate((context) => context.lastElementChild?.classList.contains('project-assets')))) errors.push('Project iconology is not the final workspace section');
 if (!(await page.locator('#framework').isHidden())) errors.push('Long-form page sections remained visible in HALT focus mode');
 await page.locator('[data-next-step="2"]').click();
 if (!(await page.locator('#studioValidation').isVisible())) errors.push('HALT scope validation did not stop an incomplete draft');

@@ -164,8 +164,7 @@ button { color: inherit; }
 .studio-identity p:not(.eyebrow) { max-width: 760px; color: var(--muted); line-height: 1.7; }
 .studio-identity a { color: var(--rgb-cyan); font-size: 0.76rem; text-decoration: none; }
 .studio-project-context { padding: 2.25rem 0 0; }
-.studio-project-context .project-assets { margin-top: 0; }
-.studio-steps { list-style: none; display: grid; grid-template-columns: repeat(5, 1fr); margin: 3rem 0 0; padding: 0; border: 1px solid var(--line); }
+.studio-steps { list-style: none; display: grid; grid-template-columns: repeat(5, 1fr); margin: 0; padding: 0; border: 1px solid var(--line); border-top: 0; }
 .studio-steps li { min-height: 4.5rem; display: flex; align-items: center; gap: 0.75rem; padding: 1rem; border-right: 1px solid var(--line); color: var(--dim); }
 .studio-steps li:last-child { border-right: 0; }
 .studio-steps li.is-current { color: #08100c; background: linear-gradient(90deg, var(--rgb-green), var(--rgb-cyan)); }
