@@ -56,6 +56,8 @@ await page.goto(publicUrl, { waitUntil: 'networkidle' });
 await page.locator('.campaign-card-public').waitFor({ state: 'attached' });
 
 if ((await page.title()) !== 'Social Health — Hermetic Labs') errors.push('Public page title is incorrect');
+if (!(await page.locator('link[href*="site.css?v=20260822-2"]').count())) errors.push('Site stylesheet cache marker is missing');
+if (!(await page.locator('script[src*="site.js?v=20260822-2"]').count())) errors.push('Site script cache marker is missing');
 if (!(await page.locator('#publicConsole').isVisible())) errors.push('Public console is not visible');
 if (!(await page.locator('#contributorWorkspace').isHidden())) errors.push('Contributor workspace appeared without a signed link');
 if ((await page.locator('.project-tab').count()) !== 4) errors.push('Expected four project lanes');
