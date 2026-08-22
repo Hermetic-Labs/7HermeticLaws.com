@@ -53,7 +53,7 @@ await page.route('https://graph.7hermeticlabs.com/**', async (route) => {
 
 const publicUrl = `file://${path.join(root, 'social-health', 'index.html')}`;
 await page.goto(publicUrl, { waitUntil: 'networkidle' });
-await page.locator('.campaign-card-public').waitFor({ state: 'visible' });
+await page.locator('.campaign-card-public').waitFor({ state: 'attached' });
 
 if ((await page.title()) !== 'Social Health — Hermetic Labs') errors.push('Public page title is incorrect');
 if (!(await page.locator('#publicConsole').isVisible())) errors.push('Public console is not visible');
@@ -63,6 +63,8 @@ if ((await page.locator('.campaign-card-public').count()) !== 1) errors.push('Pu
 if ((await page.locator('#mainContent > :first-child').getAttribute('id')) !== 'projects') errors.push('Portfolio map is not the first public section');
 if (await page.locator('#materials').count()) errors.push('Mixed-project asset register remains on the landing page');
 if ((await page.locator('#pulseTitle').textContent()) !== 'HALT campaign pulse') errors.push('Campaign pulse is not scoped to HALT by default');
+if (await page.locator('#projectPanel .project-assets, #projectPanel .project-pulse').count()) errors.push('Project details remain exposed in the summary');
+if ((await page.locator('#tab-halt').getAttribute('href')) !== null) errors.push('HALT tab still carries a page link');
 if ((await page.locator('#projectAssetGrid .project-asset-card').count()) !== 1) errors.push('HALT project asset did not render in its lane');
 if (!(await page.locator('#projectAssetGrid img[src$="halt-mark.png"]').count())) errors.push('HALT mark is not wired into the HALT lane');
 if (!(await page.locator('.brand-logo').getAttribute('src')).includes('7hl-social-rgb-192.png')) errors.push('RGB site logo is not wired into the header');
@@ -76,6 +78,7 @@ if (await page.locator('.campaign-card-public').count()) errors.push('HALT campa
 if (!(await page.locator('#campaignBoard').textContent()).includes('No named FEFE Connect campaign')) errors.push('FEFE Connect empty state is not project-specific');
 await page.locator('#openProjectStudio').click();
 if ((await page.locator('#studioProjectEyebrow').textContent()) !== 'FEFE Connect contribution studio') errors.push('FEFE Connect workspace did not inherit its identity');
+if (!(await page.locator('#haltStudio .project-assets').isVisible()) || !(await page.locator('#haltStudio .project-pulse').isVisible())) errors.push('FEFE Connect iconology and campaign pulse did not move into its workspace');
 if ((await page.locator('#studioLanePicker [data-project-lane]').count()) !== 3) errors.push('FEFE Connect workspace lanes did not render');
 await page.locator('#haltAssignmentCode').fill('SOCIAL-101');
 if (!(await page.evaluate(() => localStorage.getItem('social-health.fefe-contribution.v1')))) errors.push('FEFE Connect draft was not isolated in project storage');
@@ -102,6 +105,7 @@ if (!(await page.locator('#haltStudio').isHidden())) errors.push('HALT tab bypas
 if (!(await page.locator('#openProjectStudio').textContent()).includes('HALT')) errors.push('HALT summary did not expose its workspace action');
 await page.locator('#openProjectStudio').click();
 if (!(await page.locator('#haltStudio').isVisible())) errors.push('HALT summary did not open the focused contribution studio');
+if (!(await page.locator('#haltStudio .project-assets').isVisible()) || !(await page.locator('#haltStudio .project-pulse').isVisible())) errors.push('HALT iconology and campaign pulse did not move into its workspace');
 if (!(await page.locator('#framework').isHidden())) errors.push('Long-form page sections remained visible in HALT focus mode');
 await page.locator('[data-next-step="2"]').click();
 if (!(await page.locator('#studioValidation').isVisible())) errors.push('HALT scope validation did not stop an incomplete draft');
@@ -128,7 +132,7 @@ if (!(await page.locator('#openHaltEmail').getAttribute('href')).startsWith('mai
 if (await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth)) errors.push('HALT studio has horizontal overflow at mobile width');
 if (!(await page.evaluate(() => localStorage.getItem('social-health.halt-contribution.v1')))) errors.push('HALT local draft was not persisted');
 await page.locator('#closeHaltStudio').click();
-if (!(await page.locator('#projectAssetGrid').isVisible())) errors.push('HALT studio did not return to the project overview');
+if (!(await page.locator('#projectPanel').isVisible()) || !(await page.locator('#haltStudio').isHidden())) errors.push('HALT studio did not return to the project summary');
 
 const pageText = await page.locator('body').innerText();
 for (const privateOrStaleText of ['805 S Glynn', 'frontdesk@', '146 curated hashtags', 'HALT qualifies', '93%']) {
