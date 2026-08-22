@@ -182,6 +182,98 @@
             <div><dt>Next gate</dt><dd id="projectNextGate">Bind claims to the relevant product and build.</dd></div>
           </dl>
         </article>
+
+        <section id="haltStudio" class="halt-studio" aria-labelledby="haltStudioTitle" hidden>
+          <header class="studio-header">
+            <button id="closeHaltStudio" class="studio-back" type="button">← All projects</button>
+            <div class="studio-identity">
+              <img src="./assets/halt-mark.png" alt="HALT mark">
+              <div>
+                <p class="eyebrow">HALT contribution studio</p>
+                <h2 id="haltStudioTitle" tabindex="-1">Know the product.<br>Build from truth.</h2>
+                <p>HALT is an offline-capable medical coordination system in closed beta. Contributions must stay grounded in the product lane, current evidence, and qualified human review.</p>
+                <a href="https://7hermeticlabs.health/" target="_blank" rel="noopener">Open the full product reference <span aria-hidden="true">↗</span></a>
+              </div>
+            </div>
+          </header>
+
+          <ol id="studioSteps" class="studio-steps" aria-label="HALT contribution lifecycle">
+            <li class="is-current" data-step-indicator="1"><span>01</span><strong>Scope</strong></li>
+            <li data-step-indicator="2"><span>02</span><strong>Ground</strong></li>
+            <li data-step-indicator="3"><span>03</span><strong>Build</strong></li>
+            <li data-step-indicator="4"><span>04</span><strong>Review</strong></li>
+            <li data-step-indicator="5"><span>05</span><strong>Submit</strong></li>
+          </ol>
+
+          <form id="haltContributionForm" class="halt-contribution-form" novalidate>
+            <div class="studio-local-note"><span aria-hidden="true"></span><strong>Local draft</strong> Nothing leaves this browser until you explicitly open and send the prepared email.</div>
+            <div id="studioValidation" class="studio-validation" role="alert" hidden></div>
+
+            <section class="studio-stage" data-studio-step="1" aria-labelledby="scopeTitle">
+              <div class="studio-prompt"><p class="eyebrow">Step 01 · Scope</p><h3 id="scopeTitle">Which HALT experience are you speaking for?</h3><p>Start with an active Susan assignment, then choose the product and contribution type. Each lane serves a different person and setting.</p></div>
+              <div class="studio-field-grid studio-field-grid-top">
+                <label class="studio-field"><span>Assignment code <b>*</b></span><input id="haltAssignmentCode" name="assignmentCode" type="text" inputmode="text" autocomplete="off" placeholder="SOCIAL-003" maxlength="20" aria-describedby="assignmentHint" required><small id="assignmentHint">Use the code shown in your assignment or scorecard.</small></label>
+                <label class="studio-field"><span>Contribution type <b>*</b></span><select id="haltContributionType" name="contributionType" required><option value="">Choose one</option><option value="social-copy">Social copy</option><option value="visual">Visual or carousel</option><option value="short-video">Short video</option><option value="evidence-correction">Evidence or correction</option><option value="field-lead">Field lead or outreach signal</option></select><small>This controls the guidance in the build step.</small></label>
+              </div>
+              <input id="haltLane" name="lane" type="hidden" required>
+              <div class="lane-picker" role="radiogroup" aria-label="HALT product lane">
+                <button type="button" role="radio" aria-checked="false" data-halt-lane="organization"><strong>HALT Organization</strong><span>Field medical coordination, structured intake, ward visibility, supplies, and local workflows.</span></button>
+                <button type="button" role="radio" aria-checked="false" data-halt-lane="caregiver"><strong>HALT Caregiver</strong><span>Bedside and household timelines, needs, supplies, multilingual assistance, and requests for help.</span></button>
+                <button type="button" role="radio" aria-checked="false" data-halt-lane="community"><strong>HALT Community</strong><span>Household intake, local response, food and WASH stock, first aid, translation, and coordination.</span></button>
+              </div>
+              <div class="studio-controls"><span>Step 1 of 5 · Saved only in this browser.</span><button type="button" data-next-step="2">Continue to grounding →</button></div>
+            </section>
+
+            <section class="studio-stage" data-studio-step="2" aria-labelledby="groundTitle" hidden>
+              <div class="studio-prompt"><p class="eyebrow">Step 02 · Ground</p><h3 id="groundTitle">What is the exact truth you want to carry forward?</h3><p>One source, one bounded claim, one audience. If the source cannot support the words, the words do not move.</p></div>
+              <div id="haltTruthCard" class="truth-card" aria-live="polite"></div>
+              <div class="studio-field-grid">
+                <label class="studio-field"><span>Primary source URL <b>*</b></span><input id="haltSourceUrl" name="sourceUrl" type="url" placeholder="https://7hermeticlabs.health/" maxlength="500" required><small>Use the current product page, approved brief, or evidence record.</small></label>
+                <label class="studio-field"><span>Audience <b>*</b></span><select id="haltAudience" name="audience" required><option value="">Choose one</option><option>Medical and humanitarian organizations</option><option>Caregivers and families</option><option>Community responders and mutual-aid teams</option><option>Researchers and evaluators</option><option>Technical builders and contributors</option><option>General public</option></select><small>Choose the person who should understand or act.</small></label>
+                <label class="studio-field studio-field-wide"><span>Supported claim <b>*</b></span><textarea id="haltClaim" name="claim" rows="3" maxlength="360" placeholder="State one claim the source directly supports." required></textarea><small><span id="claimCount">0</span>/360 characters</small></label>
+                <label class="studio-field studio-field-wide"><span>Why this matters now</span><textarea id="haltContext" name="context" rows="3" maxlength="600" placeholder="Add the human or operational context without expanding the claim."></textarea><small><span id="contextCount">0</span>/600 characters</small></label>
+              </div>
+              <div class="studio-controls"><button class="studio-secondary" type="button" data-prev-step="1">← Scope</button><button type="button" data-next-step="3">Continue to build →</button></div>
+            </section>
+
+            <section class="studio-stage" data-studio-step="3" aria-labelledby="buildTitle" hidden>
+              <div class="studio-prompt"><p class="eyebrow">Step 03 · Build</p><h3 id="buildTitle">Make the contribution usable.</h3><p>Provide the draft and enough context for Susan to review it without reconstructing your thinking. Attach files later in the assignment email.</p></div>
+              <fieldset class="channel-picker"><legend>Target channel <b>*</b></legend><label><input type="checkbox" name="channels" value="LinkedIn"><span>LinkedIn</span></label><label><input type="checkbox" name="channels" value="Instagram"><span>Instagram</span></label><label><input type="checkbox" name="channels" value="Facebook"><span>Facebook</span></label><label><input type="checkbox" name="channels" value="X"><span>X</span></label><label><input type="checkbox" name="channels" value="YouTube"><span>YouTube</span></label></fieldset>
+              <div class="studio-field-grid">
+                <label class="studio-field studio-field-wide"><span>Draft contribution <b>*</b></span><textarea id="haltDraftCopy" name="draftCopy" rows="8" maxlength="2400" placeholder="Paste the proposed copy, script, correction, or outreach note." required></textarea><small><span id="draftCount">0</span>/2400 characters</small></label>
+                <label class="studio-field"><span>Asset or working-file links</span><textarea id="haltAssetLinks" name="assetLinks" rows="4" maxlength="1000" placeholder="One HTTPS link per line"></textarea><small>Keep private files in the approved working folder; do not paste credentials or patient data.</small></label>
+                <label class="studio-field"><span>Alt text or visual description</span><textarea id="haltAltText" name="altText" rows="4" maxlength="600" placeholder="Describe the visual content and meaningful text."></textarea><small>Required when a visual or asset link is included.</small></label>
+              </div>
+              <div class="studio-controls"><button class="studio-secondary" type="button" data-prev-step="2">← Grounding</button><button type="button" data-next-step="4">Continue to review →</button></div>
+            </section>
+
+            <section class="studio-stage" data-studio-step="4" aria-labelledby="reviewTitle" hidden>
+              <div class="studio-prompt"><p class="eyebrow">Step 04 · Review</p><h3 id="reviewTitle">Stop the avoidable mistakes here.</h3><p>This is contributor self-check, not approval. Susan still reviews the submission, and consequential claims remain with Dee.</p></div>
+              <div class="safety-grid">
+                <label><input id="checkSource" name="checkSource" type="checkbox"><span><strong>Source-bound</strong>The current source directly supports the claim and its limits.</span></label>
+                <label><input id="checkPrivacy" name="checkPrivacy" type="checkbox"><span><strong>Privacy-safe</strong>No patient data, private contact data, credentials, or confidential material is included.</span></label>
+                <label><input id="checkMedical" name="checkMedical" type="checkbox"><span><strong>Human review intact</strong>The draft does not present AI output as medical advice or the sole basis for a clinical decision.</span></label>
+                <label><input id="checkStatus" name="checkStatus" type="checkbox"><span><strong>Status is accurate</strong>The draft does not imply deployment, validation, adoption, approval, or certification that the source does not prove.</span></label>
+              </div>
+              <div id="haltReviewSummary" class="review-summary"></div>
+              <div class="studio-controls"><button class="studio-secondary" type="button" data-prev-step="3">← Build</button><button type="button" data-next-step="5">Prepare submission →</button></div>
+            </section>
+
+            <section class="studio-stage" data-studio-step="5" aria-labelledby="submitTitle" hidden>
+              <div class="studio-prompt"><p class="eyebrow">Step 05 · Submit</p><h3 id="submitTitle">Hand off a complete packet.</h3><p>The buttons below prepare your existing assignment channel. Nothing is approved, published, or sent automatically.</p></div>
+              <div class="submission-layout">
+                <div class="submission-packet"><div class="submission-packet-head"><strong>Submission packet</strong><span id="packetStatus">Ready to copy</span></div><pre id="haltSubmissionPacket"></pre></div>
+                <aside class="submission-guide">
+                  <p class="eyebrow">What happens next</p>
+                  <ol><li><span>1</span><div><strong>You send</strong><p>Send from the email attached to your contributor profile and add any files.</p></div></li><li><span>2</span><div><strong>Inbound record</strong><p>When the configured workflow receives the reply, it can record the assignment and evidence as submitted.</p></div></li><li><span>3</span><div><strong>Susan reviews</strong><p>She requests changes or accepts the contribution.</p></div></li><li><span>4</span><div><strong>Governed promotion</strong><p>Accepted work can move to calendar, legal review, and approval. Contributors do not publish.</p></div></li></ol>
+                </aside>
+              </div>
+              <div class="submit-actions"><button id="copyHaltPacket" class="studio-secondary" type="button">Copy packet</button><a id="openHaltEmail" class="studio-primary-link" href="#">Open prepared email</a><button id="clearHaltDraft" class="studio-clear" type="button">Clear local draft</button></div>
+              <p class="submission-note">Your mail app will open a draft addressed to Susan. Confirm the assignment code, attach files, and send from the same address that received the assignment.</p>
+              <div class="studio-controls"><button class="studio-secondary" type="button" data-prev-step="4">← Review</button><span>Local draft remains available until you clear it.</span></div>
+            </section>
+          </form>
+        </section>
       </section>
 
       <section id="materials" class="materials-section" aria-labelledby="materialsTitle">

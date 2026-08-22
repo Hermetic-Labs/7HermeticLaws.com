@@ -46,6 +46,287 @@
 
   const byId = (id) => document.getElementById(id);
   const tabs = Array.from(document.querySelectorAll('.project-tab'));
+  const publicConsole = byId('publicConsole');
+  const haltStudio = byId('haltStudio');
+  const haltForm = byId('haltContributionForm');
+  const haltStorageKey = 'social-health.halt-contribution.v1';
+  const haltMailbox = 'Susan@7hermeticlabs.com';
+  const laneButtons = Array.from(document.querySelectorAll('[data-halt-lane]'));
+  const studioStages = Array.from(document.querySelectorAll('[data-studio-step]'));
+  const studioIndicators = Array.from(document.querySelectorAll('[data-step-indicator]'));
+  let currentStudioStep = 1;
+
+  const haltLanes = {
+    organization: {
+      label: 'HALT Organization',
+      truth: 'A working closed-beta, offline-capable medical coordination system designed for structured evaluation through a single-laptop, local-first model.',
+      boundary: 'Keep qualified human review explicit. Do not imply clinical deployment, validation, authorization, or autonomous decision-making.'
+    },
+    caregiver: {
+      label: 'HALT Caregiver',
+      truth: 'A bedside and household workspace being shaped around care timelines, dietary needs, supplies, multilingual communication, and requests for assistance.',
+      boundary: 'Describe it as part of the closed-beta family. Do not present emerging workflows as clinically validated or generally available.'
+    },
+    community: {
+      label: 'HALT Community',
+      truth: 'A simplified community-response workspace being shaped for household intake, local care mapping, food and WASH stock, first aid, translation, and coordination.',
+      boundary: 'Keep the community-response scope distinct from clinical authority, emergency-service replacement, or proven field deployment.'
+    }
+  };
+
+  function localDraft() {
+    try {
+      return JSON.parse(localStorage.getItem(haltStorageKey) || '{}');
+    } catch (_error) {
+      return {};
+    }
+  }
+
+  function collectHaltDraft() {
+    return {
+      assignmentCode: byId('haltAssignmentCode').value.trim().toUpperCase(),
+      contributionType: byId('haltContributionType').value,
+      lane: byId('haltLane').value,
+      sourceUrl: byId('haltSourceUrl').value.trim(),
+      audience: byId('haltAudience').value,
+      claim: byId('haltClaim').value.trim(),
+      context: byId('haltContext').value.trim(),
+      channels: Array.from(haltForm.querySelectorAll('[name="channels"]:checked')).map((input) => input.value),
+      draftCopy: byId('haltDraftCopy').value.trim(),
+      assetLinks: byId('haltAssetLinks').value.trim(),
+      altText: byId('haltAltText').value.trim(),
+      checks: {
+        source: byId('checkSource').checked,
+        privacy: byId('checkPrivacy').checked,
+        medical: byId('checkMedical').checked,
+        status: byId('checkStatus').checked
+      }
+    };
+  }
+
+  function saveHaltDraft() {
+    try {
+      localStorage.setItem(haltStorageKey, JSON.stringify(collectHaltDraft()));
+    } catch (_error) {
+      // The composer remains usable when browser storage is unavailable.
+    }
+  }
+
+  function selectHaltLane(laneId, persist = true) {
+    const lane = haltLanes[laneId];
+    if (!lane) return;
+    byId('haltLane').value = laneId;
+    laneButtons.forEach((button) => button.setAttribute('aria-checked', String(button.dataset.haltLane === laneId)));
+    const truth = byId('haltTruthCard');
+    const identity = document.createElement('div');
+    identity.append(element('small', '', 'Current product truth'), element('strong', '', lane.label));
+    const copy = document.createElement('div');
+    copy.append(element('p', '', lane.truth), element('p', '', lane.boundary));
+    truth.replaceChildren(identity, copy);
+    if (persist) saveHaltDraft();
+  }
+
+  function restoreHaltDraft() {
+    const draft = localDraft();
+    const values = {
+      haltAssignmentCode: draft.assignmentCode,
+      haltContributionType: draft.contributionType,
+      haltSourceUrl: draft.sourceUrl,
+      haltAudience: draft.audience,
+      haltClaim: draft.claim,
+      haltContext: draft.context,
+      haltDraftCopy: draft.draftCopy,
+      haltAssetLinks: draft.assetLinks,
+      haltAltText: draft.altText
+    };
+    Object.entries(values).forEach(([id, value]) => { if (value) byId(id).value = value; });
+    (draft.channels || []).forEach((channel) => {
+      const input = Array.from(haltForm.querySelectorAll('[name="channels"]')).find((item) => item.value === channel);
+      if (input) input.checked = true;
+    });
+    if (draft.checks) {
+      byId('checkSource').checked = Boolean(draft.checks.source);
+      byId('checkPrivacy').checked = Boolean(draft.checks.privacy);
+      byId('checkMedical').checked = Boolean(draft.checks.medical);
+      byId('checkStatus').checked = Boolean(draft.checks.status);
+    }
+    if (draft.lane) selectHaltLane(draft.lane, false);
+    updateHaltCounters();
+  }
+
+  function showStudioValidation(message) {
+    const panel = byId('studioValidation');
+    panel.textContent = message;
+    panel.hidden = !message;
+    if (message) panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  function validHttpUrl(value) {
+    try {
+      const parsed = new URL(value);
+      return ['http:', 'https:'].includes(parsed.protocol);
+    } catch (_error) {
+      return false;
+    }
+  }
+
+  function validateStudioStep(step) {
+    const draft = collectHaltDraft();
+    if (step === 1) {
+      if (!/^SOCIAL-\d{3,}$/i.test(draft.assignmentCode)) return 'Enter the SOCIAL assignment code supplied by Susan.';
+      if (!draft.lane) return 'Choose the HALT product lane this contribution belongs to.';
+      if (!draft.contributionType) return 'Choose the kind of contribution you are preparing.';
+    }
+    if (step === 2) {
+      if (!validHttpUrl(draft.sourceUrl)) return 'Add one current HTTP or HTTPS source URL.';
+      if (!draft.audience) return 'Choose the audience this contribution is intended to reach.';
+      if (!draft.claim) return 'State the bounded claim your source supports.';
+    }
+    if (step === 3) {
+      if (!draft.channels.length) return 'Choose at least one target channel.';
+      if (!draft.draftCopy) return 'Add the draft copy, script, correction, or outreach note.';
+      if ((draft.assetLinks || ['visual', 'short-video'].includes(draft.contributionType)) && !draft.altText) {
+        return 'Add alt text or a visual description for the proposed asset.';
+      }
+    }
+    if (step === 4 && Object.values(draft.checks).some((checked) => !checked)) {
+      return 'Confirm all four contributor safety checks before preparing the handoff.';
+    }
+    return '';
+  }
+
+  function reviewItem(label, value) {
+    const wrapper = document.createElement('div');
+    wrapper.append(element('span', '', label), element('strong', '', value || 'Not provided'));
+    return wrapper;
+  }
+
+  function renderHaltReview() {
+    const draft = collectHaltDraft();
+    const lane = haltLanes[draft.lane];
+    byId('haltReviewSummary').replaceChildren(
+      reviewItem('Assignment', draft.assignmentCode),
+      reviewItem('Product', lane ? lane.label : ''),
+      reviewItem('Contribution', draft.contributionType.replaceAll('-', ' ')),
+      reviewItem('Audience', draft.audience),
+      reviewItem('Channels', draft.channels.join(', ')),
+      reviewItem('Source', draft.sourceUrl)
+    );
+  }
+
+  function buildHaltPacket() {
+    const draft = collectHaltDraft();
+    const lane = haltLanes[draft.lane];
+    return [
+      'HALT CONTRIBUTOR SUBMISSION',
+      '',
+      `Assignment: ${draft.assignmentCode}`,
+      `Product: ${lane ? lane.label : draft.lane}`,
+      `Contribution type: ${draft.contributionType.replaceAll('-', ' ')}`,
+      `Audience: ${draft.audience}`,
+      `Target channels: ${draft.channels.join(', ')}`,
+      '',
+      'PRIMARY SOURCE',
+      draft.sourceUrl,
+      '',
+      'SUPPORTED CLAIM',
+      draft.claim,
+      '',
+      'WHY THIS MATTERS NOW',
+      draft.context || 'Not provided',
+      '',
+      'DRAFT CONTRIBUTION',
+      draft.draftCopy,
+      '',
+      'ASSET OR WORKING-FILE LINKS',
+      draft.assetLinks || 'No links provided; files may be attached to the email.',
+      '',
+      'ALT TEXT / VISUAL DESCRIPTION',
+      draft.altText || 'Not applicable',
+      '',
+      'CONTRIBUTOR CHECKS',
+      '- Source-bound claim confirmed',
+      '- No private, patient, credential, or confidential data included',
+      '- Qualified human review remains explicit',
+      '- Product status and validation language checked',
+      '',
+      'Please attach any files before sending.'
+    ].join('\n');
+  }
+
+  function prepareHaltSubmission() {
+    const packet = buildHaltPacket();
+    const draft = collectHaltDraft();
+    const lane = haltLanes[draft.lane];
+    byId('haltSubmissionPacket').textContent = packet;
+    const subject = `[${draft.assignmentCode}] ${lane ? lane.label : 'HALT'} contribution submission`;
+    byId('openHaltEmail').href = `mailto:${haltMailbox}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(packet)}`;
+  }
+
+  function setStudioStep(step) {
+    currentStudioStep = step;
+    showStudioValidation('');
+    studioStages.forEach((stage) => { stage.hidden = Number(stage.dataset.studioStep) !== step; });
+    studioIndicators.forEach((indicator) => {
+      const indicatorStep = Number(indicator.dataset.stepIndicator);
+      indicator.classList.toggle('is-current', indicatorStep === step);
+      indicator.classList.toggle('is-complete', indicatorStep < step);
+    });
+    if (step === 4) renderHaltReview();
+    if (step === 5) prepareHaltSubmission();
+    const activeStage = studioStages.find((stage) => Number(stage.dataset.studioStep) === step);
+    activeStage.setAttribute('tabindex', '-1');
+    activeStage.focus({ preventScroll: true });
+    activeStage.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function updateHaltCounters() {
+    byId('claimCount').textContent = String(byId('haltClaim').value.length);
+    byId('contextCount').textContent = String(byId('haltContext').value.length);
+    byId('draftCount').textContent = String(byId('haltDraftCopy').value.length);
+  }
+
+  async function copyHaltPacket() {
+    const packet = buildHaltPacket();
+    try {
+      await navigator.clipboard.writeText(packet);
+      byId('packetStatus').textContent = 'Copied';
+    } catch (_error) {
+      const helper = document.createElement('textarea');
+      helper.value = packet;
+      helper.style.position = 'fixed';
+      helper.style.opacity = '0';
+      document.body.appendChild(helper);
+      helper.select();
+      document.execCommand('copy');
+      helper.remove();
+      byId('packetStatus').textContent = 'Copied';
+    }
+  }
+
+  function clearHaltDraft() {
+    if (!window.confirm('Clear the HALT contribution saved in this browser?')) return;
+    try { localStorage.removeItem(haltStorageKey); } catch (_error) { /* No stored draft to clear. */ }
+    haltForm.reset();
+    byId('haltLane').value = '';
+    laneButtons.forEach((button) => button.setAttribute('aria-checked', 'false'));
+    byId('haltTruthCard').replaceChildren();
+    updateHaltCounters();
+    setStudioStep(1);
+  }
+
+  function openHaltStudio() {
+    publicConsole.classList.add('is-project-focused');
+    haltStudio.hidden = false;
+    byId('haltStudioTitle').focus({ preventScroll: true });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function closeHaltStudio() {
+    publicConsole.classList.remove('is-project-focused');
+    haltStudio.hidden = true;
+    byId('tab-halt').focus({ preventScroll: true });
+  }
 
   function setProject(projectId) {
     const project = projects[projectId];
@@ -80,7 +361,10 @@
   }
 
   tabs.forEach((tab, index) => {
-    tab.addEventListener('click', () => setProject(tab.dataset.project));
+    tab.addEventListener('click', () => {
+      setProject(tab.dataset.project);
+      if (tab.dataset.project === 'halt') openHaltStudio();
+    });
     tab.addEventListener('keydown', (event) => {
       if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
       event.preventDefault();
@@ -93,6 +377,47 @@
       setProject(tabs[target].dataset.project);
     });
   });
+
+  byId('closeHaltStudio').addEventListener('click', closeHaltStudio);
+
+  laneButtons.forEach((button, index) => {
+    button.addEventListener('click', () => selectHaltLane(button.dataset.haltLane));
+    button.addEventListener('keydown', (event) => {
+      if (!['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(event.key)) return;
+      event.preventDefault();
+      const backwards = ['ArrowLeft', 'ArrowUp'].includes(event.key);
+      const target = (index + (backwards ? -1 : 1) + laneButtons.length) % laneButtons.length;
+      laneButtons[target].focus();
+      selectHaltLane(laneButtons[target].dataset.haltLane);
+    });
+  });
+
+  haltForm.addEventListener('input', (event) => {
+    if (event.target === byId('haltAssignmentCode')) event.target.value = event.target.value.toUpperCase();
+    updateHaltCounters();
+    saveHaltDraft();
+  });
+  haltForm.addEventListener('change', saveHaltDraft);
+
+  haltForm.querySelectorAll('[data-next-step]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const message = validateStudioStep(currentStudioStep);
+      if (message) {
+        showStudioValidation(message);
+        return;
+      }
+      saveHaltDraft();
+      setStudioStep(Number(button.dataset.nextStep));
+    });
+  });
+
+  haltForm.querySelectorAll('[data-prev-step]').forEach((button) => {
+    button.addEventListener('click', () => setStudioStep(Number(button.dataset.prevStep)));
+  });
+
+  byId('copyHaltPacket').addEventListener('click', copyHaltPacket);
+  byId('clearHaltDraft').addEventListener('click', clearHaltDraft);
+  restoreHaltDraft();
 
   const formatStatus = (value) => String(value || 'in progress').replaceAll('_', ' ');
   const formatDate = (value) => {

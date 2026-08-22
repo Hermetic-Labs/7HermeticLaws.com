@@ -54,6 +54,32 @@ if (!(await page.locator('.brand-logo').getAttribute('src')).includes('7hl-socia
 await page.locator('#tab-fefe').click();
 if ((await page.locator('#projectName').textContent()) !== 'FEFE Connect') errors.push('Project tab did not update the panel');
 
+await page.locator('#tab-halt').click();
+if (!(await page.locator('#haltStudio').isVisible())) errors.push('HALT tab did not open the focused contribution studio');
+if (!(await page.locator('#materials').isHidden())) errors.push('Long-form page sections remained visible in HALT focus mode');
+await page.locator('[data-next-step="2"]').click();
+if (!(await page.locator('#studioValidation').isVisible())) errors.push('HALT scope validation did not stop an incomplete draft');
+
+await page.locator('#haltAssignmentCode').fill('social-003');
+await page.locator('#haltContributionType').selectOption('social-copy');
+await page.locator('[data-halt-lane="organization"]').click();
+await page.locator('[data-next-step="2"]').click();
+await page.locator('#haltSourceUrl').fill('https://7hermeticlabs.health/');
+await page.locator('#haltAudience').selectOption({ label: 'Medical and humanitarian organizations' });
+await page.locator('#haltClaim').fill('HALT is an offline-capable medical coordination system in closed beta.');
+await page.locator('[data-next-step="3"]').click();
+await page.locator('.channel-picker label').filter({ hasText: 'LinkedIn' }).click();
+await page.locator('#haltDraftCopy').fill('A source-grounded HALT contribution for review.');
+await page.locator('[data-next-step="4"]').click();
+for (const id of ['checkSource', 'checkPrivacy', 'checkMedical', 'checkStatus']) await page.locator(`#${id}`).check();
+await page.locator('[data-next-step="5"]').click();
+if (!(await page.locator('#haltSubmissionPacket').textContent()).includes('SOCIAL-003')) errors.push('HALT submission packet omitted the assignment code');
+if (!(await page.locator('#openHaltEmail').getAttribute('href')).startsWith('mailto:Susan@7hermeticlabs.com')) errors.push('HALT submission email handoff is not prepared');
+if (await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth)) errors.push('HALT studio has horizontal overflow at mobile width');
+if (!(await page.evaluate(() => localStorage.getItem('social-health.halt-contribution.v1')))) errors.push('HALT local draft was not persisted');
+await page.locator('#closeHaltStudio').click();
+if (!(await page.locator('#materials').isVisible())) errors.push('HALT studio did not return to the project overview');
+
 const pageText = await page.locator('body').innerText();
 for (const privateOrStaleText of ['805 S Glynn', 'frontdesk@', '146 curated hashtags', 'HALT qualifies', '93%']) {
   if (pageText.includes(privateOrStaleText)) errors.push(`Public page exposes stale or private text: ${privateOrStaleText}`);
