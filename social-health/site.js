@@ -239,10 +239,6 @@
     byId('studioProjectDescription').textContent = studio.description;
     byId('studioProjectReference').href = studio.referenceUrl;
     byId('studioProjectReference').firstChild.textContent = `${studio.referenceLabel} `;
-    byId('copyStudioMark').dataset.copyIcon = mark.source;
-    byId('copyStudioMark').dataset.copyLabel = project.name;
-    byId('copyStudioMark').textContent = `Copy ${project.name} mark`;
-    byId('downloadStudioMark').href = mark.source;
     byId('scopeTitle').textContent = studio.scopeQuestion;
     byId('scopeDescription').textContent = studio.scopeDescription;
     byId('haltSourceUrl').placeholder = studio.referenceUrl;
@@ -560,6 +556,7 @@
     byId('projectAssetsDescription').textContent = `Use these assets only inside the ${project.name} lane.`;
     const grid = byId('projectAssetGrid');
     grid.replaceChildren();
+    grid.classList.toggle('is-single', project.assets.length === 1);
 
     project.assets.forEach((asset) => {
       const card = element('article', `project-asset-card${asset.wide ? ' is-wide' : ''}`);

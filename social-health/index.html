@@ -136,7 +136,7 @@
         <aside class="boundary-card" aria-label="Release boundary">
           <div class="identity-lockup">
             <img src="./assets/7hl-social-rgb.png" alt="7 Hermetic Labs RGB mark">
-            <div><span>Social Health identity</span><strong>Signal in three channels.</strong><div class="identity-actions"><button type="button" data-copy-icon="./assets/7hl-social-rgb.png" data-copy-label="Social Health">Copy site mark</button><a href="./assets/7hl-social-rgb.png" download>Download</a></div></div>
+            <div><span>Social Health identity</span><strong>Signal in three channels.</strong><div class="identity-actions"><button type="button" data-copy-icon="./assets/7hl-social-rgb.png" data-copy-label="Social Health">Copy site mark</button></div></div>
           </div>
           <p class="card-label">Release boundary</p>
           <div class="boundary-track">
@@ -194,16 +194,18 @@
                 <h2 id="haltStudioTitle" tabindex="-1">Know the product.<br>Build from truth.</h2>
                 <p id="studioProjectDescription">HALT is an offline-capable medical coordination system in closed beta. Contributions must stay grounded in the product lane, current evidence, and qualified human review.</p>
                 <a id="studioProjectReference" href="https://7hermeticlabs.health/" target="_blank" rel="noopener">Open the full product reference <span aria-hidden="true">↗</span></a>
-                <div class="studio-asset-actions"><button id="copyStudioMark" type="button" data-copy-icon="./assets/halt-mark.png" data-copy-label="HALT">Copy HALT mark</button><a id="downloadStudioMark" href="./assets/halt-mark.png" download>Download PNG</a></div>
               </div>
             </div>
           </header>
 
           <div class="studio-project-context">
-            <section class="project-assets" aria-labelledby="projectAssetsTitle">
-              <div class="project-assets-heading"><div><p class="eyebrow">Project iconology</p><h3 id="projectAssetsTitle">HALT marks</h3></div><p id="projectAssetsDescription">Use these assets only inside this project lane.</p></div>
-              <div id="projectAssetGrid" class="project-asset-grid"></div>
-            </section>
+            <details class="project-assets" open>
+              <summary class="project-assets-heading">
+                <div><p class="eyebrow">Project iconology</p><h3 id="projectAssetsTitle">HALT marks</h3></div>
+                <div class="project-assets-summary-meta"><p id="projectAssetsDescription">Use these assets only inside this project lane.</p><span class="project-assets-toggle"><span class="when-open">Collapse ↑</span><span class="when-closed">Expand ↓</span></span></div>
+              </summary>
+              <div class="project-asset-scroll" tabindex="0" aria-label="Scrollable project assets"><div id="projectAssetGrid" class="project-asset-grid"></div></div>
+            </details>
             <section class="project-pulse" aria-labelledby="pulseTitle">
               <div class="project-pulse-heading">
                 <div><p class="eyebrow">Live public projection</p><h3 id="pulseTitle">HALT campaign pulse</h3><p id="pulseScope">Product education and contribution activity for the HALT family.</p></div>

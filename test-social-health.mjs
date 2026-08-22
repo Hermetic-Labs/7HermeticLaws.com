@@ -65,6 +65,7 @@ if (await page.locator('#materials').count()) errors.push('Mixed-project asset r
 if ((await page.locator('#pulseTitle').textContent()) !== 'HALT campaign pulse') errors.push('Campaign pulse is not scoped to HALT by default');
 if (await page.locator('#projectPanel .project-assets, #projectPanel .project-pulse').count()) errors.push('Project details remain exposed in the summary');
 if ((await page.locator('#tab-halt').getAttribute('href')) !== null) errors.push('HALT tab still carries a page link');
+if (await page.evaluate(() => Array.from(document.querySelectorAll('[download]')).some((node) => !node.closest('.project-assets')))) errors.push('A download control remains outside Project iconology');
 if ((await page.locator('#projectAssetGrid .project-asset-card').count()) !== 1) errors.push('HALT project asset did not render in its lane');
 if (!(await page.locator('#projectAssetGrid img[src$="halt-mark.png"]').count())) errors.push('HALT mark is not wired into the HALT lane');
 if (!(await page.locator('.brand-logo').getAttribute('src')).includes('7hl-social-rgb-192.png')) errors.push('RGB site logo is not wired into the header');
@@ -98,6 +99,11 @@ await page.locator('#openProjectStudio').click();
 if (!(await page.locator('#haltStudio').isVisible())) errors.push('Eve OS / Exchange summary did not open its contribution workspace');
 if ((await page.locator('#studioProjectEyebrow').textContent()) !== 'Eve OS / Exchange contribution studio') errors.push('Contribution workspace did not inherit the Eve OS / Exchange identity');
 if ((await page.locator('#studioLanePicker [data-project-lane]').count()) !== 3) errors.push('Eve OS / Exchange workspace lanes did not render');
+if ((await page.locator('.project-asset-scroll').evaluate((node) => getComputedStyle(node).overflowX)) !== 'auto') errors.push('Project iconology asset rail is not horizontally scrollable');
+await page.locator('.project-assets > summary').click();
+if (await page.locator('.project-assets').getAttribute('open') !== null) errors.push('Project iconology did not collapse');
+await page.locator('.project-assets > summary').click();
+if (await page.locator('.project-assets').getAttribute('open') === null) errors.push('Project iconology did not expand');
 await page.locator('#closeHaltStudio').click();
 
 await page.locator('#tab-halt').click();
