@@ -19,6 +19,24 @@
         empty: 'No named HALT campaign is currently projected.',
         aliases: ['halt', 'halt-organization', 'halt-caregiver', 'halt-community']
       },
+      studio: {
+        title: 'Know the product. Build from truth.',
+        description: 'HALT is an offline-capable medical coordination system in closed beta. Contributions must stay grounded in the product lane, current evidence, and qualified human review.',
+        referenceUrl: 'https://7hermeticlabs.health/',
+        referenceLabel: 'Open the full product reference',
+        scopeQuestion: 'Which HALT experience are you speaking for?',
+        scopeDescription: 'Start with an active Susan assignment, then choose the product and contribution type. Each lane serves a different person and setting.',
+        audiences: ['Medical and humanitarian organizations', 'Caregivers and families', 'Community responders and mutual-aid teams', 'Researchers and evaluators', 'Technical builders and contributors', 'General public'],
+        positive: 'HALT is a working closed-beta, offline-capable medical coordination system designed for structured evaluation in constrained environments. Core workflows are designed to run locally, with qualified human review kept in the loop.',
+        positiveWhy: 'Why it works · Names the current status, bounds the capability, and keeps human review visible.',
+        negative: 'HALT uses autonomous medical AI to diagnose patients anywhere with 100% reliability—even without doctors or internet.',
+        negativeWhy: 'Why it fails · Invents autonomy, diagnosis, absolute performance, and removal of clinical oversight.',
+        lanes: {
+          organization: { label: 'HALT Organization', summary: 'Field medical coordination, structured intake, ward visibility, supplies, and local workflows.', truth: 'A working closed-beta, offline-capable medical coordination system designed for structured evaluation through a single-laptop, local-first model.', boundary: 'Keep qualified human review explicit. Do not imply clinical deployment, validation, authorization, or autonomous decision-making.' },
+          caregiver: { label: 'HALT Caregiver', summary: 'Bedside and household timelines, needs, supplies, multilingual assistance, and requests for help.', truth: 'A bedside and household workspace being shaped around care timelines, dietary needs, supplies, multilingual communication, and requests for assistance.', boundary: 'Describe it as part of the closed-beta family. Do not present emerging workflows as clinically validated or generally available.' },
+          community: { label: 'HALT Community', summary: 'Household intake, local response, food and WASH stock, first aid, translation, and coordination.', truth: 'A simplified community-response workspace being shaped for household intake, local care mapping, food and WASH stock, first aid, translation, and coordination.', boundary: 'Keep the community-response scope distinct from clinical authority, emergency-service replacement, or proven field deployment.' }
+        }
+      },
       assets: [{ name: 'HALT', source: './assets/halt-mark.png', description: 'Current public product-family mark.', role: 'Product family' }]
     },
     vrf: {
@@ -37,6 +55,24 @@
         notice: 'Only campaigns explicitly assigned to VRF appear in this lane.',
         empty: 'No named VRF campaign is currently projected.',
         aliases: ['vrf']
+      },
+      studio: {
+        title: 'Show the system. Bound the build.',
+        description: 'VRF is a family of Unreal Engine and immersive-system assets. Contributions must identify the exact pack, version, source, and demonstrated capability.',
+        referenceUrl: 'https://www.fab.com/sellers/Hermetic%20Labs',
+        referenceLabel: 'Open the public VRF catalog',
+        scopeQuestion: 'Which VRF surface are you speaking for?',
+        scopeDescription: 'Choose the exact product or learning lane before drafting. Do not combine claims across packs, versions, or unpublished material.',
+        audiences: ['Unreal Engine developers', 'XR and simulation teams', 'Technical artists and designers', 'Marketplace customers', 'Technical builders and contributors', 'General public'],
+        positive: 'VRF is a family of Unreal Engine tools and learning materials. This demonstration covers the named feature in the cited pack and version; compatibility and setup should be confirmed from the linked source.',
+        positiveWhy: 'Why it works · Names the product family, bounds the demonstration, and sends compatibility claims back to the source.',
+        negative: 'VRF is a universal VR framework that works with every headset, engine version, and project without setup.',
+        negativeWhy: 'Why it fails · Claims universal compatibility and frictionless performance without product-, version-, or device-level evidence.',
+        lanes: {
+          packs: { label: 'VRF packs', summary: 'Named Unreal Engine packs, modules, and demonstrated workflows.', truth: 'VRF includes a working family of Unreal Engine project assets and modular systems.', boundary: 'Name the exact pack and version. Do not promote deprecated, restricted, private, or unreleased material as currently available.' },
+          demonstrations: { label: 'VRF demonstrations', summary: 'Feature demonstrations, compatibility notes, and implementation context.', truth: 'Public demonstrations can show bounded behavior from a named build or pack.', boundary: 'A demonstration proves only what is shown in that configuration; it does not establish universal compatibility or production readiness.' },
+          learning: { label: 'VRF learning', summary: 'Public-safe tutorials, walkthroughs, and developer guidance.', truth: 'VRF is supported by tutorials and demonstrations that help builders understand specific workflows.', boundary: 'Use only public-safe learning material and keep the guidance tied to the version and source shown.' }
+        }
       },
       assets: [{ name: 'VRF', source: './assets/vrf-mark.png', description: 'Canonical high-resolution mark for the VRF product family.', role: 'Product family' }]
     },
@@ -57,6 +93,24 @@
         empty: 'No named FEFE Connect campaign is currently projected.',
         aliases: ['fefe', 'fefe-connect']
       },
+      studio: {
+        title: 'Make the introduction. Keep the standard clear.',
+        description: 'FEFE Connect is a private professional network for legal and mental-health professionals. Contributions must preserve its reviewed-membership model, professional boundaries, and privacy-minded positioning.',
+        referenceUrl: 'https://fefeconnect.com/',
+        referenceLabel: 'Open the FEFE Connect reference',
+        scopeQuestion: 'Which FEFE Connect audience are you speaking for?',
+        scopeDescription: 'Choose the professional lane or membership story before drafting. Keep review, pricing, privacy, and outcome claims exactly aligned with the current source.',
+        audiences: ['Legal professionals and firms', 'Mental-health professionals and practices', 'Prospective members', 'Professional referral partners', 'Technical builders and contributors', 'General public'],
+        positive: 'FEFE Connect is a private professional network for legal and mental-health professionals. Applicants complete a role-specific review before an approved profile becomes part of the member community.',
+        positiveWhy: 'Why it works · Identifies the two professional groups and describes review without promising a connection or outcome.',
+        negative: 'FEFE Connect guarantees fully vetted experts, instant referrals, and successful professional outcomes for every paying member.',
+        negativeWhy: 'Why it fails · Turns a reviewed-membership process into absolute vetting, referral, and outcome guarantees.',
+        lanes: {
+          legal: { label: 'Legal professionals', summary: 'Reviewed firms and legal professionals seeking considered professional connections.', truth: 'FEFE Connect offers a legal-professional path into a private, reviewed membership community.', boundary: 'Do not imply legal endorsement, guaranteed introductions, case outcomes, or verification beyond the checks named in the current source.' },
+          mentalHealth: { label: 'Mental-health professionals', summary: 'Reviewed practitioners presenting expertise and connection preferences.', truth: 'FEFE Connect offers a mental-health-professional path with reviewed profiles and member-controlled contact preferences.', boundary: 'Do not disclose clinical records, imply public directories, or promise referrals, engagements, or professional outcomes.' },
+          membership: { label: 'Membership experience', summary: 'Application, review, activation, privacy, and community expectations.', truth: 'Applicants apply before payment; approved applicants can activate a fixed monthly membership.', boundary: 'Use current published pricing and terms only. Approval does not guarantee introductions or outcomes.' }
+        }
+      },
       assets: [{ name: 'FEFE Connect', source: './assets/fefe-connect-mark.png', description: 'Current public wordmark from the FEFE Connect site.', role: 'Service identity', wide: true }]
     },
     eve: {
@@ -76,6 +130,24 @@
         empty: 'No named Eve OS or Exchange campaign is currently projected.',
         aliases: ['eve', 'eve-os', 'exchange', 'hermetic-labs-exchange']
       },
+      studio: {
+        title: 'Name the layer. Keep the boundary visible.',
+        description: 'Eve OS and Hermetic Labs Exchange share a portfolio lane, but they are not interchangeable. Contributions must identify whether they describe the operating system, a module, or the marketplace.',
+        referenceUrl: 'https://7hermeticloops.com/',
+        referenceLabel: 'Open the Exchange reference',
+        scopeQuestion: 'Which Eve OS or Exchange layer are you speaking for?',
+        scopeDescription: 'Choose the system, marketplace, or module lane first. Keep product status, availability, economics, and compatibility tied to the current public source.',
+        audiences: ['Developers and module builders', 'Organizations evaluating Eve OS', 'Exchange publishers and customers', 'Integration and platform teams', 'Technical contributors', 'General public'],
+        positive: 'Eve OS and Hermetic Labs Exchange serve different layers of the ecosystem: Eve OS provides the operating environment, while the Exchange presents modules and packages through a separate marketplace surface.',
+        positiveWhy: 'Why it works · Separates the operating system from the marketplace and avoids inventing availability or adoption.',
+        negative: 'Every Exchange module is certified by Hermetic Labs, works everywhere, and automatically becomes part of Eve OS.',
+        negativeWhy: 'Why it fails · Invents certification, universal compatibility, and automatic platform inclusion.',
+        lanes: {
+          eveOs: { label: 'Eve OS', summary: 'The operating environment, orchestration layer, and system capabilities.', truth: 'Eve OS is the operating-system layer in the Hermetic Labs ecosystem.', boundary: 'Do not treat planned features, private integrations, or repository artifacts as live public capability without a current source.' },
+          exchange: { label: 'Hermetic Labs Exchange', summary: 'The marketplace surface for discovering and presenting Eve OS modules and packages.', truth: 'Hermetic Labs Exchange is the marketplace layer associated with Eve OS modules and packages.', boundary: 'Do not imply that every listing is certified, compatible, approved, or generally available unless the current record says so.' },
+          modules: { label: 'Modules and connectors', summary: 'Individual packages, integrations, documentation, and publisher material.', truth: 'Modules and connectors must be described from their own current package record and documentation.', boundary: 'Keep ownership, version, compatibility, pricing, and support claims specific to the named module.' }
+        }
+      },
       assets: [
         { name: 'Eve OS', source: './assets/eve-os-wordmark.png', description: 'Existing chromatic wordmark retained for identity reference.', role: 'Product identity', wide: true },
         { name: 'Hermetic Labs Exchange', source: './assets/exchange-mark.png', description: 'Existing RGB ring mark retained as the marketplace reference.', role: 'Marketplace identity' }
@@ -88,36 +160,23 @@
   const publicConsole = byId('publicConsole');
   const haltStudio = byId('haltStudio');
   const haltForm = byId('haltContributionForm');
-  const haltStorageKey = 'social-health.halt-contribution.v1';
-  const haltMailbox = 'Susan@7hermeticlabs.com';
-  const laneButtons = Array.from(document.querySelectorAll('[data-halt-lane]'));
+  const studioMailbox = 'Susan@7hermeticlabs.com';
+  const lanePicker = byId('studioLanePicker');
   const studioStages = Array.from(document.querySelectorAll('[data-studio-step]'));
   const studioIndicators = Array.from(document.querySelectorAll('[data-step-indicator]'));
   let currentStudioStep = 1;
   let activeProjectId = 'halt';
+  let studioProjectId = 'halt';
   let publicBoardSnapshot = null;
 
-  const haltLanes = {
-    organization: {
-      label: 'HALT Organization',
-      truth: 'A working closed-beta, offline-capable medical coordination system designed for structured evaluation through a single-laptop, local-first model.',
-      boundary: 'Keep qualified human review explicit. Do not imply clinical deployment, validation, authorization, or autonomous decision-making.'
-    },
-    caregiver: {
-      label: 'HALT Caregiver',
-      truth: 'A bedside and household workspace being shaped around care timelines, dietary needs, supplies, multilingual communication, and requests for assistance.',
-      boundary: 'Describe it as part of the closed-beta family. Do not present emerging workflows as clinically validated or generally available.'
-    },
-    community: {
-      label: 'HALT Community',
-      truth: 'A simplified community-response workspace being shaped for household intake, local care mapping, food and WASH stock, first aid, translation, and coordination.',
-      boundary: 'Keep the community-response scope distinct from clinical authority, emergency-service replacement, or proven field deployment.'
-    }
-  };
+  const studioStorageKey = () => `social-health.${studioProjectId}-contribution.v1`;
+  const studioProject = () => projects[studioProjectId];
+  const studioLanes = () => studioProject().studio.lanes;
+  const laneButtons = () => Array.from(lanePicker.querySelectorAll('[data-project-lane]'));
 
   function localDraft() {
     try {
-      return JSON.parse(localStorage.getItem(haltStorageKey) || '{}');
+      return JSON.parse(localStorage.getItem(studioStorageKey()) || '{}');
     } catch (_error) {
       return {};
     }
@@ -147,17 +206,17 @@
 
   function saveHaltDraft() {
     try {
-      localStorage.setItem(haltStorageKey, JSON.stringify(collectHaltDraft()));
+      localStorage.setItem(studioStorageKey(), JSON.stringify(collectHaltDraft()));
     } catch (_error) {
       // The composer remains usable when browser storage is unavailable.
     }
   }
 
   function selectHaltLane(laneId, persist = true) {
-    const lane = haltLanes[laneId];
+    const lane = studioLanes()[laneId];
     if (!lane) return;
     byId('haltLane').value = laneId;
-    laneButtons.forEach((button) => button.setAttribute('aria-checked', String(button.dataset.haltLane === laneId)));
+    laneButtons().forEach((button) => button.setAttribute('aria-checked', String(button.dataset.projectLane === laneId)));
     const truth = byId('haltTruthCard');
     const identity = document.createElement('div');
     identity.append(element('small', '', 'Current product truth'), element('strong', '', lane.label));
@@ -165,6 +224,54 @@
     copy.append(element('p', '', lane.truth), element('p', '', lane.boundary));
     truth.replaceChildren(identity, copy);
     if (persist) saveHaltDraft();
+  }
+
+  function configureProjectStudio(projectId) {
+    const project = projects[projectId];
+    const studio = project.studio;
+    studioProjectId = projectId;
+
+    const mark = project.assets[0];
+    byId('studioProjectMark').src = mark.source;
+    byId('studioProjectMark').alt = `${project.name} mark`;
+    byId('studioProjectEyebrow').textContent = `${project.name} contribution studio`;
+    byId('haltStudioTitle').textContent = studio.title;
+    byId('studioProjectDescription').textContent = studio.description;
+    byId('studioProjectReference').href = studio.referenceUrl;
+    byId('studioProjectReference').firstChild.textContent = `${studio.referenceLabel} `;
+    byId('copyStudioMark').dataset.copyIcon = mark.source;
+    byId('copyStudioMark').dataset.copyLabel = project.name;
+    byId('copyStudioMark').textContent = `Copy ${project.name} mark`;
+    byId('downloadStudioMark').href = mark.source;
+    byId('scopeTitle').textContent = studio.scopeQuestion;
+    byId('scopeDescription').textContent = studio.scopeDescription;
+    byId('haltSourceUrl').placeholder = studio.referenceUrl;
+    byId('positiveExampleText').textContent = studio.positive;
+    byId('positiveExampleWhy').textContent = studio.positiveWhy;
+    byId('negativeExampleText').textContent = studio.negative;
+    byId('negativeExampleWhy').textContent = studio.negativeWhy;
+
+    lanePicker.setAttribute('aria-label', `${project.name} product lane`);
+    lanePicker.replaceChildren();
+    Object.entries(studio.lanes).forEach(([laneId, lane]) => {
+      const button = element('button');
+      button.type = 'button';
+      button.setAttribute('role', 'radio');
+      button.setAttribute('aria-checked', 'false');
+      button.dataset.projectLane = laneId;
+      button.append(element('strong', '', lane.label), element('span', '', lane.summary));
+      lanePicker.appendChild(button);
+    });
+
+    const audience = byId('haltAudience');
+    audience.replaceChildren(new Option('Choose one', ''));
+    studio.audiences.forEach((label) => audience.appendChild(new Option(label, label)));
+
+    haltForm.reset();
+    byId('haltLane').value = '';
+    byId('haltTruthCard').replaceChildren();
+    restoreHaltDraft();
+    setStudioStep(1, false);
   }
 
   function restoreHaltDraft() {
@@ -215,7 +322,7 @@
     const draft = collectHaltDraft();
     if (step === 1) {
       if (!/^SOCIAL-\d{3,}$/i.test(draft.assignmentCode)) return 'Enter the SOCIAL assignment code supplied by Susan.';
-      if (!draft.lane) return 'Choose the HALT product lane this contribution belongs to.';
+      if (!draft.lane) return `Choose the ${studioProject().name} lane this contribution belongs to.`;
       if (!draft.contributionType) return 'Choose the kind of contribution you are preparing.';
     }
     if (step === 2) {
@@ -244,7 +351,7 @@
 
   function renderHaltReview() {
     const draft = collectHaltDraft();
-    const lane = haltLanes[draft.lane];
+    const lane = studioLanes()[draft.lane];
     byId('haltReviewSummary').replaceChildren(
       reviewItem('Assignment', draft.assignmentCode),
       reviewItem('Product', lane ? lane.label : ''),
@@ -257,9 +364,10 @@
 
   function buildHaltPacket() {
     const draft = collectHaltDraft();
-    const lane = haltLanes[draft.lane];
+    const project = studioProject();
+    const lane = studioLanes()[draft.lane];
     return [
-      'HALT CONTRIBUTOR SUBMISSION',
+      `${project.name.toUpperCase()} CONTRIBUTOR SUBMISSION`,
       '',
       `Assignment: ${draft.assignmentCode}`,
       `Product: ${lane ? lane.label : draft.lane}`,
@@ -287,7 +395,7 @@
       '',
       'CONTRIBUTOR CHECKS',
       '- Source-bound claim confirmed',
-      '- No private, patient, credential, or confidential data included',
+      '- No personal, private-contact, credential, confidential, or regulated data included',
       '- Qualified human review remains explicit',
       '- Product status and validation language checked',
       '',
@@ -298,13 +406,14 @@
   function prepareHaltSubmission() {
     const packet = buildHaltPacket();
     const draft = collectHaltDraft();
-    const lane = haltLanes[draft.lane];
+    const project = studioProject();
+    const lane = studioLanes()[draft.lane];
     byId('haltSubmissionPacket').textContent = packet;
-    const subject = `[${draft.assignmentCode}] ${lane ? lane.label : 'HALT'} contribution submission`;
-    byId('openHaltEmail').href = `mailto:${haltMailbox}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(packet)}`;
+    const subject = `[${draft.assignmentCode}] ${lane ? lane.label : project.name} contribution submission`;
+    byId('openHaltEmail').href = `mailto:${studioMailbox}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(packet)}`;
   }
 
-  function setStudioStep(step) {
+  function setStudioStep(step, moveFocus = true) {
     currentStudioStep = step;
     showStudioValidation('');
     studioStages.forEach((stage) => { stage.hidden = Number(stage.dataset.studioStep) !== step; });
@@ -316,9 +425,11 @@
     if (step === 4) renderHaltReview();
     if (step === 5) prepareHaltSubmission();
     const activeStage = studioStages.find((stage) => Number(stage.dataset.studioStep) === step);
-    activeStage.setAttribute('tabindex', '-1');
-    activeStage.focus({ preventScroll: true });
-    activeStage.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (moveFocus) {
+      activeStage.setAttribute('tabindex', '-1');
+      activeStage.focus({ preventScroll: true });
+      activeStage.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   }
 
   function updateHaltCounters() {
@@ -375,17 +486,18 @@
   }
 
   function clearHaltDraft() {
-    if (!window.confirm('Clear the HALT contribution saved in this browser?')) return;
-    try { localStorage.removeItem(haltStorageKey); } catch (_error) { /* No stored draft to clear. */ }
+    if (!window.confirm(`Clear the ${studioProject().name} contribution saved in this browser?`)) return;
+    try { localStorage.removeItem(studioStorageKey()); } catch (_error) { /* No stored draft to clear. */ }
     haltForm.reset();
     byId('haltLane').value = '';
-    laneButtons.forEach((button) => button.setAttribute('aria-checked', 'false'));
+    laneButtons().forEach((button) => button.setAttribute('aria-checked', 'false'));
     byId('haltTruthCard').replaceChildren();
     updateHaltCounters();
     setStudioStep(1);
   }
 
   function openHaltStudio() {
+    configureProjectStudio(activeProjectId);
     publicConsole.classList.add('is-project-focused');
     haltStudio.hidden = false;
     byId('haltStudioTitle').focus({ preventScroll: true });
@@ -395,7 +507,7 @@
   function closeHaltStudio() {
     publicConsole.classList.remove('is-project-focused');
     haltStudio.hidden = true;
-    byId('tab-halt').focus({ preventScroll: true });
+    byId(`tab-${studioProjectId}`).focus({ preventScroll: true });
   }
 
   function setProject(projectId) {
@@ -420,6 +532,7 @@
     byId('projectJob').textContent = project.job;
     byId('projectPublicState').textContent = project.publicState;
     byId('projectNextGate').textContent = project.nextGate;
+    byId('openProjectStudio').textContent = `Enter ${project.name} contribution workspace →`;
 
     const products = byId('projectProducts');
     products.replaceChildren();
@@ -477,7 +590,6 @@
   tabs.forEach((tab, index) => {
     tab.addEventListener('click', () => {
       setProject(tab.dataset.project);
-      if (tab.dataset.project === 'halt') openHaltStudio();
     });
     tab.addEventListener('keydown', (event) => {
       if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
@@ -492,18 +604,23 @@
     });
   });
 
+  byId('openProjectStudio').addEventListener('click', openHaltStudio);
   byId('closeHaltStudio').addEventListener('click', closeHaltStudio);
 
-  laneButtons.forEach((button, index) => {
-    button.addEventListener('click', () => selectHaltLane(button.dataset.haltLane));
-    button.addEventListener('keydown', (event) => {
-      if (!['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(event.key)) return;
-      event.preventDefault();
-      const backwards = ['ArrowLeft', 'ArrowUp'].includes(event.key);
-      const target = (index + (backwards ? -1 : 1) + laneButtons.length) % laneButtons.length;
-      laneButtons[target].focus();
-      selectHaltLane(laneButtons[target].dataset.haltLane);
-    });
+  lanePicker.addEventListener('click', (event) => {
+    const button = event.target.closest('[data-project-lane]');
+    if (button) selectHaltLane(button.dataset.projectLane);
+  });
+  lanePicker.addEventListener('keydown', (event) => {
+    if (!['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(event.key)) return;
+    const buttons = laneButtons();
+    const index = buttons.indexOf(event.target.closest('[data-project-lane]'));
+    if (index < 0) return;
+    event.preventDefault();
+    const backwards = ['ArrowLeft', 'ArrowUp'].includes(event.key);
+    const target = (index + (backwards ? -1 : 1) + buttons.length) % buttons.length;
+    buttons[target].focus();
+    selectHaltLane(buttons[target].dataset.projectLane);
   });
 
   haltForm.addEventListener('input', (event) => {
@@ -542,8 +659,6 @@
   document.querySelectorAll('[data-copy-icon]').forEach((button) => {
     button.addEventListener('click', () => copyIcon(button));
   });
-  restoreHaltDraft();
-
   const formatStatus = (value) => String(value || 'in progress').replaceAll('_', ' ');
   const formatDate = (value) => {
     if (!value) return '';
@@ -669,6 +784,7 @@
   }
 
   byId('refreshBoard').addEventListener('click', loadBoard);
+  byId('mainContent').prepend(byId('projects'));
   setProject('halt');
   loadBoard();
 })();

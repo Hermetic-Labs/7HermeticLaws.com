@@ -60,6 +60,7 @@ if (!(await page.locator('#publicConsole').isVisible())) errors.push('Public con
 if (!(await page.locator('#contributorWorkspace').isHidden())) errors.push('Contributor workspace appeared without a signed link');
 if ((await page.locator('.project-tab').count()) !== 4) errors.push('Expected four project lanes');
 if ((await page.locator('.campaign-card-public').count()) !== 1) errors.push('Public campaign did not render');
+if ((await page.locator('#mainContent > :first-child').getAttribute('id')) !== 'projects') errors.push('Portfolio map is not the first public section');
 if (await page.locator('#materials').count()) errors.push('Mixed-project asset register remains on the landing page');
 if ((await page.locator('#pulseTitle').textContent()) !== 'HALT campaign pulse') errors.push('Campaign pulse is not scoped to HALT by default');
 if ((await page.locator('#projectAssetGrid .project-asset-card').count()) !== 1) errors.push('HALT project asset did not render in its lane');
@@ -68,26 +69,46 @@ if (!(await page.locator('.brand-logo').getAttribute('src')).includes('7hl-socia
 
 await page.locator('#tab-fefe').click();
 if ((await page.locator('#projectName').textContent()) !== 'FEFE Connect') errors.push('Project tab did not update the panel');
+if (!(await page.locator('#haltStudio').isHidden())) errors.push('A project tab opened the workspace instead of its summary');
 if (!(await page.locator('#projectAssetGrid img[src$="fefe-connect-mark.png"]').count())) errors.push('FEFE Connect mark is not contained in the FEFE lane');
 if ((await page.locator('#pulseTitle').textContent()) !== 'FEFE Connect campaign pulse') errors.push('Campaign pulse did not switch to FEFE Connect');
 if (await page.locator('.campaign-card-public').count()) errors.push('HALT campaign leaked into the FEFE Connect scope');
 if (!(await page.locator('#campaignBoard').textContent()).includes('No named FEFE Connect campaign')) errors.push('FEFE Connect empty state is not project-specific');
+await page.locator('#openProjectStudio').click();
+if ((await page.locator('#studioProjectEyebrow').textContent()) !== 'FEFE Connect contribution studio') errors.push('FEFE Connect workspace did not inherit its identity');
+if ((await page.locator('#studioLanePicker [data-project-lane]').count()) !== 3) errors.push('FEFE Connect workspace lanes did not render');
+await page.locator('#haltAssignmentCode').fill('SOCIAL-101');
+if (!(await page.evaluate(() => localStorage.getItem('social-health.fefe-contribution.v1')))) errors.push('FEFE Connect draft was not isolated in project storage');
+await page.locator('#closeHaltStudio').click();
 await page.locator('#tab-vrf').click();
 if (!(await page.locator('#projectAssetGrid img[src$="vrf-mark.png"]').count())) errors.push('VRF mark is not contained in the VRF lane');
 if ((await page.locator('#pulseTitle').textContent()) !== 'VRF campaign pulse') errors.push('Campaign pulse did not switch to VRF');
+await page.locator('#openProjectStudio').click();
+if ((await page.locator('#studioProjectEyebrow').textContent()) !== 'VRF contribution studio') errors.push('VRF workspace did not inherit its identity');
+if ((await page.locator('#haltAssignmentCode').inputValue()) !== '') errors.push('FEFE Connect draft leaked into the VRF workspace');
+if ((await page.locator('#studioLanePicker [data-project-lane]').count()) !== 3) errors.push('VRF workspace lanes did not render');
+await page.locator('#closeHaltStudio').click();
 await page.locator('#tab-eve').click();
 if ((await page.locator('#projectAssetGrid .project-asset-card').count()) !== 2) errors.push('Eve OS and Exchange marks are not grouped in their shared lane');
 if ((await page.locator('#pulseTitle').textContent()) !== 'Eve OS / Exchange campaign pulse') errors.push('Campaign pulse did not switch to Eve OS / Exchange');
+await page.locator('#openProjectStudio').click();
+if (!(await page.locator('#haltStudio').isVisible())) errors.push('Eve OS / Exchange summary did not open its contribution workspace');
+if ((await page.locator('#studioProjectEyebrow').textContent()) !== 'Eve OS / Exchange contribution studio') errors.push('Contribution workspace did not inherit the Eve OS / Exchange identity');
+if ((await page.locator('#studioLanePicker [data-project-lane]').count()) !== 3) errors.push('Eve OS / Exchange workspace lanes did not render');
+await page.locator('#closeHaltStudio').click();
 
 await page.locator('#tab-halt').click();
-if (!(await page.locator('#haltStudio').isVisible())) errors.push('HALT tab did not open the focused contribution studio');
+if (!(await page.locator('#haltStudio').isHidden())) errors.push('HALT tab bypassed its summary');
+if (!(await page.locator('#openProjectStudio').textContent()).includes('HALT')) errors.push('HALT summary did not expose its workspace action');
+await page.locator('#openProjectStudio').click();
+if (!(await page.locator('#haltStudio').isVisible())) errors.push('HALT summary did not open the focused contribution studio');
 if (!(await page.locator('#framework').isHidden())) errors.push('Long-form page sections remained visible in HALT focus mode');
 await page.locator('[data-next-step="2"]').click();
 if (!(await page.locator('#studioValidation').isVisible())) errors.push('HALT scope validation did not stop an incomplete draft');
 
 await page.locator('#haltAssignmentCode').fill('social-003');
 await page.locator('#haltContributionType').selectOption('social-copy');
-await page.locator('[data-halt-lane="organization"]').click();
+await page.locator('[data-project-lane="organization"]').click();
 await page.locator('[data-next-step="2"]').click();
 await page.locator('#haltSourceUrl').fill('https://7hermeticlabs.health/');
 await page.locator('#haltAudience').selectOption({ label: 'Medical and humanitarian organizations' });

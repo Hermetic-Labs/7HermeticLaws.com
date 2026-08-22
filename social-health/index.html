@@ -175,6 +175,7 @@
             <h3 id="projectName">HALT</h3>
             <p id="projectDescription">Organization, Caregiver, and Community share a product family while retaining distinct audiences, evidence, wording, and approval context.</p>
             <div id="projectProducts" class="product-list" aria-label="Products"></div>
+            <button id="openProjectStudio" class="project-enter" type="button">Enter HALT contribution workspace →</button>
           </div>
           <dl class="project-facts">
             <div><dt>Primary job</dt><dd id="projectJob">Translate verified product truth into useful public communication.</dd></div>
@@ -205,13 +206,13 @@
           <header class="studio-header">
             <button id="closeHaltStudio" class="studio-back" type="button">← All projects</button>
             <div class="studio-identity">
-              <img src="./assets/halt-mark.png" alt="HALT mark">
+              <img id="studioProjectMark" src="./assets/halt-mark.png" alt="HALT mark">
               <div>
-                <p class="eyebrow">HALT contribution studio</p>
+                <p id="studioProjectEyebrow" class="eyebrow">HALT contribution studio</p>
                 <h2 id="haltStudioTitle" tabindex="-1">Know the product.<br>Build from truth.</h2>
-                <p>HALT is an offline-capable medical coordination system in closed beta. Contributions must stay grounded in the product lane, current evidence, and qualified human review.</p>
-                <a href="https://7hermeticlabs.health/" target="_blank" rel="noopener">Open the full product reference <span aria-hidden="true">↗</span></a>
-                <div class="studio-asset-actions"><button type="button" data-copy-icon="./assets/halt-mark.png" data-copy-label="HALT">Copy HALT mark</button><a href="./assets/halt-mark.png" download>Download PNG</a></div>
+                <p id="studioProjectDescription">HALT is an offline-capable medical coordination system in closed beta. Contributions must stay grounded in the product lane, current evidence, and qualified human review.</p>
+                <a id="studioProjectReference" href="https://7hermeticlabs.health/" target="_blank" rel="noopener">Open the full product reference <span aria-hidden="true">↗</span></a>
+                <div class="studio-asset-actions"><button id="copyStudioMark" type="button" data-copy-icon="./assets/halt-mark.png" data-copy-label="HALT">Copy HALT mark</button><a id="downloadStudioMark" href="./assets/halt-mark.png" download>Download PNG</a></div>
               </div>
             </div>
           </header>
@@ -229,17 +230,13 @@
             <div id="studioValidation" class="studio-validation" role="alert" hidden></div>
 
             <section class="studio-stage" data-studio-step="1" aria-labelledby="scopeTitle">
-              <div class="studio-prompt"><p class="eyebrow">Step 01 · Scope</p><h3 id="scopeTitle">Which HALT experience are you speaking for?</h3><p>Start with an active Susan assignment, then choose the product and contribution type. Each lane serves a different person and setting.</p></div>
+              <div class="studio-prompt"><p class="eyebrow">Step 01 · Scope</p><h3 id="scopeTitle">Which HALT experience are you speaking for?</h3><p id="scopeDescription">Start with an active Susan assignment, then choose the product and contribution type. Each lane serves a different person and setting.</p></div>
               <div class="studio-field-grid studio-field-grid-top">
                 <label class="studio-field"><span>Assignment code <b>*</b></span><input id="haltAssignmentCode" name="assignmentCode" type="text" inputmode="text" autocomplete="off" placeholder="SOCIAL-003" maxlength="20" aria-describedby="assignmentHint" required><small id="assignmentHint">Use the code shown in your assignment or scorecard.</small></label>
                 <label class="studio-field"><span>Contribution type <b>*</b></span><select id="haltContributionType" name="contributionType" required><option value="">Choose one</option><option value="social-copy">Social copy</option><option value="visual">Visual or carousel</option><option value="short-video">Short video</option><option value="evidence-correction">Evidence or correction</option><option value="field-lead">Field lead or outreach signal</option></select><small>This controls the guidance in the build step.</small></label>
               </div>
               <input id="haltLane" name="lane" type="hidden" required>
-              <div class="lane-picker" role="radiogroup" aria-label="HALT product lane">
-                <button type="button" role="radio" aria-checked="false" data-halt-lane="organization"><strong>HALT Organization</strong><span>Field medical coordination, structured intake, ward visibility, supplies, and local workflows.</span></button>
-                <button type="button" role="radio" aria-checked="false" data-halt-lane="caregiver"><strong>HALT Caregiver</strong><span>Bedside and household timelines, needs, supplies, multilingual assistance, and requests for help.</span></button>
-                <button type="button" role="radio" aria-checked="false" data-halt-lane="community"><strong>HALT Community</strong><span>Household intake, local response, food and WASH stock, first aid, translation, and coordination.</span></button>
-              </div>
+              <div id="studioLanePicker" class="lane-picker" role="radiogroup" aria-label="HALT product lane"></div>
               <div class="studio-controls"><span>Step 1 of 5 · Saved only in this browser.</span><button type="button" data-next-step="2">Continue to grounding →</button></div>
             </section>
 
@@ -248,7 +245,7 @@
               <div id="haltTruthCard" class="truth-card" aria-live="polite"></div>
               <div class="studio-field-grid">
                 <label class="studio-field"><span>Primary source URL <b>*</b></span><input id="haltSourceUrl" name="sourceUrl" type="url" placeholder="https://7hermeticlabs.health/" maxlength="500" required><small>Use the current product page, approved brief, or evidence record.</small></label>
-                <label class="studio-field"><span>Audience <b>*</b></span><select id="haltAudience" name="audience" required><option value="">Choose one</option><option>Medical and humanitarian organizations</option><option>Caregivers and families</option><option>Community responders and mutual-aid teams</option><option>Researchers and evaluators</option><option>Technical builders and contributors</option><option>General public</option></select><small>Choose the person who should understand or act.</small></label>
+                <label class="studio-field"><span>Audience <b>*</b></span><select id="haltAudience" name="audience" required><option value="">Choose one</option></select><small>Choose the person who should understand or act.</small></label>
                 <label class="studio-field studio-field-wide"><span>Supported claim <b>*</b></span><textarea id="haltClaim" name="claim" rows="3" maxlength="360" placeholder="State one claim the source directly supports." required></textarea><small><span id="claimCount">0</span>/360 characters</small></label>
                 <label class="studio-field studio-field-wide"><span>Why this matters now</span><textarea id="haltContext" name="context" rows="3" maxlength="600" placeholder="Add the human or operational context without expanding the claim."></textarea><small><span id="contextCount">0</span>/600 characters</small></label>
               </div>
@@ -266,13 +263,13 @@
                   <article class="post-example is-positive">
                     <div class="post-example-label"><span aria-hidden="true">✓</span><strong>Use this pattern</strong></div>
                     <p id="positiveExampleText">HALT is a working closed-beta, offline-capable medical coordination system designed for structured evaluation in constrained environments. Core workflows are designed to run locally, with qualified human review kept in the loop.</p>
-                    <small>Why it works · Names the current status, bounds the capability, and keeps human review visible.</small>
+                    <small id="positiveExampleWhy">Why it works · Names the current status, bounds the capability, and keeps human review visible.</small>
                     <button type="button" data-copy-text-target="positiveExampleText">Copy positive example</button>
                   </article>
                   <article class="post-example is-negative">
                     <div class="post-example-label"><span aria-hidden="true">×</span><strong>Do not use</strong></div>
-                    <p>HALT uses autonomous medical AI to diagnose patients anywhere with 100% reliability—even without doctors or internet.</p>
-                    <small>Why it fails · Invents autonomy, diagnosis, absolute performance, and removal of clinical oversight.</small>
+                    <p id="negativeExampleText">HALT uses autonomous medical AI to diagnose patients anywhere with 100% reliability—even without doctors or internet.</p>
+                    <small id="negativeExampleWhy">Why it fails · Invents autonomy, diagnosis, absolute performance, and removal of clinical oversight.</small>
                     <span class="no-copy-note">Intentionally not copyable</span>
                   </article>
                 </div>
@@ -290,8 +287,8 @@
               <div class="studio-prompt"><p class="eyebrow">Step 04 · Review</p><h3 id="reviewTitle">Stop the avoidable mistakes here.</h3><p>This is contributor self-check, not approval. Susan still reviews the submission, and consequential claims remain with Dee.</p></div>
               <div class="safety-grid">
                 <label><input id="checkSource" name="checkSource" type="checkbox"><span><strong>Source-bound</strong>The current source directly supports the claim and its limits.</span></label>
-                <label><input id="checkPrivacy" name="checkPrivacy" type="checkbox"><span><strong>Privacy-safe</strong>No patient data, private contact data, credentials, or confidential material is included.</span></label>
-                <label><input id="checkMedical" name="checkMedical" type="checkbox"><span><strong>Human review intact</strong>The draft does not present AI output as medical advice or the sole basis for a clinical decision.</span></label>
+                <label><input id="checkPrivacy" name="checkPrivacy" type="checkbox"><span><strong>Privacy-safe</strong>No personal, private-contact, credential, confidential, or regulated data is included.</span></label>
+                <label><input id="checkMedical" name="checkMedical" type="checkbox"><span><strong>Human authority intact</strong>The draft does not present AI output as authority or remove required qualified review.</span></label>
                 <label><input id="checkStatus" name="checkStatus" type="checkbox"><span><strong>Status is accurate</strong>The draft does not imply deployment, validation, adoption, approval, or certification that the source does not prove.</span></label>
               </div>
               <div id="haltReviewSummary" class="review-summary"></div>

@@ -102,6 +102,9 @@ button { color: inherit; }
 .project-index { color: var(--line-strong); font-size: clamp(5rem, 10vw, 10rem); line-height: 0.8; font-weight: 800; letter-spacing: -0.08em; }
 .project-main h3 { margin: 0; font-size: clamp(3rem, 6vw, 6.5rem); line-height: 0.9; letter-spacing: -0.06em; }
 .project-main > p:not(.project-state) { max-width: 620px; color: #b9bfbc; line-height: 1.7; }
+.project-enter { margin-top: 1.35rem; padding: 0.8rem 1rem; border: 1px solid var(--signal); background: var(--signal); color: #0a0c0b; font-size: 0.72rem; font-weight: 850; cursor: pointer; }
+.project-enter:hover, .project-enter:focus-visible { background: transparent; color: var(--signal); outline: none; }
+#mainContent > .projects-section:first-child { padding-top: 4.5rem; }
 .product-list { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1.6rem; }
 .product-list span { padding: 0.55rem 0.7rem; border: 1px solid var(--line-strong); color: var(--muted); font-size: 0.72rem; }
 .project-facts { margin: 0; border-top: 1px solid var(--line-strong); }
