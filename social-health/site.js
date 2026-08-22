@@ -11,6 +11,14 @@
       job: 'Translate verified product truth into useful public communication.',
       publicState: 'Only sanitized, named campaign records appear here.',
       nextGate: 'Bind claims to the relevant product and build.',
+      pulse: {
+        summary: 'Product education and contribution activity for the HALT family.',
+        scope: 'HALT Organization, Caregiver, and Community',
+        rule: 'Explicit HALT project key required',
+        notice: 'Only campaigns explicitly assigned to HALT appear in this lane.',
+        empty: 'No named HALT campaign is currently projected.',
+        aliases: ['halt', 'halt-organization', 'halt-caregiver', 'halt-community']
+      },
       assets: [{ name: 'HALT', source: './assets/halt-mark.png', description: 'Current public product-family mark.', role: 'Product family' }]
     },
     vrf: {
@@ -22,6 +30,14 @@
       job: 'Coordinate project-specific social communication without borrowing HALT claims or tone.',
       publicState: 'No project-scoped public campaign is asserted here yet.',
       nextGate: 'Establish the canonical project and asset roots.',
+      pulse: {
+        summary: 'Public communication and contributor activity belonging only to the VRF product family.',
+        scope: 'VRF product-family communication',
+        rule: 'Explicit VRF project key required',
+        notice: 'Only campaigns explicitly assigned to VRF appear in this lane.',
+        empty: 'No named VRF campaign is currently projected.',
+        aliases: ['vrf']
+      },
       assets: [{ name: 'VRF', source: './assets/vrf-mark.png', description: 'Canonical high-resolution mark for the VRF product family.', role: 'Product family' }]
     },
     fefe: {
@@ -33,6 +49,14 @@
       job: 'Build a distinct, evidence-backed public presence for FEFE Connect.',
       publicState: 'No project-scoped public campaign is asserted here yet.',
       nextGate: 'Establish the canonical project and asset roots.',
+      pulse: {
+        summary: 'Public communication and contributor activity belonging only to FEFE Connect.',
+        scope: 'FEFE Connect communication',
+        rule: 'Explicit FEFE Connect project key required',
+        notice: 'Only campaigns explicitly assigned to FEFE Connect appear in this lane.',
+        empty: 'No named FEFE Connect campaign is currently projected.',
+        aliases: ['fefe', 'fefe-connect']
+      },
       assets: [{ name: 'FEFE Connect', source: './assets/fefe-connect-mark.png', description: 'Current public wordmark from the FEFE Connect site.', role: 'Service identity', wide: true }]
     },
     eve: {
@@ -44,6 +68,14 @@
       job: 'Organize approved public communication without inheriting claims from unrelated projects.',
       publicState: 'No project-scoped public campaign is asserted here yet.',
       nextGate: 'Confirm canonical product and repository identities.',
+      pulse: {
+        summary: 'Public communication for Eve OS and Hermetic Labs Exchange within their shared portfolio lane.',
+        scope: 'Eve OS and Hermetic Labs Exchange',
+        rule: 'Explicit Eve or Exchange project key required',
+        notice: 'Only campaigns explicitly assigned to Eve OS or Hermetic Labs Exchange appear in this lane.',
+        empty: 'No named Eve OS or Exchange campaign is currently projected.',
+        aliases: ['eve', 'eve-os', 'exchange', 'hermetic-labs-exchange']
+      },
       assets: [
         { name: 'Eve OS', source: './assets/eve-os-wordmark.png', description: 'Existing chromatic wordmark retained for identity reference.', role: 'Product identity', wide: true },
         { name: 'Hermetic Labs Exchange', source: './assets/exchange-mark.png', description: 'Existing RGB ring mark retained as the marketplace reference.', role: 'Marketplace identity' }
@@ -62,6 +94,8 @@
   const studioStages = Array.from(document.querySelectorAll('[data-studio-step]'));
   const studioIndicators = Array.from(document.querySelectorAll('[data-step-indicator]'));
   let currentStudioStep = 1;
+  let activeProjectId = 'halt';
+  let publicBoardSnapshot = null;
 
   const haltLanes = {
     organization: {
@@ -367,6 +401,7 @@
   function setProject(projectId) {
     const project = projects[projectId];
     if (!project) return;
+    activeProjectId = projectId;
 
     tabs.forEach((tab) => {
       const active = tab.dataset.project === projectId;
@@ -395,6 +430,16 @@
     });
     products.hidden = project.products.length === 0;
     renderProjectAssets(project);
+    renderProjectPulse(projectId, project);
+  }
+
+  function renderProjectPulse(projectId, project) {
+    byId('pulseTitle').textContent = `${project.name} campaign pulse`;
+    byId('pulseScope').textContent = project.pulse.summary;
+    byId('campaignScope').textContent = project.pulse.scope;
+    byId('campaignAssociation').textContent = project.pulse.rule;
+    byId('boardNotice').textContent = project.pulse.notice;
+    if (publicBoardSnapshot) renderBoardForProject(projectId);
   }
 
   function renderProjectAssets(project) {
@@ -548,6 +593,45 @@
     return card;
   }
 
+  const normalizeProjectKey = (value) => String(value || '').trim().toLowerCase().replaceAll('_', '-').replace(/\s+/g, '-');
+
+  function campaignProjectKeys(campaign) {
+    const nested = campaign.project && typeof campaign.project === 'object' ? campaign.project : {};
+    const scoped = campaign.scope && typeof campaign.scope === 'object' ? campaign.scope : {};
+    return [
+      campaign.projectId,
+      campaign.projectKey,
+      campaign.projectCode,
+      campaign.projectSlug,
+      nested.id,
+      nested.key,
+      nested.code,
+      nested.slug,
+      scoped.projectId,
+      scoped.projectKey,
+      scoped.projectCode
+    ].map(normalizeProjectKey).filter(Boolean);
+  }
+
+  function renderBoardForProject(projectId) {
+    const project = projects[projectId];
+    const board = byId('campaignBoard');
+    if (!project || !publicBoardSnapshot) return;
+
+    const aliases = project.pulse.aliases.map(normalizeProjectKey);
+    const campaigns = Array.isArray(publicBoardSnapshot.campaigns)
+      ? publicBoardSnapshot.campaigns.filter((campaign) => {
+        if (campaign.id === 'unassigned' || campaign.campaignCode === 'GENERAL') return false;
+        return campaignProjectKeys(campaign).some((key) => aliases.includes(key));
+      })
+      : [];
+
+    board.replaceChildren();
+    if (!campaigns.length) board.appendChild(element('div', 'board-empty', project.pulse.empty));
+    campaigns.forEach((campaign) => board.appendChild(renderCampaign(campaign)));
+    board.setAttribute('aria-busy', 'false');
+  }
+
   async function loadBoard() {
     const board = byId('campaignBoard');
     const refresh = byId('refreshBoard');
@@ -559,6 +643,7 @@
     loading.append(pulse, document.createTextNode('Loading sanitized public campaign state…'));
     board.replaceChildren(loading);
     refresh.disabled = true;
+    publicBoardSnapshot = null;
 
     try {
       const response = await fetch('https://graph.7hermeticlabs.com/public/contributor-board', {
@@ -567,14 +652,8 @@
       });
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       const data = await response.json();
-      board.replaceChildren();
-      const campaigns = Array.isArray(data.campaigns)
-        ? data.campaigns.filter((campaign) => campaign.id !== 'unassigned' && campaign.campaignCode !== 'GENERAL')
-        : [];
-      if (!campaigns.length) {
-        board.appendChild(element('div', 'board-empty', 'No named public campaigns are currently projected.'));
-      }
-      campaigns.forEach((campaign) => board.appendChild(renderCampaign(campaign)));
+      publicBoardSnapshot = data;
+      renderBoardForProject(activeProjectId);
       rail.textContent = 'Public read verified';
       rail.className = 'is-live';
       byId('boardFreshness').textContent = data.generatedAt ? `Read verified · ${formatDate(data.generatedAt)}` : 'Public read verified';

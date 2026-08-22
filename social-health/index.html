@@ -185,6 +185,20 @@
             <div class="project-assets-heading"><div><p class="eyebrow">Project iconology</p><h4 id="projectAssetsTitle">HALT marks</h4></div><p id="projectAssetsDescription">Use these assets only inside this project lane.</p></div>
             <div id="projectAssetGrid" class="project-asset-grid"></div>
           </section>
+          <section class="project-pulse" aria-labelledby="pulseTitle">
+            <div class="project-pulse-heading">
+              <div><p class="eyebrow">Live public projection</p><h4 id="pulseTitle">HALT campaign pulse</h4><p id="pulseScope">Product education and contribution activity for the HALT family.</p></div>
+              <div class="pulse-actions"><span id="boardFreshness">Connecting to the public graph…</span><button id="refreshBoard" type="button">Refresh</button></div>
+            </div>
+            <div class="campaign-scope-grid" aria-label="Campaign scope">
+              <div><span>Project scope</span><strong id="campaignScope">HALT Organization, Caregiver, and Community</strong></div>
+              <div><span>Association rule</span><strong id="campaignAssociation">Explicit HALT project key required</strong></div>
+            </div>
+            <div id="boardNotice" class="board-notice">Only campaigns explicitly assigned to HALT appear in this lane.</div>
+            <div id="campaignBoard" class="campaign-board" aria-live="polite" aria-busy="true">
+              <div class="board-loading"><span aria-hidden="true"></span>Loading sanitized HALT campaign state…</div>
+            </div>
+          </section>
         </article>
 
         <section id="haltStudio" class="halt-studio" aria-labelledby="haltStudioTitle" hidden>
@@ -314,17 +328,6 @@
           <li><span>05</span><strong>Release</strong><small>Publish or prepare outreach</small></li>
           <li><span>06</span><strong>Response</strong><small>Record, route, and learn</small></li>
         </ol>
-      </section>
-
-      <section class="pulse-section" aria-labelledby="pulseTitle">
-        <div class="section-heading compact">
-          <div><p class="eyebrow">Live public projection</p><h2 id="pulseTitle">Campaign pulse</h2></div>
-          <div class="pulse-actions"><span id="boardFreshness">Connecting to the public graph…</span><button id="refreshBoard" type="button">Refresh</button></div>
-        </div>
-        <div id="boardNotice" class="board-notice">Project association is not yet encoded in the public campaign schema, so this portfolio pulse does not infer one.</div>
-        <div id="campaignBoard" class="campaign-board" aria-live="polite" aria-busy="true">
-          <div class="board-loading"><span aria-hidden="true"></span>Loading sanitized public campaign state…</div>
-        </div>
       </section>
 
       <section class="authority-section" aria-labelledby="authorityTitle">

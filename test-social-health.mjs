@@ -24,6 +24,7 @@ await page.addInitScript(() => {
 const boardFixture = {
   generatedAt: '2026-08-22T13:00:00.000Z',
   campaigns: [{
+    projectId: 'halt',
     title: 'HALT awareness',
     summary: 'Build a consistent social rhythm.',
     platforms: ['LinkedIn'],
@@ -60,6 +61,7 @@ if (!(await page.locator('#contributorWorkspace').isHidden())) errors.push('Cont
 if ((await page.locator('.project-tab').count()) !== 4) errors.push('Expected four project lanes');
 if ((await page.locator('.campaign-card-public').count()) !== 1) errors.push('Public campaign did not render');
 if (await page.locator('#materials').count()) errors.push('Mixed-project asset register remains on the landing page');
+if ((await page.locator('#pulseTitle').textContent()) !== 'HALT campaign pulse') errors.push('Campaign pulse is not scoped to HALT by default');
 if ((await page.locator('#projectAssetGrid .project-asset-card').count()) !== 1) errors.push('HALT project asset did not render in its lane');
 if (!(await page.locator('#projectAssetGrid img[src$="halt-mark.png"]').count())) errors.push('HALT mark is not wired into the HALT lane');
 if (!(await page.locator('.brand-logo').getAttribute('src')).includes('7hl-social-rgb-192.png')) errors.push('RGB site logo is not wired into the header');
@@ -67,10 +69,15 @@ if (!(await page.locator('.brand-logo').getAttribute('src')).includes('7hl-socia
 await page.locator('#tab-fefe').click();
 if ((await page.locator('#projectName').textContent()) !== 'FEFE Connect') errors.push('Project tab did not update the panel');
 if (!(await page.locator('#projectAssetGrid img[src$="fefe-connect-mark.png"]').count())) errors.push('FEFE Connect mark is not contained in the FEFE lane');
+if ((await page.locator('#pulseTitle').textContent()) !== 'FEFE Connect campaign pulse') errors.push('Campaign pulse did not switch to FEFE Connect');
+if (await page.locator('.campaign-card-public').count()) errors.push('HALT campaign leaked into the FEFE Connect scope');
+if (!(await page.locator('#campaignBoard').textContent()).includes('No named FEFE Connect campaign')) errors.push('FEFE Connect empty state is not project-specific');
 await page.locator('#tab-vrf').click();
 if (!(await page.locator('#projectAssetGrid img[src$="vrf-mark.png"]').count())) errors.push('VRF mark is not contained in the VRF lane');
+if ((await page.locator('#pulseTitle').textContent()) !== 'VRF campaign pulse') errors.push('Campaign pulse did not switch to VRF');
 await page.locator('#tab-eve').click();
 if ((await page.locator('#projectAssetGrid .project-asset-card').count()) !== 2) errors.push('Eve OS and Exchange marks are not grouped in their shared lane');
+if ((await page.locator('#pulseTitle').textContent()) !== 'Eve OS / Exchange campaign pulse') errors.push('Campaign pulse did not switch to Eve OS / Exchange');
 
 await page.locator('#tab-halt').click();
 if (!(await page.locator('#haltStudio').isVisible())) errors.push('HALT tab did not open the focused contribution studio');
