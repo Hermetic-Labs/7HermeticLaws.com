@@ -9,7 +9,7 @@ This directory contains the public-safe visual assets used by the Social Health 
 | `halt-mark.png` | Source found; refinement pending | `7HermeticLabs.dev/halt-logo.png` |
 | `eve-os-wordmark.png` | Source found; normalization pending | `7HermeticLabs.com/images/Eve os.png` |
 | `exchange-mark.png` | Source found; normalization pending | `7HermeticLabs.com/images/Exchange logo.png` |
-| `vrf-mark.png` | Source found; original resolution retained | Owner asset `The Journey/journals/VRF.png`; identity cross-checked against the VRF product media on the Hermetic Labs Fab catalog |
+| `vrf-mark.png` | Source found; canonical high-resolution logo | Owner asset `HERMETIC LABS/VRF/VRF LOGOs/Images/VRF  Logo.png`; identity cross-checked against the VRF product media on the Hermetic Labs Fab catalog |
 | `fefe-connect-mark.png` | Source found; current public wordmark | `https://fefeconnect.com/assets/fefe-logo.png` |
 | `social-health-og.png` | Web-ready social preview | Generated from the RGB Social Health identity and exact page headline |
 
