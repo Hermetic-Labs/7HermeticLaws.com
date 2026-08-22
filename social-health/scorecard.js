@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  const API_ORIGIN = 'https://hermetic-graph-mcp-lfrj8.azurewebsites.net';
+  const API_ORIGIN = 'https://graph.7hermeticlabs.com';
   const params = new URLSearchParams(window.location.search);
   const access = {
     contributor: params.get('contributor') || '',
