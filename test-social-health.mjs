@@ -47,6 +47,9 @@ if (!(await page.locator('#publicConsole').isVisible())) errors.push('Public con
 if (!(await page.locator('#contributorWorkspace').isHidden())) errors.push('Contributor workspace appeared without a signed link');
 if ((await page.locator('.project-tab').count()) !== 4) errors.push('Expected four project lanes');
 if ((await page.locator('.campaign-card-public').count()) !== 1) errors.push('Public campaign did not render');
+if ((await page.locator('.asset-card').count()) !== 6) errors.push('Expected six asset register entries');
+if ((await page.locator('.asset-status.is-gap').count()) !== 2) errors.push('Expected two explicitly marked identity gaps');
+if (!(await page.locator('.brand-logo').getAttribute('src')).includes('7hl-social-rgb-192.png')) errors.push('RGB site logo is not wired into the header');
 
 await page.locator('#tab-fefe').click();
 if ((await page.locator('#projectName').textContent()) !== 'FEFE Connect') errors.push('Project tab did not update the panel');
