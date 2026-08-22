@@ -10,7 +10,8 @@
       products: ['HALT Organization', 'HALT Caregiver', 'HALT Community'],
       job: 'Translate verified product truth into useful public communication.',
       publicState: 'Only sanitized, named campaign records appear here.',
-      nextGate: 'Bind claims to the relevant product and build.'
+      nextGate: 'Bind claims to the relevant product and build.',
+      assets: [{ name: 'HALT', source: './assets/halt-mark.png', description: 'Current public product-family mark.', role: 'Product family' }]
     },
     vrf: {
       index: '02',
@@ -20,7 +21,8 @@
       products: [],
       job: 'Coordinate project-specific social communication without borrowing HALT claims or tone.',
       publicState: 'No project-scoped public campaign is asserted here yet.',
-      nextGate: 'Establish the canonical project and asset roots.'
+      nextGate: 'Establish the canonical project and asset roots.',
+      assets: [{ name: 'VRF', source: './assets/vrf-mark.png', description: 'Canonical high-resolution mark for the VRF product family.', role: 'Product family' }]
     },
     fefe: {
       index: '03',
@@ -30,7 +32,8 @@
       products: [],
       job: 'Build a distinct, evidence-backed public presence for FEFE Connect.',
       publicState: 'No project-scoped public campaign is asserted here yet.',
-      nextGate: 'Establish the canonical project and asset roots.'
+      nextGate: 'Establish the canonical project and asset roots.',
+      assets: [{ name: 'FEFE Connect', source: './assets/fefe-connect-mark.png', description: 'Current public wordmark from the FEFE Connect site.', role: 'Service identity', wide: true }]
     },
     eve: {
       index: '04',
@@ -40,7 +43,11 @@
       products: ['Eve OS', 'Hermetic Labs Exchange'],
       job: 'Organize approved public communication without inheriting claims from unrelated projects.',
       publicState: 'No project-scoped public campaign is asserted here yet.',
-      nextGate: 'Confirm canonical product and repository identities.'
+      nextGate: 'Confirm canonical product and repository identities.',
+      assets: [
+        { name: 'Eve OS', source: './assets/eve-os-wordmark.png', description: 'Existing chromatic wordmark retained for identity reference.', role: 'Product identity', wide: true },
+        { name: 'Hermetic Labs Exchange', source: './assets/exchange-mark.png', description: 'Existing RGB ring mark retained as the marketplace reference.', role: 'Marketplace identity' }
+      ]
     }
   };
 
@@ -387,6 +394,39 @@
       products.appendChild(chip);
     });
     products.hidden = project.products.length === 0;
+    renderProjectAssets(project);
+  }
+
+  function renderProjectAssets(project) {
+    byId('projectAssetsTitle').textContent = `${project.name} ${project.assets.length === 1 ? 'mark' : 'marks'}`;
+    byId('projectAssetsDescription').textContent = `Use these assets only inside the ${project.name} lane.`;
+    const grid = byId('projectAssetGrid');
+    grid.replaceChildren();
+
+    project.assets.forEach((asset) => {
+      const card = element('article', `project-asset-card${asset.wide ? ' is-wide' : ''}`);
+      const visual = element('div', 'project-asset-visual');
+      const image = document.createElement('img');
+      image.src = asset.source;
+      image.alt = `${asset.name} mark`;
+      visual.appendChild(image);
+
+      const copy = element('div', 'project-asset-copy');
+      copy.append(element('span', 'asset-status is-found', 'Source found'), element('h5', '', asset.name), element('p', '', asset.description), element('small', '', `Role · ${asset.role}`));
+      const actions = element('div', 'asset-actions');
+      const copyButton = element('button', '', 'Copy PNG');
+      copyButton.type = 'button';
+      copyButton.dataset.copyIcon = asset.source;
+      copyButton.dataset.copyLabel = asset.name;
+      copyButton.addEventListener('click', () => copyIcon(copyButton));
+      const download = element('a', '', 'Download');
+      download.href = asset.source;
+      download.setAttribute('download', '');
+      actions.append(copyButton, download);
+      copy.appendChild(actions);
+      card.append(visual, copy);
+      grid.appendChild(card);
+    });
   }
 
   tabs.forEach((tab, index) => {

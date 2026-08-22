@@ -59,19 +59,22 @@ if (!(await page.locator('#publicConsole').isVisible())) errors.push('Public con
 if (!(await page.locator('#contributorWorkspace').isHidden())) errors.push('Contributor workspace appeared without a signed link');
 if ((await page.locator('.project-tab').count()) !== 4) errors.push('Expected four project lanes');
 if ((await page.locator('.campaign-card-public').count()) !== 1) errors.push('Public campaign did not render');
-if ((await page.locator('.asset-card').count()) !== 6) errors.push('Expected six asset register entries');
-if ((await page.locator('.asset-status.is-gap').count()) !== 0) errors.push('A sourced project identity is still marked as a gap');
-if ((await page.locator('[data-copy-icon]').count()) !== 6) errors.push('Expected a PNG copy control for every asset register entry');
-if (!(await page.locator('img[src$="vrf-mark.png"]').count())) errors.push('VRF mark is not wired into the asset register');
-if (!(await page.locator('img[src$="fefe-connect-mark.png"]').count())) errors.push('FEFE Connect mark is not wired into the asset register');
+if (await page.locator('#materials').count()) errors.push('Mixed-project asset register remains on the landing page');
+if ((await page.locator('#projectAssetGrid .project-asset-card').count()) !== 1) errors.push('HALT project asset did not render in its lane');
+if (!(await page.locator('#projectAssetGrid img[src$="halt-mark.png"]').count())) errors.push('HALT mark is not wired into the HALT lane');
 if (!(await page.locator('.brand-logo').getAttribute('src')).includes('7hl-social-rgb-192.png')) errors.push('RGB site logo is not wired into the header');
 
 await page.locator('#tab-fefe').click();
 if ((await page.locator('#projectName').textContent()) !== 'FEFE Connect') errors.push('Project tab did not update the panel');
+if (!(await page.locator('#projectAssetGrid img[src$="fefe-connect-mark.png"]').count())) errors.push('FEFE Connect mark is not contained in the FEFE lane');
+await page.locator('#tab-vrf').click();
+if (!(await page.locator('#projectAssetGrid img[src$="vrf-mark.png"]').count())) errors.push('VRF mark is not contained in the VRF lane');
+await page.locator('#tab-eve').click();
+if ((await page.locator('#projectAssetGrid .project-asset-card').count()) !== 2) errors.push('Eve OS and Exchange marks are not grouped in their shared lane');
 
 await page.locator('#tab-halt').click();
 if (!(await page.locator('#haltStudio').isVisible())) errors.push('HALT tab did not open the focused contribution studio');
-if (!(await page.locator('#materials').isHidden())) errors.push('Long-form page sections remained visible in HALT focus mode');
+if (!(await page.locator('#framework').isHidden())) errors.push('Long-form page sections remained visible in HALT focus mode');
 await page.locator('[data-next-step="2"]').click();
 if (!(await page.locator('#studioValidation').isVisible())) errors.push('HALT scope validation did not stop an incomplete draft');
 
@@ -97,7 +100,7 @@ if (!(await page.locator('#openHaltEmail').getAttribute('href')).startsWith('mai
 if (await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth)) errors.push('HALT studio has horizontal overflow at mobile width');
 if (!(await page.evaluate(() => localStorage.getItem('social-health.halt-contribution.v1')))) errors.push('HALT local draft was not persisted');
 await page.locator('#closeHaltStudio').click();
-if (!(await page.locator('#materials').isVisible())) errors.push('HALT studio did not return to the project overview');
+if (!(await page.locator('#projectAssetGrid').isVisible())) errors.push('HALT studio did not return to the project overview');
 
 const pageText = await page.locator('body').innerText();
 for (const privateOrStaleText of ['805 S Glynn', 'frontdesk@', '146 curated hashtags', 'HALT qualifies', '93%']) {
