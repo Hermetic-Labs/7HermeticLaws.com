@@ -42,7 +42,13 @@ const scorecardFixture = {
   thisWeek: { weekOf: '2026-08-10', summary: 'Publish and engage.', score: 72, goals: [{ id: 'g1', title: 'Publish three posts', current: 2, target: 3, unit: 'posts', status: 'in_progress' }] },
   lastWeek: { weekOf: '2026-08-03', summary: 'Foundation week.', score: 84, rank: 1, cohortSize: 3, goals: [], wins: ['Completed profile'], improvements: ['Increase engagement'] },
   managerNote: 'Strong foundation. Keep the cadence steady.',
-  lifecycle: [{ assignmentCode: 'SOCIAL-003', title: 'Contributor onboarding confirmation', lifecycleStatus: 'draft' }],
+  lifecycle: [{
+    assignmentCode: 'SOCIAL-003', title: 'Contributor onboarding confirmation', lifecycleStatus: 'changes_requested',
+    revisionRound: 1, feedback: 'Tighten the opening claim and keep the status bounded.',
+    nextAction: 'Review Susan’s feedback, revise the contribution, and reply in the same email thread.',
+    milestones: { submittedAt: '2026-08-12T06:00:00.000Z' }, publication: { calendarLinked: false },
+    updatedAt: '2026-08-12T07:00:00.000Z'
+  }],
   updatedAt: '2026-08-12T07:44:26.452Z'
 };
 
@@ -56,8 +62,8 @@ await page.goto(publicUrl, { waitUntil: 'networkidle' });
 await page.locator('.campaign-card-public').waitFor({ state: 'attached' });
 
 if ((await page.title()) !== 'Social Health — Hermetic Labs') errors.push('Public page title is incorrect');
-if (!(await page.locator('link[href*="site.css?v=20260822-2"]').count())) errors.push('Site stylesheet cache marker is missing');
-if (!(await page.locator('script[src*="site.js?v=20260822-2"]').count())) errors.push('Site script cache marker is missing');
+if (!(await page.locator('link[href*="site.css?v=20260822-3"]').count())) errors.push('Site stylesheet cache marker is missing');
+if (!(await page.locator('script[src*="site.js?v=20260822-3"]').count())) errors.push('Site script cache marker is missing');
 if (!(await page.locator('#publicConsole').isVisible())) errors.push('Public console is not visible');
 if (!(await page.locator('#contributorWorkspace').isHidden())) errors.push('Contributor workspace appeared without a signed link');
 if ((await page.locator('.project-tab').count()) !== 4) errors.push('Expected four project lanes');
@@ -162,6 +168,9 @@ if ((await page.locator('#scorecardTitle').textContent()) !== 'Hiteshi Hitu Seo 
 if ((await page.locator('#thisWeekScore').textContent()) !== '72') errors.push('This-week score did not render');
 if ((await page.locator('#thisWeekGoals .goal-card').count()) !== 1) errors.push('Goal card did not render');
 if ((await page.locator('#lifecycleList .lifecycle-item').count()) !== 1) errors.push('Lifecycle item did not render');
+if ((await page.locator('#lifecycleList .submission-track li').count()) !== 4) errors.push('Contributor submission progress did not render');
+if (!(await page.locator('#lifecycleList .assignment-feedback').textContent()).includes('Tighten the opening claim')) errors.push('Susan feedback did not render');
+if (!(await page.locator('#lifecycleList .lifecycle-next-action').textContent()).includes('Review Susan’s feedback')) errors.push('Contributor next action did not render');
 if (!(await page.locator('#publicConsole').isHidden())) errors.push('Public console remained visible in scorecard mode');
 if (!(await page.locator('#scorecardLoading').isHidden())) errors.push('Loading panel remained visible after success');
 if (!(await page.locator('#scorecardError').isHidden())) errors.push('Error panel remained visible after success');

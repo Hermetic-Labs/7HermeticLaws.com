@@ -33,6 +33,11 @@
     ...(options || { month: 'short', day: 'numeric', year: 'numeric' })
   });
   const clear = (element) => { while (element.firstChild) element.removeChild(element.firstChild); };
+  const statusLabels = {
+    draft: 'Preparing assignment', sent: 'Ready for you', acknowledged: 'In progress', replied: 'More material needed',
+    submitted: 'Received by Susan', changes_requested: 'Revision requested', resubmitted: 'Revision received',
+    accepted: 'Accepted', completed: 'Complete', blocked: 'Needs attention', cancelled: 'Closed'
+  };
 
   function addFact(container, label, value) {
     if (!value) return;
@@ -150,6 +155,9 @@
     (assignments || []).forEach((assignment) => {
       const item = document.createElement('article');
       item.className = 'lifecycle-item';
+      item.dataset.status = assignment.lifecycleStatus || 'draft';
+      const head = document.createElement('div');
+      head.className = 'lifecycle-head';
       const dot = document.createElement('span');
       dot.className = 'lifecycle-dot';
       dot.setAttribute('aria-hidden', 'true');
@@ -163,8 +171,60 @@
       copy.append(title, detail);
       const status = document.createElement('span');
       status.className = 'lifecycle-status';
-      status.textContent = formatStatus(assignment.lifecycleStatus);
-      item.append(dot, copy, status);
+      status.textContent = statusLabels[assignment.lifecycleStatus] || formatStatus(assignment.lifecycleStatus);
+      head.append(dot, copy, status);
+
+      const metadata = document.createElement('div');
+      metadata.className = 'lifecycle-metadata';
+      if (assignment.updatedAt) {
+        const updated = document.createElement('span');
+        updated.textContent = `Updated ${formatDate(assignment.updatedAt, { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' })}`;
+        metadata.appendChild(updated);
+      }
+      if (assignment.revisionRound) {
+        const revision = document.createElement('span');
+        revision.textContent = `Revision ${assignment.revisionRound}`;
+        metadata.appendChild(revision);
+      }
+
+      const track = document.createElement('ol');
+      track.className = 'submission-track';
+      track.setAttribute('aria-label', `${assignment.assignmentCode || 'Assignment'} progress`);
+      const currentStatus = assignment.lifecycleStatus || 'draft';
+      const submitted = Boolean(assignment.milestones && assignment.milestones.submittedAt) || ['submitted', 'changes_requested', 'resubmitted', 'accepted', 'completed'].includes(currentStatus);
+      const reviewed = ['changes_requested', 'resubmitted', 'accepted', 'completed'].includes(currentStatus);
+      const accepted = Boolean(assignment.milestones && assignment.milestones.acceptedAt) || ['accepted', 'completed'].includes(currentStatus);
+      const promoted = Boolean(assignment.publication && assignment.publication.calendarLinked);
+      [['Received', submitted], ['Reviewed', reviewed], ['Accepted', accepted], ['Publication workflow', promoted]].forEach(([label, complete]) => {
+        const step = document.createElement('li');
+        if (complete) step.className = 'is-complete';
+        const marker = document.createElement('span');
+        marker.setAttribute('aria-hidden', 'true');
+        const text = document.createElement('strong');
+        text.textContent = label;
+        step.append(marker, text);
+        track.appendChild(step);
+      });
+
+      const next = document.createElement('div');
+      next.className = 'lifecycle-next-action';
+      const nextLabel = document.createElement('span');
+      nextLabel.textContent = 'Next action';
+      const nextCopy = document.createElement('p');
+      nextCopy.textContent = assignment.nextAction || 'Check the assignment email thread or contact Susan for the next step.';
+      next.append(nextLabel, nextCopy);
+
+      item.append(head, metadata, track, next);
+      if (assignment.feedback) {
+        const feedback = document.createElement('blockquote');
+        feedback.className = 'assignment-feedback';
+        const feedbackLabel = document.createElement('span');
+        feedbackLabel.textContent = 'Feedback from Susan';
+        const feedbackCopy = document.createElement('p');
+        feedbackCopy.textContent = assignment.feedback;
+        feedback.append(feedbackLabel, feedbackCopy);
+        item.appendChild(feedback);
+      }
       list.appendChild(item);
     });
     empty.hidden = Boolean(assignments && assignments.length);
@@ -174,7 +234,7 @@
     const contributorName = data.contributor && data.contributor.name ? data.contributor.name : 'Contributor';
     document.title = `${contributorName} · Contributor scorecard`;
     setText('scorecardTitle', contributorName);
-    setText('scorecardSubtitle', 'Campaign direction, weekly goals, results, and active work at a glance.');
+    setText('scorecardSubtitle', 'Track receipt, review, feedback, and the next action for every contribution.');
     setText('scorecardFreshness', `Live · ${formatDate(data.generatedAt, { hour: 'numeric', minute: '2-digit' })}`);
     byId('scorecardFreshness').classList.add('is-live');
 
@@ -237,4 +297,7 @@
 
   refreshButton.addEventListener('click', loadScorecard);
   loadScorecard();
+  window.setInterval(() => {
+    if (!document.hidden) loadScorecard();
+  }, 60000);
 })();

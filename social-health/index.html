@@ -22,10 +22,10 @@
   <meta name="twitter:title" content="Social Health — Hermetic Labs">
   <meta name="twitter:description" content="Turn product truth into clear public signal.">
   <meta name="twitter:image" content="https://7hermeticlaws.com/social-health/assets/social-health-og.png">
-  <link rel="stylesheet" href="./site.css?v=20260822-2">
-  <link rel="stylesheet" href="./scorecard.css?v=20260822-2">
-  <script src="./site.js?v=20260822-2" defer></script>
-  <script src="./scorecard.js?v=20260822-2" defer></script>
+  <link rel="stylesheet" href="./site.css?v=20260822-3">
+  <link rel="stylesheet" href="./scorecard.css?v=20260822-3">
+  <script src="./site.js?v=20260822-3" defer></script>
+  <script src="./scorecard.js?v=20260822-3" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#mainContent">Skip to content</a>
@@ -99,8 +99,8 @@
 
         <section class="workflow-grid" aria-label="Contributor workflow">
           <article class="workflow-panel">
-            <div class="panel-heading"><div><p class="card-kicker">Live from the graph</p><h2>Assignment lifecycle</h2></div></div>
-            <div id="lifecycleList" class="lifecycle-list"></div>
+            <div class="panel-heading"><div><p class="card-kicker">Live from the graph</p><h2>Submission tracking</h2></div><small class="tracking-refresh-note">Refreshes automatically</small></div>
+            <div id="lifecycleList" class="lifecycle-list" aria-live="polite"></div>
             <div id="lifecycleEmpty" class="empty-state" hidden>No assignments are attached to this contributor yet.</div>
           </article>
           <aside class="manager-note">
@@ -302,6 +302,7 @@
               </div>
               <div class="submit-actions"><button id="copyHaltPacket" class="studio-secondary" type="button">Copy packet</button><a id="openHaltEmail" class="studio-primary-link" href="#">Open prepared email</a><button id="clearHaltDraft" class="studio-clear" type="button">Clear local draft</button></div>
               <p class="submission-note">Your mail app will open a draft addressed to Susan. Confirm the assignment code, attach files, and send from the same address that received the assignment.</p>
+              <div class="submission-tracking-note"><span aria-hidden="true"></span><div><strong>Track the response</strong><p>Your assignment email includes a private status link. Use it to confirm receipt, read Susan’s feedback, and see the next action without searching the email thread.</p></div></div>
               <div class="studio-controls"><button class="studio-secondary" type="button" data-prev-step="4">← Review</button><span>Local draft remains available until you clear it.</span></div>
             </section>
           </form>

@@ -265,6 +265,10 @@ button { color: inherit; }
 .studio-primary-link { border-color: var(--rgb-green); background: linear-gradient(90deg, var(--rgb-green), var(--rgb-cyan)); color: #07100d; }
 .studio-clear { margin-left: auto; border-color: rgba(255,49,87,0.28) !important; color: #ff879c !important; }
 .submission-note { color: var(--dim); font-size: 0.68rem; line-height: 1.6; }
+.submission-tracking-note { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 0.8rem; align-items: start; margin-top: 1rem; padding: 1rem; border: 1px solid rgba(78,205,196,0.28); background: rgba(78,205,196,0.07); }
+.submission-tracking-note > span { width: 0.7rem; height: 0.7rem; margin-top: 0.25rem; border-radius: 50%; background: var(--rgb-cyan); box-shadow: 0 0 1rem rgba(78,205,196,0.45); }
+.submission-tracking-note strong { display: block; margin-bottom: 0.25rem; }
+.submission-tracking-note p { margin: 0; color: var(--muted); line-height: 1.55; }
 
 .asset-actions { display: flex; flex-wrap: wrap; gap: 0.55rem; margin-top: auto; padding-top: 1.25rem; }
 .asset-actions button[aria-busy="true"] { cursor: wait; opacity: 0.72; }
