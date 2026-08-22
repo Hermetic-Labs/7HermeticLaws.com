@@ -198,6 +198,21 @@
             </div>
           </header>
 
+          <section class="project-pulse project-pulse-top" aria-labelledby="pulseTitle">
+            <div class="project-pulse-heading">
+              <div><p class="eyebrow">Live public projection</p><h3 id="pulseTitle">HALT campaign pulse</h3><p id="pulseScope">Product education and contribution activity for the HALT family.</p></div>
+              <div class="pulse-actions"><span id="boardFreshness">Connecting to the public graph…</span><button id="refreshBoard" type="button">Refresh</button></div>
+            </div>
+            <div class="campaign-scope-grid" aria-label="Campaign scope">
+              <div><span>Project scope</span><strong id="campaignScope">HALT Organization, Caregiver, and Community</strong></div>
+              <div><span>Association rule</span><strong id="campaignAssociation">Explicit HALT project key required</strong></div>
+            </div>
+            <div id="boardNotice" class="board-notice">Only campaigns explicitly assigned to HALT appear in this lane.</div>
+            <div id="campaignBoard" class="campaign-board" aria-live="polite" aria-busy="true">
+              <div class="board-loading"><span aria-hidden="true"></span>Loading sanitized HALT campaign state…</div>
+            </div>
+          </section>
+
           <ol id="studioSteps" class="studio-steps" aria-label="HALT contribution lifecycle">
             <li class="is-current" data-step-indicator="1"><span>01</span><strong>Scope</strong></li>
             <li data-step-indicator="2"><span>02</span><strong>Ground</strong></li>
@@ -292,20 +307,6 @@
           </form>
 
           <div class="studio-project-context">
-            <section class="project-pulse" aria-labelledby="pulseTitle">
-              <div class="project-pulse-heading">
-                <div><p class="eyebrow">Live public projection</p><h3 id="pulseTitle">HALT campaign pulse</h3><p id="pulseScope">Product education and contribution activity for the HALT family.</p></div>
-                <div class="pulse-actions"><span id="boardFreshness">Connecting to the public graph…</span><button id="refreshBoard" type="button">Refresh</button></div>
-              </div>
-              <div class="campaign-scope-grid" aria-label="Campaign scope">
-                <div><span>Project scope</span><strong id="campaignScope">HALT Organization, Caregiver, and Community</strong></div>
-                <div><span>Association rule</span><strong id="campaignAssociation">Explicit HALT project key required</strong></div>
-              </div>
-              <div id="boardNotice" class="board-notice">Only campaigns explicitly assigned to HALT appear in this lane.</div>
-              <div id="campaignBoard" class="campaign-board" aria-live="polite" aria-busy="true">
-                <div class="board-loading"><span aria-hidden="true"></span>Loading sanitized HALT campaign state…</div>
-              </div>
-            </section>
             <details class="project-assets" open>
               <summary class="project-assets-heading">
                 <div><p class="eyebrow">Project iconology</p><h3 id="projectAssetsTitle">HALT marks</h3></div>

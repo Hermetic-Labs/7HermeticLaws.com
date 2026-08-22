@@ -235,6 +235,7 @@
     byId('studioProjectMark').src = mark.source;
     byId('studioProjectMark').alt = `${project.name} mark`;
     byId('studioProjectEyebrow').textContent = `${project.name} contribution studio`;
+    byId('studioSteps').setAttribute('aria-label', `${project.name} contribution lifecycle`);
     byId('haltStudioTitle').textContent = studio.title;
     byId('studioProjectDescription').textContent = studio.description;
     byId('studioProjectReference').href = studio.referenceUrl;

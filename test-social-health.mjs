@@ -98,6 +98,7 @@ if ((await page.locator('#pulseTitle').textContent()) !== 'Eve OS / Exchange cam
 await page.locator('#openProjectStudio').click();
 if (!(await page.locator('#haltStudio').isVisible())) errors.push('Eve OS / Exchange summary did not open its contribution workspace');
 if ((await page.locator('#studioProjectEyebrow').textContent()) !== 'Eve OS / Exchange contribution studio') errors.push('Contribution workspace did not inherit the Eve OS / Exchange identity');
+if ((await page.locator('#studioSteps').getAttribute('aria-label')) !== 'Eve OS / Exchange contribution lifecycle') errors.push('Contribution lifecycle kept the wrong project label');
 if ((await page.locator('#studioLanePicker [data-project-lane]').count()) !== 3) errors.push('Eve OS / Exchange workspace lanes did not render');
 if ((await page.locator('.project-asset-scroll').evaluate((node) => getComputedStyle(node).overflowX)) !== 'auto') errors.push('Project iconology asset rail is not horizontally scrollable');
 await page.locator('.project-assets > summary').click();
@@ -113,7 +114,7 @@ await page.locator('#openProjectStudio').click();
 if (!(await page.locator('#haltStudio').isVisible())) errors.push('HALT summary did not open the focused contribution studio');
 if (!(await page.locator('#haltStudio .project-assets').isVisible()) || !(await page.locator('#haltStudio .project-pulse').isVisible())) errors.push('HALT iconology and campaign pulse did not move into its workspace');
 const studioOrder = await page.locator('#haltStudio').evaluate((studio) => Array.from(studio.children).map((node) => node.id || node.className || node.tagName));
-if (studioOrder[1] !== 'studioSteps' || studioOrder[2] !== 'haltContributionForm' || studioOrder[3] !== 'studio-project-context') errors.push('Step 1 does not lead the workspace content');
+if (!String(studioOrder[1]).includes('project-pulse') || studioOrder[2] !== 'studioSteps' || studioOrder[3] !== 'haltContributionForm' || studioOrder[4] !== 'studio-project-context') errors.push('Campaign Pulse is not the first operational workspace section');
 if (!(await page.locator('.studio-project-context').evaluate((context) => context.lastElementChild?.classList.contains('project-assets')))) errors.push('Project iconology is not the final workspace section');
 if (!(await page.locator('#framework').isHidden())) errors.push('Long-form page sections remained visible in HALT focus mode');
 await page.locator('[data-next-step="2"]').click();
