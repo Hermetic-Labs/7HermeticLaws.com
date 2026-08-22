@@ -286,21 +286,50 @@
     byId('draftCount').textContent = String(byId('haltDraftCopy').value.length);
   }
 
-  async function copyHaltPacket() {
-    const packet = buildHaltPacket();
+  async function copyPlainText(value) {
     try {
-      await navigator.clipboard.writeText(packet);
-      byId('packetStatus').textContent = 'Copied';
+      await navigator.clipboard.writeText(value);
     } catch (_error) {
       const helper = document.createElement('textarea');
-      helper.value = packet;
+      helper.value = value;
       helper.style.position = 'fixed';
       helper.style.opacity = '0';
       document.body.appendChild(helper);
       helper.select();
       document.execCommand('copy');
       helper.remove();
-      byId('packetStatus').textContent = 'Copied';
+    }
+  }
+
+  function temporaryButtonLabel(button, label) {
+    const original = button.dataset.originalLabel || button.textContent;
+    button.dataset.originalLabel = original;
+    button.textContent = label;
+    window.setTimeout(() => { button.textContent = original; }, 2200);
+  }
+
+  async function copyHaltPacket() {
+    await copyPlainText(buildHaltPacket());
+    byId('packetStatus').textContent = 'Copied';
+  }
+
+  async function copyIcon(button) {
+    const source = button.dataset.copyIcon;
+    const label = button.dataset.copyLabel || 'Icon';
+    button.setAttribute('aria-busy', 'true');
+    try {
+      if (!window.ClipboardItem || !navigator.clipboard || !navigator.clipboard.write) throw new Error('Image clipboard unavailable');
+      const response = await fetch(source);
+      if (!response.ok) throw new Error(`Asset request failed: ${response.status}`);
+      const sourceBlob = await response.blob();
+      const pngBlob = sourceBlob.type === 'image/png' ? sourceBlob : new Blob([await sourceBlob.arrayBuffer()], { type: 'image/png' });
+      await navigator.clipboard.write([new ClipboardItem({ 'image/png': pngBlob })]);
+      temporaryButtonLabel(button, `${label} copied`);
+    } catch (_error) {
+      await copyPlainText(new URL(source, window.location.href).href);
+      temporaryButtonLabel(button, 'Image link copied');
+    } finally {
+      button.removeAttribute('aria-busy');
     }
   }
 
@@ -417,6 +446,17 @@
 
   byId('copyHaltPacket').addEventListener('click', copyHaltPacket);
   byId('clearHaltDraft').addEventListener('click', clearHaltDraft);
+  document.querySelectorAll('[data-copy-text-target]').forEach((button) => {
+    button.addEventListener('click', async () => {
+      const target = byId(button.dataset.copyTextTarget);
+      if (!target) return;
+      await copyPlainText(target.textContent.trim());
+      temporaryButtonLabel(button, 'Positive example copied');
+    });
+  });
+  document.querySelectorAll('[data-copy-icon]').forEach((button) => {
+    button.addEventListener('click', () => copyIcon(button));
+  });
   restoreHaltDraft();
 
   const formatStatus = (value) => String(value || 'in progress').replaceAll('_', ' ');

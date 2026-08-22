@@ -8,6 +8,18 @@ const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
 const errors = [];
 page.on('pageerror', (error) => errors.push(error.message));
 page.on('console', (message) => { if (message.type() === 'error') errors.push(message.text()); });
+await page.addInitScript(() => {
+  window.__copiedText = '';
+  window.__copiedImages = 0;
+  window.ClipboardItem = class ClipboardItem { constructor(data) { this.data = data; } };
+  Object.defineProperty(navigator, 'clipboard', {
+    configurable: true,
+    value: {
+      writeText: async (value) => { window.__copiedText = value; },
+      write: async (items) => { window.__copiedImages = items.length; }
+    }
+  });
+});
 
 const boardFixture = {
   generatedAt: '2026-08-22T13:00:00.000Z',
@@ -48,7 +60,10 @@ if (!(await page.locator('#contributorWorkspace').isHidden())) errors.push('Cont
 if ((await page.locator('.project-tab').count()) !== 4) errors.push('Expected four project lanes');
 if ((await page.locator('.campaign-card-public').count()) !== 1) errors.push('Public campaign did not render');
 if ((await page.locator('.asset-card').count()) !== 6) errors.push('Expected six asset register entries');
-if ((await page.locator('.asset-status.is-gap').count()) !== 2) errors.push('Expected two explicitly marked identity gaps');
+if ((await page.locator('.asset-status.is-gap').count()) !== 0) errors.push('A sourced project identity is still marked as a gap');
+if ((await page.locator('[data-copy-icon]').count()) !== 6) errors.push('Expected a PNG copy control for every asset register entry');
+if (!(await page.locator('img[src$="vrf-mark.png"]').count())) errors.push('VRF mark is not wired into the asset register');
+if (!(await page.locator('img[src$="fefe-connect-mark.png"]').count())) errors.push('FEFE Connect mark is not wired into the asset register');
 if (!(await page.locator('.brand-logo').getAttribute('src')).includes('7hl-social-rgb-192.png')) errors.push('RGB site logo is not wired into the header');
 
 await page.locator('#tab-fefe').click();
@@ -68,6 +83,10 @@ await page.locator('#haltSourceUrl').fill('https://7hermeticlabs.health/');
 await page.locator('#haltAudience').selectOption({ label: 'Medical and humanitarian organizations' });
 await page.locator('#haltClaim').fill('HALT is an offline-capable medical coordination system in closed beta.');
 await page.locator('[data-next-step="3"]').click();
+if ((await page.locator('.post-example.is-positive').count()) !== 1 || (await page.locator('.post-example.is-negative').count()) !== 1) errors.push('Positive and negative post examples are not paired in the build step');
+if ((await page.locator('.post-example.is-negative button').count()) !== 0) errors.push('The negative post example should not expose a copy control');
+await page.locator('[data-copy-text-target="positiveExampleText"]').click();
+if (!(await page.evaluate(() => window.__copiedText)).startsWith('HALT is a working closed-beta')) errors.push('Positive post example did not copy');
 await page.locator('.channel-picker label').filter({ hasText: 'LinkedIn' }).click();
 await page.locator('#haltDraftCopy').fill('A source-grounded HALT contribution for review.');
 await page.locator('[data-next-step="4"]').click();
