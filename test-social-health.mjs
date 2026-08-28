@@ -123,8 +123,8 @@ if (!(await page.locator('#haltBuilds').isVisible())) errors.push('HALT build do
 if ((await page.locator('#haltBuilds .halt-build-card').count()) !== 3) errors.push('HALT build area does not expose all three product packages');
 if (!(await page.locator('#haltBuilds a[href$="/builds/HALT_latest_setup.exe"]').count())) errors.push('HALT Organization tester alias is missing');
 if (!(await page.locator('#haltBuilds a[href$="/builds/HALT_1.2.18_setup.exe"]').count())) errors.push('HALT Organization immutable package is missing');
-if (!(await page.locator('#haltBuilds a[href$="/builds/HALT_Caregiver_1.2.18_setup.exe"]').count())) errors.push('HALT Caregiver immutable package is missing');
-if (!(await page.locator('#haltBuilds a[href$="/builds/HALT_Community_1.2.18_setup.exe"]').count())) errors.push('HALT Community immutable package is missing');
+if (!(await page.locator('#haltBuilds a[href$="/builds/HALT_Caregiver_1.2.19_setup.exe"]').count())) errors.push('HALT Caregiver immutable package is missing');
+if (!(await page.locator('#haltBuilds a[href$="/builds/HALT_Community_1.2.19_setup.exe"]').count())) errors.push('HALT Community immutable package is missing');
 if (await page.locator('#haltBuilds a[href*="Caregiver_latest"], #haltBuilds a[href*="Community_latest"]').count()) errors.push('Unpublished Caregiver or Community latest alias was inferred');
 if (!(await page.locator('#haltStudio').isVisible())) errors.push('HALT summary did not open the focused contribution studio');
 if (!(await page.locator('#haltStudio .project-assets').isVisible()) || !(await page.locator('#haltStudio .project-pulse').isVisible())) errors.push('HALT iconology and campaign pulse did not move into its workspace');
