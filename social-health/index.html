@@ -22,7 +22,7 @@
   <meta name="twitter:title" content="Social Health — Hermetic Labs">
   <meta name="twitter:description" content="Turn product truth into clear public signal.">
   <meta name="twitter:image" content="https://7hermeticlaws.com/social-health/assets/social-health-og.png">
-  <link rel="stylesheet" href="./site.css?v=20260902-2">
+  <link rel="stylesheet" href="./site.css?v=20260902-3">
   <link rel="stylesheet" href="./scorecard.css?v=20260822-3">
   <script src="./site.js?v=20260902-1" defer></script>
   <script src="./scorecard.js?v=20260822-3" defer></script>
@@ -251,31 +251,6 @@
               <div class="playtesting-freshness"><span>Latest cycle</span><strong>Caregiver · 1.2.19 v8a</strong><small>Updated Sep 2, 2026</small></div>
             </div>
 
-            <div class="playtest-gallery-intro">
-              <div><span>Contribution evidence</span><strong>The work behind the signal.</strong></div>
-              <p>Every capture is a receipt: the product was challenged, the failure was preserved, and the observation moved into the next build.</p>
-            </div>
-            <div class="playtest-gallery" aria-label="Playtesting contribution gallery">
-              <a class="playtest-gallery-card" href="./assets/playtest-caregiver-field-run-v8a.jpg" target="_blank" rel="noopener">
-                <figure>
-                  <div class="playtest-gallery-image"><img src="./assets/playtest-caregiver-field-run-v8a.jpg" alt="HALT Caregiver intake form being stress-tested with synthetic inputs" loading="lazy"></div>
-                  <figcaption><span>01 · Field run</span><strong>The intake flow was pushed past ordinary use.</strong><small>Synthetic test inputs · Open full image ↗</small></figcaption>
-                </figure>
-              </a>
-              <a class="playtest-gallery-card" href="./assets/playtest-whisper-failure-v8a.jpg" target="_blank" rel="noopener">
-                <figure>
-                  <div class="playtest-gallery-image"><img src="./assets/playtest-whisper-failure-v8a.jpg" alt="Captured HALT Whisper startup failure after two attempts" loading="lazy"></div>
-                  <figcaption><span>02 · Failure captured</span><strong>A startup failure became a reproducible finding.</strong><small>Observed behavior · Open full image ↗</small></figcaption>
-                </figure>
-              </a>
-              <a class="playtest-gallery-card" href="./assets/playtest-summary-v8a.png" target="_blank" rel="noopener">
-                <figure>
-                  <div class="playtest-gallery-image"><img src="./assets/playtest-summary-v8a.png" alt="Playtest dashboard summarizing eleven findings by severity and status" loading="lazy"></div>
-                  <figcaption><span>03 · Cycle result</span><strong>Eleven observations became an actionable build plan.</strong><small>Organized evidence · Open full image ↗</small></figcaption>
-                </figure>
-              </a>
-            </div>
-
             <figure class="playtest-overview" aria-labelledby="playtestOverviewCaption">
               <figcaption id="playtestOverviewCaption">Current closed-loop progress</figcaption>
               <ol class="playtest-loop" aria-label="11 findings, 11 triaged, 0 fixed, 0 verified">
@@ -319,6 +294,30 @@
                     <div class="playtest-report-grid">
                       <details class="playtest-report" open>
                         <summary><span><b>1</b><strong>Extracted bug report</strong><small>What the tester found</small></span></summary>
+                        <div class="playtest-gallery-intro">
+                          <div><span>Contribution evidence</span><strong>The work behind PT-001.</strong></div>
+                          <p>Each capture connects this tester’s fieldwork to the findings below.</p>
+                        </div>
+                        <div class="playtest-gallery" aria-label="PT-001 playtesting contribution gallery">
+                          <a class="playtest-gallery-card" href="./assets/playtest-caregiver-field-run-v8a.jpg" target="_blank" rel="noopener">
+                            <figure>
+                              <div class="playtest-gallery-image"><img src="./assets/playtest-caregiver-field-run-v8a.jpg" alt="HALT Caregiver intake form being stress-tested with synthetic inputs" loading="lazy"></div>
+                              <figcaption><span>01 · Field run</span><strong>The intake flow was pushed past ordinary use.</strong><small>Synthetic test inputs · Open full image ↗</small></figcaption>
+                            </figure>
+                          </a>
+                          <a class="playtest-gallery-card" href="./assets/playtest-whisper-failure-v8a.jpg" target="_blank" rel="noopener">
+                            <figure>
+                              <div class="playtest-gallery-image"><img src="./assets/playtest-whisper-failure-v8a.jpg" alt="Captured HALT Whisper startup failure after two attempts" loading="lazy"></div>
+                              <figcaption><span>02 · Failure captured</span><strong>A startup failure became a reproducible finding.</strong><small>Observed behavior · Open full image ↗</small></figcaption>
+                            </figure>
+                          </a>
+                          <a class="playtest-gallery-card" href="./assets/playtest-summary-v8a.png" target="_blank" rel="noopener">
+                            <figure>
+                              <div class="playtest-gallery-image"><img src="./assets/playtest-summary-v8a.png" alt="Playtest dashboard summarizing eleven findings by severity and status" loading="lazy"></div>
+                              <figcaption><span>03 · Cycle result</span><strong>Eleven observations became an actionable build plan.</strong><small>Organized evidence · Open full image ↗</small></figcaption>
+                            </figure>
+                          </a>
+                        </div>
                         <div class="playtest-report-list">
                           <article><span class="finding-code">F-001</span><span class="finding-severity is-medium">Medium</span><div><strong>Name accepts arbitrary symbols</strong><p>Identity input saves malformed text without format or length controls.</p></div></article>
                           <article><span class="finding-code">F-002</span><span class="finding-severity is-medium">Medium</span><div><strong>Primary-contact input is unclear and unvalidated</strong><p>The field accepts malformed text and does not explain whether it expects a name, phone number, or both.</p></div></article>

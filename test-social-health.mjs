@@ -62,7 +62,7 @@ await page.goto(publicUrl, { waitUntil: 'networkidle' });
 await page.locator('.campaign-card-public').waitFor({ state: 'attached' });
 
 if ((await page.title()) !== 'Social Health — Hermetic Labs') errors.push('Public page title is incorrect');
-if (!(await page.locator('link[href*="site.css?v=20260902-2"]').count())) errors.push('Site stylesheet cache marker is missing');
+if (!(await page.locator('link[href*="site.css?v=20260902-3"]').count())) errors.push('Site stylesheet cache marker is missing');
 if (!(await page.locator('script[src*="site.js?v=20260902-1"]').count())) errors.push('Site script cache marker is missing');
 if (!(await page.locator('#publicConsole').isVisible())) errors.push('Public console is not visible');
 if (!(await page.locator('#contributorWorkspace').isHidden())) errors.push('Contributor workspace appeared without a signed link');
@@ -131,6 +131,10 @@ if (!(await page.locator('#haltBuilds .build-playtest-link[href="#haltPlaytestin
 if (!(await page.locator('#haltStudio').isVisible())) errors.push('HALT summary did not open the focused contribution studio');
 if (!(await page.locator('#haltPlaytesting').isVisible())) errors.push('HALT playtesting summary is not visible in the HALT workspace');
 if ((await page.locator('#haltPlaytesting .playtest-gallery-card').count()) !== 3) errors.push('Playtesting contribution gallery does not contain three evidence cards');
+if (!(await page.locator('#haltPlaytesting .playtest-report').first().locator(':scope > .playtest-gallery').count())) errors.push('PT-001 evidence gallery is not inside the extracted bug report');
+if (await page.locator('#haltPlaytesting > .playtest-gallery').count()) errors.push('PT-001 evidence gallery remains outside the report history');
+await page.locator('#haltPlaytesting .playtest-history > summary').click();
+await page.locator('#haltPlaytesting .playtest-cycle > summary').click();
 if ((await page.locator('#haltPlaytesting .playtest-gallery-card img').count()) !== 3) errors.push('Playtesting evidence images are missing');
 if (await page.locator('#haltPlaytesting .playtest-gallery-card img').evaluateAll((images) => images.some((image) => !image.getAttribute('alt')?.trim()))) errors.push('Playtesting evidence image alt text is missing');
 await page.locator('#haltPlaytesting .playtest-gallery-card:last-child').scrollIntoViewIfNeeded();
