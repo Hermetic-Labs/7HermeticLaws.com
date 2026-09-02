@@ -133,6 +133,8 @@ if (!(await page.locator('#haltPlaytesting').isVisible())) errors.push('HALT pla
 if ((await page.locator('#haltPlaytesting .playtest-gallery-card').count()) !== 3) errors.push('Playtesting contribution gallery does not contain three evidence cards');
 if ((await page.locator('#haltPlaytesting .playtest-gallery-card img').count()) !== 3) errors.push('Playtesting evidence images are missing');
 if (await page.locator('#haltPlaytesting .playtest-gallery-card img').evaluateAll((images) => images.some((image) => !image.getAttribute('alt')?.trim()))) errors.push('Playtesting evidence image alt text is missing');
+await page.locator('#haltPlaytesting .playtest-gallery-card:last-child').scrollIntoViewIfNeeded();
+await page.waitForFunction(() => Array.from(document.querySelectorAll('#haltPlaytesting .playtest-gallery-card img')).every((image) => image.complete && image.naturalWidth > 0));
 if (await page.locator('#haltPlaytesting .playtest-gallery-card img').evaluateAll((images) => images.some((image) => !image.complete || image.naturalWidth === 0))) errors.push('A playtesting evidence image failed to load');
 if (!(await page.locator('#haltPlaytesting img[src$="playtest-caregiver-field-run-v8a.jpg"]').count())) errors.push('Caregiver field-run evidence is missing');
 if (!(await page.locator('#haltPlaytesting img[src$="playtest-whisper-failure-v8a.jpg"]').count())) errors.push('Whisper failure evidence is missing');
