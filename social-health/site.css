@@ -199,6 +199,24 @@ button { color: inherit; }
 .playtesting-freshness span, .playtesting-freshness small { color: var(--dim); font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase; }
 .playtesting-freshness strong { font-size: 0.78rem; }
 
+.playtest-gallery-intro { display: grid; grid-template-columns: minmax(14rem, 0.65fr) minmax(0, 1fr); gap: 1.5rem; align-items: end; margin-top: 1.6rem; padding-top: 1rem; border-top: 1px solid var(--line); }
+.playtest-gallery-intro > div { display: grid; gap: 0.28rem; }
+.playtest-gallery-intro span { color: var(--rgb-green); font-size: 0.55rem; font-weight: 900; letter-spacing: 0.11em; text-transform: uppercase; }
+.playtest-gallery-intro strong { font-size: 0.84rem; }
+.playtest-gallery-intro p { max-width: 47rem; margin: 0; color: var(--muted); font-size: 0.68rem; line-height: 1.6; }
+.playtest-gallery { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.75rem; margin-top: 0.85rem; }
+.playtest-gallery-card { min-width: 0; overflow: hidden; border: 1px solid var(--line); background: rgba(255,255,255,0.012); color: inherit; text-decoration: none; transition: border-color 160ms ease, background 160ms ease, transform 160ms ease; }
+.playtest-gallery-card:hover, .playtest-gallery-card:focus-visible { border-color: var(--rgb-cyan); background: rgba(65,184,255,0.035); outline: none; transform: translateY(-2px); }
+.playtest-gallery-card figure { height: 100%; margin: 0; }
+.playtest-gallery-image { position: relative; aspect-ratio: 16 / 9; overflow: hidden; border-bottom: 1px solid var(--line); background: #0b1112; }
+.playtest-gallery-image::after { content: "VIEW"; position: absolute; right: 0.55rem; bottom: 0.55rem; padding: 0.28rem 0.38rem; border: 1px solid rgba(255,255,255,0.3); background: rgba(4,9,10,0.82); color: #fff; font-size: 0.48rem; font-weight: 900; letter-spacing: 0.1em; }
+.playtest-gallery-image img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top left; transition: transform 180ms ease; }
+.playtest-gallery-card:hover img, .playtest-gallery-card:focus-visible img { transform: scale(1.015); }
+.playtest-gallery-card figcaption { display: grid; align-content: start; gap: 0.4rem; min-height: 8.3rem; padding: 0.9rem; }
+.playtest-gallery-card figcaption span { color: var(--rgb-cyan); font-size: 0.52rem; font-weight: 900; letter-spacing: 0.1em; text-transform: uppercase; }
+.playtest-gallery-card figcaption strong { font-size: 0.74rem; line-height: 1.45; }
+.playtest-gallery-card figcaption small { margin-top: auto; color: var(--dim); font-size: 0.55rem; line-height: 1.4; }
+
 .playtest-overview { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(16rem, 0.7fr); margin: 1.4rem 0 1rem; border: 1px solid var(--line); background: rgba(255,255,255,0.012); }
 .playtest-overview figcaption { grid-column: 1 / -1; padding: 0.75rem 1rem; border-bottom: 1px solid var(--line); color: var(--dim); font-size: 0.58rem; font-weight: 850; letter-spacing: 0.1em; text-transform: uppercase; }
 .playtest-loop { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin: 0; padding: 0; list-style: none; }
@@ -452,8 +470,12 @@ button { color: inherit; }
   .pipeline li:nth-child(-n+3) { border-bottom: 1px solid var(--line); }
   .campaign-card-public { grid-template-columns: 1fr; }
   .assignment-list-public { border-left: 0; border-top: 1px solid var(--line); }
-  .project-assets-heading, .project-pulse-heading, .halt-builds-heading, .playtesting-heading { grid-template-columns: 1fr; gap: 0.7rem; }
+  .project-assets-heading, .project-pulse-heading, .halt-builds-heading, .playtesting-heading, .playtest-gallery-intro { grid-template-columns: 1fr; gap: 0.7rem; }
   .playtesting-freshness { padding-left: 0; border-left: 0; }
+  .playtest-gallery { grid-template-columns: 1fr; }
+  .playtest-gallery-card { display: grid; grid-template-columns: minmax(12rem, 0.8fr) minmax(0, 1fr); }
+  .playtest-gallery-card figure { display: contents; }
+  .playtest-gallery-image { height: 100%; min-height: 10rem; aspect-ratio: auto; border-right: 1px solid var(--line); border-bottom: 0; }
   .playtest-overview, .playtest-report-grid { grid-template-columns: 1fr; }
   .playtest-loop { border-bottom: 1px solid var(--line); }
   .halt-build-grid { grid-template-columns: 1fr; }
@@ -484,6 +506,10 @@ button { color: inherit; }
   .build-policy div { border-right: 0; border-bottom: 1px solid var(--line); }
   .build-policy div:last-child { border-bottom: 0; }
   .playtest-loop { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .playtest-gallery-card { display: block; }
+  .playtest-gallery-card figure { display: block; }
+  .playtest-gallery-image { min-height: 0; aspect-ratio: 16 / 9; border-right: 0; border-bottom: 1px solid var(--line); }
+  .playtest-gallery-card figcaption { min-height: 7.6rem; }
   .playtest-loop li:nth-child(2) { border-right: 0; }
   .playtest-loop li:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
   .playtest-loop li::after { display: none; }

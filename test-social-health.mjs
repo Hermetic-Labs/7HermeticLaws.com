@@ -62,7 +62,7 @@ await page.goto(publicUrl, { waitUntil: 'networkidle' });
 await page.locator('.campaign-card-public').waitFor({ state: 'attached' });
 
 if ((await page.title()) !== 'Social Health — Hermetic Labs') errors.push('Public page title is incorrect');
-if (!(await page.locator('link[href*="site.css?v=20260902-1"]').count())) errors.push('Site stylesheet cache marker is missing');
+if (!(await page.locator('link[href*="site.css?v=20260902-2"]').count())) errors.push('Site stylesheet cache marker is missing');
 if (!(await page.locator('script[src*="site.js?v=20260902-1"]').count())) errors.push('Site script cache marker is missing');
 if (!(await page.locator('#publicConsole').isVisible())) errors.push('Public console is not visible');
 if (!(await page.locator('#contributorWorkspace').isHidden())) errors.push('Contributor workspace appeared without a signed link');
@@ -130,6 +130,13 @@ if (await page.locator('#haltBuilds a[href*="Caregiver_latest"], #haltBuilds a[h
 if (!(await page.locator('#haltBuilds .build-playtest-link[href="#haltPlaytesting"]').count())) errors.push('Caregiver playtesting link is missing beside the installer');
 if (!(await page.locator('#haltStudio').isVisible())) errors.push('HALT summary did not open the focused contribution studio');
 if (!(await page.locator('#haltPlaytesting').isVisible())) errors.push('HALT playtesting summary is not visible in the HALT workspace');
+if ((await page.locator('#haltPlaytesting .playtest-gallery-card').count()) !== 3) errors.push('Playtesting contribution gallery does not contain three evidence cards');
+if ((await page.locator('#haltPlaytesting .playtest-gallery-card img').count()) !== 3) errors.push('Playtesting evidence images are missing');
+if (await page.locator('#haltPlaytesting .playtest-gallery-card img').evaluateAll((images) => images.some((image) => !image.getAttribute('alt')?.trim()))) errors.push('Playtesting evidence image alt text is missing');
+if (await page.locator('#haltPlaytesting .playtest-gallery-card img').evaluateAll((images) => images.some((image) => !image.complete || image.naturalWidth === 0))) errors.push('A playtesting evidence image failed to load');
+if (!(await page.locator('#haltPlaytesting img[src$="playtest-caregiver-field-run-v8a.jpg"]').count())) errors.push('Caregiver field-run evidence is missing');
+if (!(await page.locator('#haltPlaytesting img[src$="playtest-whisper-failure-v8a.jpg"]').count())) errors.push('Whisper failure evidence is missing');
+if (!(await page.locator('#haltPlaytesting img[src$="playtest-summary-v8a.png"]').count())) errors.push('Playtesting summary evidence is missing');
 if ((await page.locator('#haltPlaytesting .playtest-loop li').count()) !== 4) errors.push('Playtesting loop does not show all four stages');
 if ((await page.locator('#haltPlaytesting .playtest-loop strong').allTextContents()).join(',') !== '11,11,0,0') errors.push('Playtesting loop counts are incorrect');
 if ((await page.locator('#haltPlaytesting .playtest-report-list:not(.is-response) article').count()) !== 11) errors.push('Extracted bug report does not contain 11 findings');
