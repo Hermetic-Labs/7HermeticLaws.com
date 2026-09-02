@@ -62,8 +62,8 @@ await page.goto(publicUrl, { waitUntil: 'networkidle' });
 await page.locator('.campaign-card-public').waitFor({ state: 'attached' });
 
 if ((await page.title()) !== 'Social Health — Hermetic Labs') errors.push('Public page title is incorrect');
-if (!(await page.locator('link[href*="site.css?v=20260822-4"]').count())) errors.push('Site stylesheet cache marker is missing');
-if (!(await page.locator('script[src*="site.js?v=20260822-4"]').count())) errors.push('Site script cache marker is missing');
+if (!(await page.locator('link[href*="site.css?v=20260902-1"]').count())) errors.push('Site stylesheet cache marker is missing');
+if (!(await page.locator('script[src*="site.js?v=20260902-1"]').count())) errors.push('Site script cache marker is missing');
 if (!(await page.locator('#publicConsole').isVisible())) errors.push('Public console is not visible');
 if (!(await page.locator('#contributorWorkspace').isHidden())) errors.push('Contributor workspace appeared without a signed link');
 if ((await page.locator('.project-tab').count()) !== 4) errors.push('Expected four project lanes');
@@ -87,6 +87,7 @@ if (await page.locator('.campaign-card-public').count()) errors.push('HALT campa
 if (!(await page.locator('#campaignBoard').textContent()).includes('No named FEFE Connect campaign')) errors.push('FEFE Connect empty state is not project-specific');
 await page.locator('#openProjectStudio').click();
 if ((await page.locator('#studioProjectEyebrow').textContent()) !== 'FEFE Connect contribution studio') errors.push('FEFE Connect workspace did not inherit its identity');
+if (!(await page.locator('#haltPlaytesting').isHidden())) errors.push('HALT playtesting leaked into the FEFE Connect workspace');
 if (!(await page.locator('#haltStudio .project-assets').isVisible()) || !(await page.locator('#haltStudio .project-pulse').isVisible())) errors.push('FEFE Connect iconology and campaign pulse did not move into its workspace');
 if ((await page.locator('#studioLanePicker [data-project-lane]').count()) !== 3) errors.push('FEFE Connect workspace lanes did not render');
 await page.locator('#haltAssignmentCode').fill('SOCIAL-101');
@@ -126,10 +127,16 @@ if (!(await page.locator('#haltBuilds a[href$="/builds/HALT_1.2.18_setup.exe"]')
 if (!(await page.locator('#haltBuilds a[href$="/builds/HALT_Caregiver_1.2.19_setup.exe"]').count())) errors.push('HALT Caregiver immutable package is missing');
 if (!(await page.locator('#haltBuilds a[href$="/builds/HALT_Community_1.2.19_setup.exe"]').count())) errors.push('HALT Community immutable package is missing');
 if (await page.locator('#haltBuilds a[href*="Caregiver_latest"], #haltBuilds a[href*="Community_latest"]').count()) errors.push('Unpublished Caregiver or Community latest alias was inferred');
+if (!(await page.locator('#haltBuilds .build-playtest-link[href="#haltPlaytesting"]').count())) errors.push('Caregiver playtesting link is missing beside the installer');
 if (!(await page.locator('#haltStudio').isVisible())) errors.push('HALT summary did not open the focused contribution studio');
+if (!(await page.locator('#haltPlaytesting').isVisible())) errors.push('HALT playtesting summary is not visible in the HALT workspace');
+if ((await page.locator('#haltPlaytesting .playtest-loop li').count()) !== 4) errors.push('Playtesting loop does not show all four stages');
+if ((await page.locator('#haltPlaytesting .playtest-loop strong').allTextContents()).join(',') !== '11,11,0,0') errors.push('Playtesting loop counts are incorrect');
+if ((await page.locator('#haltPlaytesting .playtest-report-list:not(.is-response) article').count()) !== 11) errors.push('Extracted bug report does not contain 11 findings');
+if ((await page.locator('#haltPlaytesting .playtest-report-list.is-response article').count()) !== 11) errors.push('Build response does not pair all 11 findings');
 if (!(await page.locator('#haltStudio .project-assets').isVisible()) || !(await page.locator('#haltStudio .project-pulse').isVisible())) errors.push('HALT iconology and campaign pulse did not move into its workspace');
 const studioOrder = await page.locator('#haltStudio').evaluate((studio) => Array.from(studio.children).map((node) => node.id || node.className || node.tagName));
-if (studioOrder[1] !== 'haltBuilds' || !String(studioOrder[2]).includes('project-pulse') || studioOrder[3] !== 'studioSteps' || studioOrder[4] !== 'haltContributionForm' || studioOrder[5] !== 'studio-project-context') errors.push('HALT build shelf and campaign pulse are not ordered correctly');
+if (studioOrder[1] !== 'haltBuilds' || studioOrder[2] !== 'haltPlaytesting' || !String(studioOrder[3]).includes('project-pulse') || studioOrder[4] !== 'studioSteps' || studioOrder[5] !== 'haltContributionForm' || studioOrder[6] !== 'studio-project-context') errors.push('HALT build shelf, playtesting, and campaign pulse are not ordered correctly');
 if (!(await page.locator('.studio-project-context').evaluate((context) => context.lastElementChild?.classList.contains('project-assets')))) errors.push('Project iconology is not the final workspace section');
 if (!(await page.locator('#framework').isHidden())) errors.push('Long-form page sections remained visible in HALT focus mode');
 await page.locator('[data-next-step="2"]').click();
@@ -160,7 +167,7 @@ await page.locator('#closeHaltStudio').click();
 if (!(await page.locator('#projectPanel').isVisible()) || !(await page.locator('#haltStudio').isHidden())) errors.push('HALT studio did not return to the project summary');
 
 const pageText = await page.locator('body').innerText();
-for (const privateOrStaleText of ['805 S Glynn', 'frontdesk@', '146 curated hashtags', 'HALT qualifies', '93%']) {
+for (const privateOrStaleText of ['805 S Glynn', 'frontdesk@', '146 curated hashtags', 'HALT qualifies', '93%', 'Warren', 'Nadeem', 'Nodeem']) {
   if (pageText.includes(privateOrStaleText)) errors.push(`Public page exposes stale or private text: ${privateOrStaleText}`);
 }
 

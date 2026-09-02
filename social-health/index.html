@@ -22,9 +22,9 @@
   <meta name="twitter:title" content="Social Health — Hermetic Labs">
   <meta name="twitter:description" content="Turn product truth into clear public signal.">
   <meta name="twitter:image" content="https://7hermeticlaws.com/social-health/assets/social-health-og.png">
-  <link rel="stylesheet" href="./site.css?v=20260822-4">
+  <link rel="stylesheet" href="./site.css?v=20260902-1">
   <link rel="stylesheet" href="./scorecard.css?v=20260822-3">
-  <script src="./site.js?v=20260822-4" defer></script>
+  <script src="./site.js?v=20260902-1" defer></script>
   <script src="./scorecard.js?v=20260822-3" defer></script>
 </head>
 <body>
@@ -226,6 +226,7 @@
                 <p>No <code>latest</code> alias is published yet. Use this signed 1.2.19 package for testing and internal handoff; keep any submitted Partner Center URL pinned.</p>
                 <div class="halt-build-actions">
                   <a class="build-download-primary" href="https://pub-b841d8ac01084f8f822078f923a49a87.r2.dev/builds/HALT_Caregiver_1.2.19_setup.exe">Download 1.2.19</a>
+                  <a class="build-playtest-link" href="#haltPlaytesting">Playtesting</a>
                 </div>
               </article>
               <article class="halt-build-card">
@@ -238,6 +239,98 @@
               </article>
             </div>
             <p class="halt-build-footnote">Do not replace a Partner Center package URL after submission. <a href="https://learn.microsoft.com/en-us/windows/apps/publish/publish-your-app/msi/app-package-requirements" target="_blank" rel="noopener">Read Microsoft’s package requirements <span aria-hidden="true">↗</span></a></p>
+          </section>
+
+          <section id="haltPlaytesting" class="halt-playtesting" aria-labelledby="playtestingTitle">
+            <div class="playtesting-heading">
+              <div>
+                <p class="eyebrow">Closed-beta learning loop</p>
+                <h3 id="playtestingTitle">Playtesting, at a glance.</h3>
+                <p>Human observations become named findings, build responses, and explicit verification gates. A finding closes only after the original behavior is retested.</p>
+              </div>
+              <div class="playtesting-freshness"><span>Latest cycle</span><strong>Caregiver · 1.2.19 v8a</strong><small>Updated Sep 2, 2026</small></div>
+            </div>
+
+            <figure class="playtest-overview" aria-labelledby="playtestOverviewCaption">
+              <figcaption id="playtestOverviewCaption">Current closed-loop progress</figcaption>
+              <ol class="playtest-loop" aria-label="11 findings, 11 triaged, 0 fixed, 0 verified">
+                <li class="is-complete"><span>01</span><strong>11</strong><small>Found</small></li>
+                <li class="is-complete"><span>02</span><strong>11</strong><small>Triaged</small></li>
+                <li><span>03</span><strong>0</strong><small>Fixed</small></li>
+                <li><span>04</span><strong>0</strong><small>Verified</small></li>
+              </ol>
+              <div class="severity-visual" aria-label="Severity mix: 2 critical, 3 high, 5 medium, 1 low">
+                <div class="severity-track" aria-hidden="true">
+                  <span class="is-critical" style="--share:2"></span>
+                  <span class="is-high" style="--share:3"></span>
+                  <span class="is-medium" style="--share:5"></span>
+                  <span class="is-low" style="--share:1"></span>
+                </div>
+                <div class="severity-legend">
+                  <span><i class="is-critical"></i><strong>2</strong> Critical</span>
+                  <span><i class="is-high"></i><strong>3</strong> High</span>
+                  <span><i class="is-medium"></i><strong>5</strong> Medium</span>
+                  <span><i class="is-low"></i><strong>1</strong> Low</span>
+                </div>
+              </div>
+            </figure>
+
+            <details class="playtest-history">
+              <summary>
+                <span><strong>Open playtest history</strong><small>One cycle · two paired reports · eleven linked findings</small></span>
+                <span class="playtest-history-count">01</span>
+              </summary>
+              <div class="playtest-history-body">
+                <details class="playtest-cycle">
+                  <summary>
+                    <span><b>PT-001</b><strong>Caregiver 1.2.19 · build v8a</strong><small>External tester 01 · 11 findings · response in progress</small></span>
+                  </summary>
+                  <div class="playtest-cycle-body">
+                    <div class="playtest-cycle-meta">
+                      <div><span>Decision</span><strong>Needs fixes before wider testing</strong></div>
+                      <div><span>Source status</span><strong>8 open · 3 in review</strong></div>
+                      <div><span>Build status</span><strong>8 queued · 3 in review</strong></div>
+                    </div>
+                    <div class="playtest-report-grid">
+                      <details class="playtest-report" open>
+                        <summary><span><b>1</b><strong>Extracted bug report</strong><small>What the tester found</small></span></summary>
+                        <div class="playtest-report-list">
+                          <article><span class="finding-code">F-001</span><span class="finding-severity is-medium">Medium</span><div><strong>Name accepts arbitrary symbols</strong><p>Identity input saves malformed text without format or length controls.</p></div></article>
+                          <article><span class="finding-code">F-002</span><span class="finding-severity is-medium">Medium</span><div><strong>Primary-contact input is unclear and unvalidated</strong><p>The field accepts malformed text and does not explain whether it expects a name, phone number, or both.</p></div></article>
+                          <article><span class="finding-code">F-003</span><span class="finding-severity is-high">High</span><div><strong>Impossible age is accepted</strong><p>Age 999 saves without warning or a realistic range check.</p></div></article>
+                          <article><span class="finding-code">F-004</span><span class="finding-severity is-high">High</span><div><strong>Stored-script safety needs complete retesting</strong><p>A synthetic script payload still needs verification across every display and export surface.</p></div></article>
+                          <article><span class="finding-code">F-005</span><span class="finding-severity is-medium">Medium</span><div><strong>Dashboard tiles may remain at zero</strong><p>A controlled add-person retest is needed to distinguish refresh behavior from incorrect counting.</p></div></article>
+                          <article><span class="finding-code">F-006</span><span class="finding-severity is-critical">Critical</span><div><strong>Age displays as a corrupted overflow value</strong><p>The patient view showed 3268586758386868600000 years after extreme input.</p></div></article>
+                          <article><span class="finding-code">F-007</span><span class="finding-severity is-high">High</span><div><strong>Unset weight displays as 0 kg</strong><p>Missing information is presented as an entered clinical value.</p></div></article>
+                          <article><span class="finding-code">F-008</span><span class="finding-severity is-low">Low</span><div><strong>Injury time displays as raw ISO text</strong><p>The timestamp is inconsistent with the nearby formatted admission time.</p></div></article>
+                          <article><span class="finding-code">F-009</span><span class="finding-severity is-critical">Critical</span><div><strong>All four vital fields accept impossible values</strong><p>Heart rate, systolic BP, SpO2, and temperature save values far outside valid ranges.</p></div></article>
+                          <article><span class="finding-code">F-010</span><span class="finding-severity is-medium">Medium</span><div><strong>Family Lookup defaults to visible</strong><p>A new record becomes visible to family search without an explicit tester choice.</p></div></article>
+                          <article><span class="finding-code">F-011</span><span class="finding-severity is-medium">Medium</span><div><strong>Free-text fields accept unbounded garbage strings</strong><p>The data-quality and safe-output pattern extends across condition, dietary, and general notes.</p></div></article>
+                        </div>
+                      </details>
+
+                      <details class="playtest-report">
+                        <summary><span><b>2</b><strong>Build response</strong><small>What changes and what must pass</small></span></summary>
+                        <div class="playtest-report-list is-response">
+                          <article><span class="finding-code">F-001</span><span class="finding-status is-queued">Queued</span><div><strong>Bound and safely render identity input</strong><p>Preserve valid international names; verify Unicode, punctuation, long text, and injection-style cases everywhere the value appears.</p></div></article>
+                          <article><span class="finding-code">F-002</span><span class="finding-status is-queued">Queued</span><div><strong>Define and validate the contact field</strong><p>Clarify the label and retest international names, phone formats, optional blank input, and unsafe strings.</p></div></article>
+                          <article><span class="finding-code">F-003</span><span class="finding-status is-queued">Queued</span><div><strong>Enforce integer age 0–120</strong><p>Block invalid values at both the interface and save boundary; verify boundary, decimal, pasted, and direct-save cases.</p></div></article>
+                          <article><span class="finding-code">F-004</span><span class="finding-status is-review">In review</span><div><strong>Audit every stored-content output path</strong><p>Centralize contextual escaping and verify the synthetic payload across the UI and every supported export.</p></div></article>
+                          <article><span class="finding-code">F-005</span><span class="finding-status is-review">In review</span><div><strong>Reproduce before changing the count path</strong><p>Verify 0 → 1 without reload, then test edit, delete, restart, and offline behavior.</p></div></article>
+                          <article><span class="finding-code">F-006</span><span class="finding-status is-queued">Queued</span><div><strong>Trace and block age overflow</strong><p>Capture exact boundary inputs and prevent non-finite, coerced, or out-of-range values from persisting or rendering.</p></div></article>
+                          <article><span class="finding-code">F-007</span><span class="finding-status is-queued">Queued</span><div><strong>Keep missing weight distinct from zero</strong><p>Store absence as null, show a clear empty state, and protect calculations from treating it as 0 kg.</p></div></article>
+                          <article><span class="finding-code">F-008</span><span class="finding-status is-queued">Queued</span><div><strong>Use the shared local date formatter</strong><p>Compare Injury Time and Admitted across time zones, restart, edit, and export.</p></div></article>
+                          <article><span class="finding-code">F-009</span><span class="finding-status is-queued">Queued</span><div><strong>Add field-specific vital bounds</strong><p>Block invalid values in the UI and save boundary; verify every limit, blank optional state, persistence, and export.</p></div></article>
+                          <article><span class="finding-code">F-010</span><span class="finding-status is-review">In review</span><div><strong>Adopt explicit opt-in after product approval</strong><p>Confirm the privacy default, then test new, edited, imported, upgraded, restored, and public-lookup states.</p></div></article>
+                          <article><span class="finding-code">F-011</span><span class="finding-status is-queued">Queued</span><div><strong>Bound free text and escape every output</strong><p>Preserve valid multilingual notes while verifying long text, markup-like input, reload, timeline, and exports.</p></div></article>
+                        </div>
+                      </details>
+                    </div>
+                  </div>
+                </details>
+                <p class="playtest-public-note"><strong>Public-safe summary.</strong> Tester identity, screenshots, raw logs, and internal evidence remain in the controlled handoff record.</p>
+              </div>
+            </details>
           </section>
 
           <section class="project-pulse project-pulse-top" aria-labelledby="pulseTitle">

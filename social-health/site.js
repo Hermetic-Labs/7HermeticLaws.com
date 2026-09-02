@@ -241,6 +241,7 @@
     byId('studioProjectReference').href = studio.referenceUrl;
     byId('studioProjectReference').firstChild.textContent = `${studio.referenceLabel} `;
     byId('haltBuilds').hidden = projectId !== 'halt';
+    byId('haltPlaytesting').hidden = projectId !== 'halt';
     byId('scopeTitle').textContent = studio.scopeQuestion;
     byId('scopeDescription').textContent = studio.scopeDescription;
     byId('haltSourceUrl').placeholder = studio.referenceUrl;
