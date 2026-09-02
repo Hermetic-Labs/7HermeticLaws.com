@@ -37,7 +37,17 @@
           community: { label: 'HALT Community', summary: 'Household intake, local response, food and WASH stock, first aid, translation, and coordination.', truth: 'A simplified community-response workspace being shaped for household intake, local care mapping, food and WASH stock, first aid, translation, and coordination.', boundary: 'Keep the community-response scope distinct from clinical authority, emergency-service replacement, or proven field deployment.' }
         }
       },
-      assets: [{ name: 'HALT', source: './assets/halt-mark.png', description: 'Current public product-family mark.', role: 'Product family' }]
+      assets: [
+        { name: 'HALT', source: './assets/halt-mark.png', description: 'Current public product-family mark.', role: 'Product family' },
+        { name: 'HALT primary mark', source: './assets/ip-library/halt-primary-mark.png', description: 'Full HALT hand-and-wordmark composition retained as an approved source asset.', role: 'Product identity' },
+        { name: 'HALT horizontal banner', source: './assets/ip-library/halt-banner.png', description: 'Wide HALT lockup for horizontal placements.', role: 'Product banner', wide: true },
+        { name: 'HALT Windows banner', source: './assets/ip-library/halt-windows-banner.png', description: 'Windows-oriented HALT banner with the Developers Without Borders hand mark.', role: 'Platform banner', wide: true },
+        { name: 'Hermetic Labs symbol', source: './assets/ip-library/hermetic-labs-symbol.png', description: 'RGB geometric Hermetic Labs symbol on a transparent field.', role: 'Company identity' },
+        { name: 'Hermetic Labs banner', source: './assets/ip-library/hermetic-labs-banner.png', description: 'Horizontal Hermetic Labs wordmark for dark backgrounds.', role: 'Company identity', wide: true },
+        { name: 'Hermetic Labs icon', source: './assets/ip-library/hermetic-labs-icon.png', description: 'Metallic Hermetic Labs figure-and-light icon.', role: 'Company icon' },
+        { name: 'Developers Without Borders', source: './assets/ip-library/developers-without-borders-mark.png', description: 'Humanitarian development initiative mark.', role: 'Initiative identity' },
+        { name: 'Developers Without Borders pledge', source: './assets/ip-library/developers-without-borders-pledge.png', description: 'Printable pledge certificate retained with the HALT humanitarian identity set.', role: 'Pledge certificate' }
+      ]
     },
     vrf: {
       index: '02',
@@ -150,7 +160,8 @@
       },
       assets: [
         { name: 'Eve OS', source: './assets/eve-os-wordmark.png', description: 'Existing chromatic wordmark retained for identity reference.', role: 'Product identity', wide: true },
-        { name: 'Hermetic Labs Exchange', source: './assets/exchange-mark.png', description: 'Existing RGB ring mark retained as the marketplace reference.', role: 'Marketplace identity' }
+        { name: 'Hermetic Labs Exchange', source: './assets/exchange-mark.png', description: 'Existing RGB ring mark retained as the marketplace reference.', role: 'Marketplace identity' },
+        { name: 'Exchange transparent mark', source: './assets/ip-library/exchange-logo-transparent.png', description: 'Transparent-background Exchange source mark retained for alternate placements.', role: 'Marketplace identity' }
       ]
     }
   };
@@ -555,8 +566,8 @@
   }
 
   function renderProjectAssets(project) {
-    byId('projectAssetsTitle').textContent = `${project.name} ${project.assets.length === 1 ? 'mark' : 'marks'}`;
-    byId('projectAssetsDescription').textContent = `Use these assets only inside the ${project.name} lane.`;
+    byId('projectAssetsTitle').textContent = `${project.name} icon & IP library`;
+    byId('projectAssetsDescription').textContent = `${project.assets.length} approved source ${project.assets.length === 1 ? 'asset' : 'assets'}, kept inside the ${project.name} lane.`;
     const grid = byId('projectAssetGrid');
     grid.replaceChildren();
     grid.classList.toggle('is-single', project.assets.length === 1);
@@ -566,7 +577,7 @@
       const visual = element('div', 'project-asset-visual');
       const image = document.createElement('img');
       image.src = asset.source;
-      image.alt = `${asset.name} mark`;
+      image.alt = asset.alt || `${asset.name} identity asset`;
       visual.appendChild(image);
 
       const copy = element('div', 'project-asset-copy');

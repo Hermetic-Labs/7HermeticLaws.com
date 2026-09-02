@@ -22,9 +22,9 @@
   <meta name="twitter:title" content="Social Health — Hermetic Labs">
   <meta name="twitter:description" content="Turn product truth into clear public signal.">
   <meta name="twitter:image" content="https://7hermeticlaws.com/social-health/assets/social-health-og.png">
-  <link rel="stylesheet" href="./site.css?v=20260902-4">
+  <link rel="stylesheet" href="./site.css?v=20260902-6">
   <link rel="stylesheet" href="./scorecard.css?v=20260822-3">
-  <script src="./site.js?v=20260902-1" defer></script>
+  <script src="./site.js?v=20260902-2" defer></script>
   <script src="./scorecard.js?v=20260822-3" defer></script>
 </head>
 <body>
@@ -223,9 +223,9 @@
               <article class="halt-build-card">
                 <span class="build-badge is-versioned">Immutable only</span>
                 <h4>HALT Caregiver</h4>
-                <p>No <code>latest</code> alias is published yet. Use this signed 1.2.19 package for testing and internal handoff; keep any submitted Partner Center URL pinned.</p>
+                <p>No <code>latest</code> alias is published yet. Use this signed 1.2.21 response build for PT-001 verification and continued internal testing.</p>
                 <div class="halt-build-actions">
-                  <a class="build-download-primary" href="https://pub-b841d8ac01084f8f822078f923a49a87.r2.dev/builds/HALT_Caregiver_1.2.19_setup.exe">Download 1.2.19</a>
+                  <a class="build-download-primary" href="https://pub-b841d8ac01084f8f822078f923a49a87.r2.dev/builds/HALT_Caregiver_1.2.21_setup.exe">Download 1.2.21</a>
                   <a class="build-playtest-link" href="#haltPlaytesting">Playtesting</a>
                 </div>
               </article>
@@ -238,7 +238,6 @@
                 </div>
               </article>
             </div>
-            <p class="halt-build-footnote">Do not replace a Partner Center package URL after submission. <a href="https://learn.microsoft.com/en-us/windows/apps/publish/publish-your-app/msi/app-package-requirements" target="_blank" rel="noopener">Read Microsoft’s package requirements <span aria-hidden="true">↗</span></a></p>
           </section>
 
           <section id="haltPlaytesting" class="halt-playtesting" aria-labelledby="playtestingTitle">
@@ -248,15 +247,15 @@
                 <h3 id="playtestingTitle">Playtesting, at a glance.</h3>
                 <p>Human observations become named findings, build responses, and explicit verification gates. A finding closes only after the original behavior is retested.</p>
               </div>
-              <div class="playtesting-freshness"><span>Latest cycle</span><strong>Caregiver · 1.2.19 v8a</strong><small>Updated Sep 2, 2026</small></div>
+              <div class="playtesting-freshness"><span>Latest response</span><strong>Caregiver · 1.2.21</strong><small>PT-001 verification build · Sep 2, 2026</small></div>
             </div>
 
             <figure class="playtest-overview" aria-labelledby="playtestOverviewCaption">
               <figcaption id="playtestOverviewCaption">Current closed-loop progress</figcaption>
-              <ol class="playtest-loop" aria-label="11 findings, 11 triaged, 0 fixed, 0 verified">
+              <ol class="playtest-loop" aria-label="11 findings, 11 triaged, 10 fixed in build 1.2.21, 0 independently verified">
                 <li class="is-complete"><span>01</span><strong>11</strong><small>Found</small></li>
                 <li class="is-complete"><span>02</span><strong>11</strong><small>Triaged</small></li>
-                <li><span>03</span><strong>0</strong><small>Fixed</small></li>
+                <li class="is-complete"><span>03</span><strong>10</strong><small>Fixed</small></li>
                 <li><span>04</span><strong>0</strong><small>Verified</small></li>
               </ol>
               <div class="severity-visual" aria-label="Severity mix: 2 critical, 3 high, 5 medium, 1 low">
@@ -283,13 +282,13 @@
               <div class="playtest-history-body">
                 <details class="playtest-cycle">
                   <summary>
-                    <span><b>PT-001</b><strong>Caregiver 1.2.19 · build v8a</strong><small>External tester 01 · 11 findings · response in progress</small></span>
+                    <span><b>PT-001</b><strong>Caregiver 1.2.19 · build v8a</strong><small>Warren / Nadeem · 11 findings · 1.2.21 response ready</small></span>
                   </summary>
                   <div class="playtest-cycle-body">
                     <div class="playtest-cycle-meta">
-                      <div><span>Decision</span><strong>Needs fixes before wider testing</strong></div>
-                      <div><span>Source status</span><strong>8 open · 3 in review</strong></div>
-                      <div><span>Build status</span><strong>8 queued · 3 in review</strong></div>
+                      <div><span>Decision</span><strong>1.2.21 ready for verification</strong></div>
+                      <div><span>Source status</span><strong>11 triaged · 1 understanding gap</strong></div>
+                      <div><span>Build status</span><strong>10 fixed · 1 controlled retest</strong></div>
                     </div>
                     <div class="playtest-report-grid">
                       <details class="playtest-report" open>
@@ -338,17 +337,21 @@
                       <details class="playtest-report">
                         <summary><span><b>2</b><strong>Build response</strong><small>What changes and what must pass</small></span></summary>
                         <div class="playtest-report-list is-response">
-                          <article><span class="finding-code">F-001</span><span class="finding-status is-queued">Queued</span><div><strong>Bound and safely render identity input</strong><p>Preserve valid international names; verify Unicode, punctuation, long text, and injection-style cases everywhere the value appears.</p></div></article>
-                          <article><span class="finding-code">F-002</span><span class="finding-status is-queued">Queued</span><div><strong>Define and validate the contact field</strong><p>Clarify the label and retest international names, phone formats, optional blank input, and unsafe strings.</p></div></article>
-                          <article><span class="finding-code">F-003</span><span class="finding-status is-queued">Queued</span><div><strong>Enforce integer age 0–120</strong><p>Block invalid values at both the interface and save boundary; verify boundary, decimal, pasted, and direct-save cases.</p></div></article>
-                          <article><span class="finding-code">F-004</span><span class="finding-status is-review">In review</span><div><strong>Audit every stored-content output path</strong><p>Centralize contextual escaping and verify the synthetic payload across the UI and every supported export.</p></div></article>
-                          <article><span class="finding-code">F-005</span><span class="finding-status is-review">In review</span><div><strong>Reproduce before changing the count path</strong><p>Verify 0 → 1 without reload, then test edit, delete, restart, and offline behavior.</p></div></article>
-                          <article><span class="finding-code">F-006</span><span class="finding-status is-queued">Queued</span><div><strong>Trace and block age overflow</strong><p>Capture exact boundary inputs and prevent non-finite, coerced, or out-of-range values from persisting or rendering.</p></div></article>
-                          <article><span class="finding-code">F-007</span><span class="finding-status is-queued">Queued</span><div><strong>Keep missing weight distinct from zero</strong><p>Store absence as null, show a clear empty state, and protect calculations from treating it as 0 kg.</p></div></article>
-                          <article><span class="finding-code">F-008</span><span class="finding-status is-queued">Queued</span><div><strong>Use the shared local date formatter</strong><p>Compare Injury Time and Admitted across time zones, restart, edit, and export.</p></div></article>
-                          <article><span class="finding-code">F-009</span><span class="finding-status is-queued">Queued</span><div><strong>Add field-specific vital bounds</strong><p>Block invalid values in the UI and save boundary; verify every limit, blank optional state, persistence, and export.</p></div></article>
-                          <article><span class="finding-code">F-010</span><span class="finding-status is-review">In review</span><div><strong>Adopt explicit opt-in after product approval</strong><p>Confirm the privacy default, then test new, edited, imported, upgraded, restored, and public-lookup states.</p></div></article>
-                          <article><span class="finding-code">F-011</span><span class="finding-status is-queued">Queued</span><div><strong>Bound free text and escape every output</strong><p>Preserve valid multilingual notes while verifying long text, markup-like input, reload, timeline, and exports.</p></div></article>
+                          <section class="playtest-response-release" aria-label="PT-001 response release">
+                            <div><span>Response build</span><strong>HALT Caregiver 1.2.21</strong><small>Signed · immutable · ready for Warren / Nadeem to verify</small></div>
+                            <a href="https://pub-b841d8ac01084f8f822078f923a49a87.r2.dev/builds/HALT_Caregiver_1.2.21_setup.exe">Download response build</a>
+                          </section>
+                          <article><span class="finding-code">F-001</span><span class="finding-status is-fixed">Fixed</span><div><strong>Safe, realistic identity input</strong><p>Names are required, capped at 200 characters, and reject control characters. Unicode, apostrophes, and hyphens remain valid by design; output encoding handles unsafe markup.</p></div></article>
+                          <article><span class="finding-code">F-002</span><span class="finding-status is-fixed">Fixed</span><div><strong>Contact purpose is explicit</strong><p>The field now says “name or phone,” includes an example, and applies a 500-character/control-character boundary while remaining optional.</p></div></article>
+                          <article><span class="finding-code">F-003</span><span class="finding-status is-fixed">Fixed</span><div><strong>Impossible ages stop before save</strong><p>Caregiver accepts whole-year ages from 0–130 only, with the same range enforced again by the shared core.</p></div></article>
+                          <article><span class="finding-code">F-004</span><span class="finding-status is-fixed">Fixed</span><div><strong>The real stored-script sinks are closed</strong><p>React already rendered normal screens as text. The patient and shift-handoff HTML exports were the exposed paths; patient-controlled values are now encoded and covered by a script-payload regression test.</p></div></article>
+                          <article><span class="finding-code">F-005</span><span class="finding-status is-gap">Retest</span><div><strong>Understanding gap—not a confirmed count defect</strong><p>Returning to Care Home reloads the count immediately; a Home view left open polls every 15 seconds. Retest add → Care Home before changing that path.</p></div></article>
+                          <article><span class="finding-code">F-006</span><span class="finding-status is-fixed">Fixed</span><div><strong>Unbounded age pass-through is blocked</strong><p>This was not an integer overflow: the extreme number was stored and displayed as entered. UI and core boundaries now reject it.</p></div></article>
+                          <article><span class="finding-code">F-007</span><span class="finding-status is-fixed">Fixed</span><div><strong>Missing weight reads as missing</strong><p>An unset weight now displays as an em dash instead of “0 kg,” and the editor accepts only blank or 0.1–1000 kg.</p></div></article>
+                          <article><span class="finding-code">F-008</span><span class="finding-status is-fixed">Fixed</span><div><strong>Injury time matches admission time</strong><p>Both timestamps now use the same guarded local date-and-time formatter; invalid legacy text remains visible instead of crashing the panel.</p></div></article>
+                          <article><span class="finding-code">F-009</span><span class="finding-status is-fixed">Fixed</span><div><strong>Vitals have field-specific safety boundaries</strong><p>Caregiver and the shared save boundary reject impossible heart rate, systolic BP, SpO₂, and temperature values. Missing observations no longer become fake normal graph points.</p></div></article>
+                          <article><span class="finding-code">F-010</span><span class="finding-status is-fixed">Fixed</span><div><strong>Family Lookup is explicit opt-in</strong><p>New Caregiver records now start hidden. Visibility changes only when the checkbox is deliberately enabled.</p></div></article>
+                          <article><span class="finding-code">F-011</span><span class="finding-status is-fixed">Fixed</span><div><strong>Free text is bounded without breaking languages</strong><p>Concern, dietary notes, general notes, allergies, and contact text now have appropriate size/control-character limits; exports encode the saved content.</p></div></article>
                         </div>
                       </details>
                     </div>
@@ -471,8 +474,8 @@
           <div class="studio-project-context">
             <details class="project-assets" open>
               <summary class="project-assets-heading">
-                <div><p class="eyebrow">Project iconology</p><h3 id="projectAssetsTitle">HALT marks</h3></div>
-                <div class="project-assets-summary-meta"><p id="projectAssetsDescription">Use these assets only inside this project lane.</p><span class="project-assets-toggle"><span class="when-open">Collapse ↑</span><span class="when-closed">Expand ↓</span></span></div>
+                <div><p class="eyebrow">Icon &amp; IP library</p><h3 id="projectAssetsTitle">HALT marks</h3></div>
+                <div class="project-assets-summary-meta"><p id="projectAssetsDescription">Approved source assets, kept inside the project lane that owns them.</p><span class="project-assets-toggle"><span class="when-open">Collapse ↑</span><span class="when-closed">Expand ↓</span></span></div>
               </summary>
               <div class="project-asset-scroll" tabindex="0" aria-label="Scrollable project assets"><div id="projectAssetGrid" class="project-asset-grid"></div></div>
             </details>

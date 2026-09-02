@@ -74,7 +74,7 @@ if ((await page.locator('#pulseTitle').textContent()) !== 'HALT campaign pulse')
 if (await page.locator('#projectPanel .project-assets, #projectPanel .project-pulse').count()) errors.push('Project details remain exposed in the summary');
 if ((await page.locator('#tab-halt').getAttribute('href')) !== null) errors.push('HALT tab still carries a page link');
 if (await page.evaluate(() => Array.from(document.querySelectorAll('[download]')).some((node) => !node.closest('.project-assets')))) errors.push('A download control remains outside Project iconology');
-if ((await page.locator('#projectAssetGrid .project-asset-card').count()) !== 1) errors.push('HALT project asset did not render in its lane');
+if ((await page.locator('#projectAssetGrid .project-asset-card').count()) !== 9) errors.push('HALT icon and IP library did not render all nine source assets in its lane');
 if (!(await page.locator('#projectAssetGrid img[src$="halt-mark.png"]').count())) errors.push('HALT mark is not wired into the HALT lane');
 if (!(await page.locator('.brand-logo').getAttribute('src')).includes('7hl-social-rgb-192.png')) errors.push('RGB site logo is not wired into the header');
 
@@ -102,7 +102,7 @@ if ((await page.locator('#haltAssignmentCode').inputValue()) !== '') errors.push
 if ((await page.locator('#studioLanePicker [data-project-lane]').count()) !== 3) errors.push('VRF workspace lanes did not render');
 await page.locator('#closeHaltStudio').click();
 await page.locator('#tab-eve').click();
-if ((await page.locator('#projectAssetGrid .project-asset-card').count()) !== 2) errors.push('Eve OS and Exchange marks are not grouped in their shared lane');
+if ((await page.locator('#projectAssetGrid .project-asset-card').count()) !== 3) errors.push('Eve OS and Exchange marks are not grouped in their shared lane');
 if ((await page.locator('#pulseTitle').textContent()) !== 'Eve OS / Exchange campaign pulse') errors.push('Campaign pulse did not switch to Eve OS / Exchange');
 await page.locator('#openProjectStudio').click();
 if (!(await page.locator('#haltStudio').isVisible())) errors.push('Eve OS / Exchange summary did not open its contribution workspace');
@@ -124,7 +124,7 @@ if (!(await page.locator('#haltBuilds').isVisible())) errors.push('HALT build do
 if ((await page.locator('#haltBuilds .halt-build-card').count()) !== 3) errors.push('HALT build area does not expose all three product packages');
 if (!(await page.locator('#haltBuilds a[href$="/builds/HALT_latest_setup.exe"]').count())) errors.push('HALT Organization tester alias is missing');
 if (!(await page.locator('#haltBuilds a[href$="/builds/HALT_1.2.18_setup.exe"]').count())) errors.push('HALT Organization immutable package is missing');
-if (!(await page.locator('#haltBuilds a[href$="/builds/HALT_Caregiver_1.2.19_setup.exe"]').count())) errors.push('HALT Caregiver immutable package is missing');
+if (!(await page.locator('#haltBuilds a[href$="/builds/HALT_Caregiver_1.2.21_setup.exe"]').count())) errors.push('HALT Caregiver 1.2.21 immutable package is missing');
 if (!(await page.locator('#haltBuilds a[href$="/builds/HALT_Community_1.2.19_setup.exe"]').count())) errors.push('HALT Community immutable package is missing');
 if (await page.locator('#haltBuilds a[href*="Caregiver_latest"], #haltBuilds a[href*="Community_latest"]').count()) errors.push('Unpublished Caregiver or Community latest alias was inferred');
 if (!(await page.locator('#haltBuilds .build-playtest-link[href="#haltPlaytesting"]').count())) errors.push('Caregiver playtesting link is missing beside the installer');
@@ -146,9 +146,13 @@ if (!(await page.locator('#haltPlaytesting img[src$="playtest-caregiver-field-ru
 if (!(await page.locator('#haltPlaytesting img[src$="playtest-whisper-failure-v8a.jpg"]').count())) errors.push('Whisper failure evidence is missing');
 if (!(await page.locator('#haltPlaytesting img[src$="playtest-summary-v8a.png"]').count())) errors.push('Playtesting summary evidence is missing');
 if ((await page.locator('#haltPlaytesting .playtest-loop li').count()) !== 4) errors.push('Playtesting loop does not show all four stages');
-if ((await page.locator('#haltPlaytesting .playtest-loop strong').allTextContents()).join(',') !== '11,11,0,0') errors.push('Playtesting loop counts are incorrect');
+if ((await page.locator('#haltPlaytesting .playtest-loop strong').allTextContents()).join(',') !== '11,11,10,0') errors.push('Playtesting loop counts are incorrect');
 if ((await page.locator('#haltPlaytesting .playtest-report-list:not(.is-response) article').count()) !== 11) errors.push('Extracted bug report does not contain 11 findings');
 if ((await page.locator('#haltPlaytesting .playtest-report-list.is-response article').count()) !== 11) errors.push('Build response does not pair all 11 findings');
+if ((await page.locator('#haltPlaytesting .playtest-report-list.is-response .finding-status.is-fixed').count()) !== 10) errors.push('Build response does not mark all ten implemented fixes');
+if ((await page.locator('#haltPlaytesting .playtest-report-list.is-response .finding-status.is-gap').count()) !== 1) errors.push('Build response does not preserve the dashboard-count understanding gap');
+if (!(await page.locator('#haltPlaytesting .playtest-response-release a[href$="/builds/HALT_Caregiver_1.2.21_setup.exe"]').count())) errors.push('PT-001 response build link is missing');
+if ((await page.locator('#haltBuilds').getByText('Do not replace a Partner Center package URL after submission').count())) errors.push('Internal Partner Center warning leaked into the tester download shelf');
 if (!(await page.locator('#haltStudio .project-assets').isVisible()) || !(await page.locator('#haltStudio .project-pulse').isVisible())) errors.push('HALT iconology and campaign pulse did not move into its workspace');
 const studioOrder = await page.locator('#haltStudio').evaluate((studio) => Array.from(studio.children).map((node) => node.id || node.className || node.tagName));
 if (studioOrder[1] !== 'haltBuilds' || studioOrder[2] !== 'haltPlaytesting' || !String(studioOrder[3]).includes('project-pulse') || studioOrder[4] !== 'studioSteps' || studioOrder[5] !== 'haltContributionForm' || studioOrder[6] !== 'studio-project-context') errors.push('HALT build shelf, playtesting, and campaign pulse are not ordered correctly');
