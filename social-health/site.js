@@ -51,16 +51,16 @@
     },
     vrf: {
       index: '02',
-      state: 'Project lane reserved',
+      state: 'Public catalog active',
       name: 'VRF',
-      description: 'VRF has its own audience, voice, assets, approvals, outreach targets, and measurements. No public campaign state is inferred until the canonical project record identifies it.',
-      products: [],
-      job: 'Coordinate project-specific social communication without borrowing HALT claims or tone.',
-      publicState: 'No project-scoped public campaign is asserted here yet.',
-      nextGate: 'Establish the canonical project and asset roots.',
+      description: 'VRF is a modular Unreal Engine ecosystem moving from reusable utilities and foundation packs into intelligence, integration, and embodied experiences.',
+      products: ['Movement', 'Weapons', 'Vehicles', 'AI E.v.E', 'Bundle', 'Unleashed', 'The Eden Project', '4 free utilities'],
+      job: 'Show the exact product, build, and demonstrated capability while the ecosystem develops as one connected family.',
+      publicState: 'Movement, Weapons, and Cars are published on Fab. Their videos and three routes into the live VRF Discord are available; the older Movement and Cars demo downloads need repair.',
+      nextGate: 'Begin the next development pass from the foundation packs while keeping every public touchpoint current.',
       pulse: {
-        summary: 'Public communication and contributor activity belonging only to the VRF product family.',
-        scope: 'VRF product-family communication',
+        summary: 'Public communication across VRF utilities, foundations, intelligence, integration, and expansion lanes.',
+        scope: 'The VRF product family, with every claim tied to a named pack, build, or roadmap source',
         rule: 'Explicit VRF project key required',
         notice: 'Only campaigns explicitly assigned to VRF appear in this lane.',
         empty: 'No named VRF campaign is currently projected.',
@@ -68,20 +68,20 @@
       },
       studio: {
         title: 'Show the system. Bound the build.',
-        description: 'VRF is a family of Unreal Engine and immersive-system assets. Contributions must identify the exact pack, version, source, and demonstrated capability.',
+        description: 'VRF is a modular family of Unreal Engine and immersive-system assets. Contributions must identify the exact product lane, pack or build, version, source, and demonstrated capability.',
         referenceUrl: 'https://www.fab.com/sellers/Hermetic%20Labs',
         referenceLabel: 'Open the public VRF catalog',
-        scopeQuestion: 'Which VRF surface are you speaking for?',
-        scopeDescription: 'Choose the exact product or learning lane before drafting. Do not combine claims across packs, versions, or unpublished material.',
+        scopeQuestion: 'Which part of the VRF ecosystem are you speaking for?',
+        scopeDescription: 'Choose the foundation, system, or expansion lane before drafting. Do not combine claims across packs, versions, builds, or roadmap material.',
         audiences: ['Unreal Engine developers', 'XR and simulation teams', 'Technical artists and designers', 'Marketplace customers', 'Technical builders and contributors', 'General public'],
-        positive: 'VRF is a family of Unreal Engine tools and learning materials. This demonstration covers the named feature in the cited pack and version; compatibility and setup should be confirmed from the linked source.',
-        positiveWhy: 'Why it works · Names the product family, bounds the demonstration, and sends compatibility claims back to the source.',
+        positive: 'VRF is a modular Unreal Engine ecosystem. The current public Fab catalog includes Movement, Weapons, and Cars; other lanes should be described only from their named build, source project, or roadmap evidence.',
+        positiveWhy: 'Why it works · Names what is publicly available, preserves the wider ecosystem shape, and keeps every other claim tied to evidence.',
         negative: 'VRF is a universal VR framework that works with every headset, engine version, and project without setup.',
         negativeWhy: 'Why it fails · Claims universal compatibility and frictionless performance without product-, version-, or device-level evidence.',
         lanes: {
-          packs: { label: 'VRF packs', summary: 'Named Unreal Engine packs, modules, and demonstrated workflows.', truth: 'VRF includes a working family of Unreal Engine project assets and modular systems.', boundary: 'Name the exact pack and version. Do not promote deprecated, restricted, private, or unreleased material as currently available.' },
-          demonstrations: { label: 'VRF demonstrations', summary: 'Feature demonstrations, compatibility notes, and implementation context.', truth: 'Public demonstrations can show bounded behavior from a named build or pack.', boundary: 'A demonstration proves only what is shown in that configuration; it does not establish universal compatibility or production readiness.' },
-          learning: { label: 'VRF learning', summary: 'Public-safe tutorials, walkthroughs, and developer guidance.', truth: 'VRF is supported by tutorials and demonstrations that help builders understand specific workflows.', boundary: 'Use only public-safe learning material and keep the guidance tied to the version and source shown.' }
+          foundations: { label: 'Foundation packs', summary: 'Movement, Weapons, and Vehicles establish locomotion, physical interaction, combat, and driveable systems.', truth: 'Movement, Weapons, and Cars are the three products currently published in the Hermetic Labs Fab catalog.', boundary: 'Name the exact pack and version. A published listing does not prove universal device, engine, or project compatibility.' },
+          systems: { label: 'Systems and integration', summary: 'AI E.v.E, Bundle, and four free utilities connect reusable behavior into broader framework experiences.', truth: 'These lanes belong to the working VRF ecosystem and must be described from their own current build or source evidence.', boundary: 'Do not present a workspace build or source project as a currently available Fab product unless the live catalog lists it.' },
+          expansion: { label: 'Expansion and embodiment', summary: 'Unleashed and The Eden Project extend the framework toward larger experiences and Eve embodiment across AR and VR.', truth: 'These are forward product lanes with different levels of roadmap and concept evidence.', boundary: 'Keep planned capability, concept material, and demonstrated behavior visibly distinct.' }
         }
       },
       assets: [{ name: 'VRF', source: './assets/vrf-mark.png', description: 'Canonical high-resolution mark for the VRF product family.', role: 'Product family' }]
