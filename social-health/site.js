@@ -54,10 +54,31 @@
       state: 'Public catalog active',
       name: 'VRF',
       description: 'VRF is a modular Unreal Engine ecosystem moving from reusable utilities and foundation packs into intelligence, integration, and embodied experiences.',
-      products: ['Movement', 'Weapons', 'Vehicles', 'AI E.v.E', 'Bundle', 'Unleashed', 'The Eden Project', '4 free utilities'],
+      products: ['Movement', 'Weapons', 'Vehicles', 'AI E.v.E', 'Bundle', 'Unleashed', 'Veritas', '4 free utilities'],
       job: 'Show the exact product, build, and demonstrated capability while the ecosystem develops as one connected family.',
       publicState: 'Movement, Weapons, and Cars are published on Fab. Their videos and three routes into the live VRF Discord are available; the older Movement and Cars demo downloads need repair.',
-      nextGate: 'Begin the next development pass from the foundation packs while keeping every public touchpoint current.',
+      nextGate: 'Maintain the standalone VRF source of truth, then advance the foundation packs through native verification.',
+      spotlight: {
+        kicker: 'VRF public map',
+        title: 'Three live packs. One larger body taking shape.',
+        summary: 'The current storefront begins with Movement, Weapons, and Vehicles. Historical releases and signals show how the family expanded toward AI, composition, and the two-way boundary with EVE-OS.',
+        stats: [
+          { value: '3', label: 'Current Fab packs' },
+          { value: '2', label: 'Legacy release records' },
+          { value: '1', label: 'Unleashed teaser' },
+          { value: '11', label: 'Defined pack lanes' }
+        ],
+        path: 'Four capability limbs → Bundle torso → Unleashed inbound → Veritas outbound',
+        referenceUrl: 'https://virtualrealityfatality.com/',
+        cards: [
+          { title: 'Movement', state: 'Available on Fab', tone: 'current', image: './assets/vrf-showcase/movement.jpg', alt: 'VRF Volume 1 Movement artwork with a VR character and locomotion feature names', copy: 'Locomotion, body, pose, climbing, swimming, flight, and physical interaction foundations.', href: 'https://www.fab.com/listings/2f944cd3-c998-4e00-b90e-26866e26d432', linkLabel: 'Open Movement on Fab' },
+          { title: 'Weapons', state: 'Available on Fab', tone: 'current', image: './assets/vrf-showcase/weapons.jpg', alt: 'VRF Volume 2 Weapons artwork showing VR hands, pistols, and ammunition', copy: 'Physical firearms, ammunition, attachments, reloading, and two-handed combat interaction.', href: 'https://www.fab.com/listings/1866e14e-8b87-486a-bbe2-262b2ae39342', linkLabel: 'Open Weapons on Fab' },
+          { title: 'Vehicles', state: 'Available on Fab', tone: 'current', image: './assets/vrf-showcase/vehicles.jpg', alt: 'VRF Volume 3 Cars artwork showing a stylized vehicle and VR driver', copy: 'Driveable systems, seats, controls, doors, cameras, and vehicle-state foundations.', href: 'https://www.fab.com/listings/01a12f16-02ce-4d97-961d-8e367a4349bc', linkLabel: 'Open Vehicles on Fab' },
+          { title: 'AI E.v.E', state: 'Historical public release', tone: 'history', image: './assets/vrf-showcase/ai-eve.jpg', alt: 'Thumbnail from the public VRF Volume 4 NPC demonstration', copy: 'NPC behavior, perception, expression, embodiment, and later conversational experiments.', href: 'https://www.youtube.com/watch?v=IoOVCA3xdgU', linkLabel: 'Watch the public record' },
+          { title: 'Bundle', state: 'Historical public release', tone: 'history', image: './assets/vrf-showcase/bundle.jpg', alt: 'Thumbnail from the public VRF Bundle demonstration', copy: 'The torso: a composition of foundation capabilities into replicated example experiences.', href: 'https://www.youtube.com/watch?v=HsHhoJvsJog', linkLabel: 'Watch the public record' },
+          { title: 'Unleashed', state: 'Historical public teaser', tone: 'history', image: './assets/vrf-showcase/unleashed.jpg', alt: 'Thumbnail from the public VRF Unleashed teaser', copy: 'The inbound gateway now defined to bring EVE modules and external systems into Unreal.', href: 'https://www.youtube.com/watch?v=3I9MpV3nZco', linkLabel: 'Watch the teaser' }
+        ]
+      },
       pulse: {
         summary: 'Public communication across VRF utilities, foundations, intelligence, integration, and expansion lanes.',
         scope: 'The VRF product family, with every claim tied to a named pack, build, or roadmap source',
@@ -69,8 +90,8 @@
       studio: {
         title: 'Show the system. Bound the build.',
         description: 'VRF is a modular family of Unreal Engine and immersive-system assets. Contributions must identify the exact product lane, pack or build, version, source, and demonstrated capability.',
-        referenceUrl: 'https://www.fab.com/sellers/Hermetic%20Labs',
-        referenceLabel: 'Open the public VRF catalog',
+        referenceUrl: 'https://virtualrealityfatality.com/',
+        referenceLabel: 'Visit the standalone VRF site',
         scopeQuestion: 'Which part of the VRF ecosystem are you speaking for?',
         scopeDescription: 'Choose the foundation, system, or expansion lane before drafting. Do not combine claims across packs, versions, builds, or roadmap material.',
         audiences: ['Unreal Engine developers', 'XR and simulation teams', 'Technical artists and designers', 'Marketplace customers', 'Technical builders and contributors', 'General public'],
@@ -81,10 +102,17 @@
         lanes: {
           foundations: { label: 'Foundation packs', summary: 'Movement, Weapons, and Vehicles establish locomotion, physical interaction, combat, and driveable systems.', truth: 'Movement, Weapons, and Cars are the three products currently published in the Hermetic Labs Fab catalog.', boundary: 'Name the exact pack and version. A published listing does not prove universal device, engine, or project compatibility.' },
           systems: { label: 'Systems and integration', summary: 'AI E.v.E, Bundle, and four free utilities connect reusable behavior into broader framework experiences.', truth: 'These lanes belong to the working VRF ecosystem and must be described from their own current build or source evidence.', boundary: 'Do not present a workspace build or source project as a currently available Fab product unless the live catalog lists it.' },
-          expansion: { label: 'Expansion and embodiment', summary: 'Unleashed and The Eden Project extend the framework toward larger experiences and Eve embodiment across AR and VR.', truth: 'These are forward product lanes with different levels of roadmap and concept evidence.', boundary: 'Keep planned capability, concept material, and demonstrated behavior visibly distinct.' }
+          expansion: { label: 'Expansion and embodiment', summary: 'Unleashed and Veritas form opposite gateway directions between Unreal, external systems, and EVE-OS.', truth: 'Unleashed has a historical public teaser. Veritas is presently an owner-defined outbound responsibility supported by design evidence, not a released runtime product.', boundary: 'Keep historical signal, planned responsibility, and demonstrated runtime behavior visibly distinct.' }
         }
       },
-      assets: [{ name: 'VRF', source: './assets/vrf-mark.png', description: 'Canonical high-resolution mark for the VRF product family.', role: 'Product family' }]
+      assetLibraryDescription: 'Five reusable VRF and Hermetic Labs identity assets for Susan’s content workflow. Product imagery remains in the separate curation view until selected for a specific campaign.',
+      assets: [
+        { name: 'VRF primary mark', source: './assets/vrf-mark.png', description: 'Canonical high-resolution mark for the VRF product family.', role: 'Product family', status: 'Ready for content' },
+        { name: 'VRF channel avatar', source: './assets/vrf-showcase/vrf-channel-avatar.jpg', description: 'Established VRF character/avatar from the public YouTube channel. Use when the historical channel identity is relevant.', role: 'Channel identity', status: 'Ready with context' },
+        { name: 'Hermetic Labs channel banner', source: './assets/vrf-showcase/vrf-channel-banner.jpg', description: 'Wide banner recovered from the public VRF YouTube channel for channel and landscape placements.', role: 'Channel banner', status: 'Ready for content', wide: true },
+        { name: 'Hermetic Labs symbol', source: './assets/ip-library/hermetic-labs-symbol.png', description: 'RGB geometric Hermetic Labs symbol on a transparent field.', role: 'Company identity', status: 'Ready for content' },
+        { name: 'Hermetic Labs horizontal banner', source: './assets/ip-library/hermetic-labs-banner.png', description: 'Compact transparent Hermetic Labs wordmark for dark horizontal placements.', role: 'Company banner', status: 'Ready for content', wide: true }
+      ]
     },
     fefe: {
       index: '03',
@@ -554,6 +582,52 @@
     products.hidden = project.products.length === 0;
     renderProjectAssets(project);
     renderProjectPulse(projectId, project);
+    renderProjectSpotlight(projectId, project);
+  }
+
+  function renderProjectSpotlight(projectId, project) {
+    const spotlight = byId('projectSpotlight');
+    const model = project.spotlight;
+    spotlight.hidden = !model;
+    if (!model) return;
+
+    byId('projectSpotlightKicker').textContent = model.kicker;
+    byId('projectSpotlightTitle').textContent = model.title;
+    byId('projectSpotlightSummary').textContent = model.summary;
+    byId('projectSpotlightPath').textContent = model.path;
+    byId('projectSpotlightReference').href = model.referenceUrl;
+
+    byId('projectSpotlightStats').replaceChildren(...model.stats.map((stat) => {
+      const item = element('div');
+      item.append(element('strong', '', stat.value), element('span', '', stat.label));
+      return item;
+    }));
+
+    byId('projectSpotlightGrid').replaceChildren(...model.cards.map((entry) => {
+      const card = element('article', `project-spotlight-card is-${entry.tone}`);
+      const media = element('a', 'project-spotlight-media');
+      media.href = entry.href;
+      media.target = '_blank';
+      media.rel = 'noopener';
+      const image = document.createElement('img');
+      image.src = entry.image;
+      image.alt = entry.alt;
+      image.loading = 'lazy';
+      image.decoding = 'async';
+      media.append(image);
+
+      const copy = element('div', 'project-spotlight-copy');
+      copy.append(element('span', 'project-spotlight-state', entry.state), element('h5', '', entry.title), element('p', '', entry.copy));
+      const link = element('a', '', `${entry.linkLabel} ↗`);
+      link.href = entry.href;
+      link.target = '_blank';
+      link.rel = 'noopener';
+      copy.append(link);
+      card.append(media, copy);
+      return card;
+    }));
+
+    spotlight.setAttribute('aria-label', `${project.name} public portfolio snapshot`);
   }
 
   function renderProjectPulse(projectId, project) {
@@ -567,7 +641,7 @@
 
   function renderProjectAssets(project) {
     byId('projectAssetsTitle').textContent = `${project.name} icon & IP library`;
-    byId('projectAssetsDescription').textContent = `${project.assets.length} approved source ${project.assets.length === 1 ? 'asset' : 'assets'}, kept inside the ${project.name} lane.`;
+    byId('projectAssetsDescription').textContent = project.assetLibraryDescription || `${project.assets.length} approved source ${project.assets.length === 1 ? 'asset' : 'assets'}, kept inside the ${project.name} lane.`;
     const grid = byId('projectAssetGrid');
     grid.replaceChildren();
     grid.classList.toggle('is-single', project.assets.length === 1);
@@ -581,7 +655,7 @@
       visual.appendChild(image);
 
       const copy = element('div', 'project-asset-copy');
-      copy.append(element('span', 'asset-status is-found', 'Source found'), element('h5', '', asset.name), element('p', '', asset.description), element('small', '', `Role · ${asset.role}`));
+      copy.append(element('span', 'asset-status is-found', asset.status || 'Source found'), element('h5', '', asset.name), element('p', '', asset.description), element('small', '', `Role · ${asset.role}`));
       const actions = element('div', 'asset-actions');
       const copyButton = element('button', '', 'Copy PNG');
       copyButton.type = 'button';
