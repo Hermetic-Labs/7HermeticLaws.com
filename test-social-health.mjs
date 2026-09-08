@@ -62,7 +62,7 @@ await page.goto(publicUrl, { waitUntil: 'networkidle' });
 await page.locator('.campaign-card-public').waitFor({ state: 'attached' });
 
 if ((await page.title()) !== 'Social Health — Hermetic Labs') errors.push('Public page title is incorrect');
-if (!(await page.locator('link[href*="site.css?v=20260908-2"]').count())) errors.push('Site stylesheet cache marker is missing');
+if (!(await page.locator('link[href*="site.css?v=20260908-3"]').count())) errors.push('Site stylesheet cache marker is missing');
 if (!(await page.locator('script[src*="site.js?v=20260905-2"]').count())) errors.push('Site script cache marker is missing');
 if (!(await page.locator('#publicConsole').isVisible())) errors.push('Public console is not visible');
 if (!(await page.locator('#contributorWorkspace').isHidden())) errors.push('Contributor workspace appeared without a signed link');
@@ -136,6 +136,8 @@ if (!(await page.locator('#openProjectStudio').textContent()).includes('HALT')) 
 await page.locator('#openProjectStudio').click();
 if (!(await page.locator('#haltBuilds').isVisible())) errors.push('HALT build downloads are not visible in the HALT workspace');
 if ((await page.locator('#haltBuilds .halt-build-card').count()) !== 3) errors.push('HALT build area does not expose all three product packages');
+if ((await page.locator('#haltBuilds .build-ready-stamp').count()) !== 3) errors.push('HALT build readiness timestamps are missing');
+if (await page.locator('#haltBuilds .build-ready-stamp').evaluateAll((stamps) => stamps.some((stamp) => !stamp.textContent?.includes('Ready') || !stamp.querySelector('time')?.dateTime))) errors.push('HALT build readiness timestamps are incomplete');
 if (!(await page.locator('#haltBuilds a[href$="/builds/HALT_1.2.22_setup.exe"]').count())) errors.push('HALT Organization 1.2.22 package is missing');
 if (!(await page.locator('#haltBuilds a[href$="/builds/HALT_Caregiver_1.2.22_setup.exe"]').count())) errors.push('HALT Caregiver 1.2.22 package is missing');
 if (!(await page.locator('#haltBuilds a[href$="/builds/HALT_Community_1.2.22_setup.exe"]').count())) errors.push('HALT Community 1.2.22 package is missing');
