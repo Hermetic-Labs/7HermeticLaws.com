@@ -22,7 +22,7 @@
   <meta name="twitter:title" content="Social Health — Hermetic Labs">
   <meta name="twitter:description" content="Turn product truth into clear public signal.">
   <meta name="twitter:image" content="https://7hermeticlaws.com/social-health/assets/social-health-og.png">
-  <link rel="stylesheet" href="./site.css?v=20260908-1">
+  <link rel="stylesheet" href="./site.css?v=20260908-2">
   <link rel="stylesheet" href="./scorecard.css?v=20260822-3">
   <script src="./site.js?v=20260905-2" defer></script>
   <script src="./scorecard.js?v=20260822-3" defer></script>
@@ -274,7 +274,7 @@
               </div>
             </figure>
 
-            <details class="playtest-history">
+            <details class="playtest-history" open>
               <summary>
                 <span><strong>Open playtest history</strong><small>Two cycles · twenty-three linked findings · one verified close</small></span>
                 <span class="playtest-history-count">02</span>
@@ -294,6 +294,18 @@
                       <details class="playtest-report" open>
                         <summary><span><b>1</b><strong>Extracted bug report</strong><small>Sanitized field observations</small></span></summary>
                         <div class="playtest-report-list">
+                          <section class="playtest-contribution-summary" aria-labelledby="pt002ContributionTitle">
+                            <div class="playtest-contribution-copy">
+                              <span>Contributor impact</span>
+                              <strong id="pt002ContributionTitle">Nadeem expanded the test surface.</strong>
+                              <p>This pass covered profile media, QR pairing, task ownership, mesh counts, supply state, dashboard navigation, demand planning, and offline AI. It added twelve findings and independently closed one earlier question.</p>
+                            </div>
+                            <dl class="playtest-contribution-stats">
+                              <div><dt>New findings</dt><dd>12</dd></div>
+                              <div><dt>Earlier closes</dt><dd>1</dd></div>
+                              <div><dt>Workflow areas</dt><dd>8</dd></div>
+                            </dl>
+                          </section>
                           <article><span class="finding-code">F-012</span><span class="finding-severity is-medium">Medium</span><div><strong>Care-record profile image does not appear</strong><p>An added profile image is missing from the care record. Retest must distinguish save failure from render failure after reload.</p></div></article>
                           <article><span class="finding-code">F-013</span><span class="finding-severity is-medium">Medium</span><div><strong>Admission warning conflicts with a working paired session</strong><p>The bedside screen briefly reported that it was not admitted while its assistance request still reached the caregiver workspace.</p></div></article>
                           <article><span class="finding-code">F-014</span><span class="finding-severity is-high">High</span><div><strong>An open assistance request cannot be claimed</strong><p>The Claim control appeared unavailable on an active request, blocking the caregiver from assigning and resolving it.</p></div></article>

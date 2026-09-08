@@ -314,6 +314,16 @@ button { color: inherit; }
 .playtest-report > summary::after { content: "Open"; float: right; margin-top: -2.15rem; color: var(--rgb-cyan); font-size: 0.55rem; font-weight: 850; letter-spacing: 0.08em; text-transform: uppercase; }
 .playtest-report[open] > summary::after { content: "Close"; }
 .playtest-report-list { border-top: 1px solid var(--line); }
+.playtest-contribution-summary { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(18rem, 0.55fr); gap: 1.25rem; padding: 1.1rem; border-bottom: 1px solid var(--line); background: linear-gradient(120deg, rgba(65,184,255,0.075), rgba(57,245,138,0.04)); }
+.playtest-contribution-copy { display: grid; gap: 0.35rem; align-content: start; }
+.playtest-contribution-copy > span { color: var(--rgb-cyan); font-size: 0.75rem; font-weight: 900; letter-spacing: 0.1em; text-transform: uppercase; }
+.playtest-contribution-copy > strong { font-size: 1rem; }
+.playtest-contribution-copy > p { max-width: 48rem; margin: 0; color: var(--muted); font-size: 0.875rem; line-height: 1.65; }
+.playtest-contribution-stats { display: grid; grid-template-columns: repeat(3, 1fr); margin: 0; border: 1px solid var(--line); }
+.playtest-contribution-stats div { display: grid; gap: 0.2rem; place-content: center; min-height: 4.5rem; padding: 0.65rem; border-right: 1px solid var(--line); text-align: center; }
+.playtest-contribution-stats div:last-child { border-right: 0; }
+.playtest-contribution-stats dt { color: var(--dim); font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; }
+.playtest-contribution-stats dd { margin: 0; color: var(--rgb-green); font-size: 1.25rem; font-weight: 900; }
 .playtest-response-release { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0.85rem; border-bottom: 1px solid var(--line); background: linear-gradient(90deg, rgba(57,245,138,0.08), rgba(65,184,255,0.04)); }
 .playtest-response-release div { display: grid; gap: 0.22rem; }
 .playtest-response-release span { color: var(--rgb-green); font-size: 0.52rem; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; }
@@ -573,6 +583,7 @@ button { color: inherit; }
   .playtest-loop li:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
   .playtest-loop li::after { display: none; }
   .playtest-cycle-meta { grid-template-columns: 1fr; }
+  .playtest-contribution-summary { grid-template-columns: 1fr; }
   .playtest-response-release { align-items: stretch; flex-direction: column; }
   .playtest-response-release a { text-align: center; }
   .playtest-report-list article { grid-template-columns: auto 1fr; }
@@ -598,6 +609,9 @@ button { color: inherit; }
   .campaign-card-public { display: block; }
   .project-asset-card { grid-template-columns: 1fr; }
   .project-asset-visual { min-height: 12rem; border-right: 0; border-bottom: 1px solid var(--line); }
+  .playtest-contribution-stats { grid-template-columns: 1fr; }
+  .playtest-contribution-stats div { min-height: 3.3rem; border-right: 0; border-bottom: 1px solid var(--line); }
+  .playtest-contribution-stats div:last-child { border-bottom: 0; }
   .campaign-scope-grid { grid-template-columns: 1fr; }
   .campaign-scope-grid div { border-right: 0; border-bottom: 1px solid var(--line); }
   .campaign-scope-grid div:last-child { border-bottom: 0; }

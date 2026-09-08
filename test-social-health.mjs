@@ -62,7 +62,7 @@ await page.goto(publicUrl, { waitUntil: 'networkidle' });
 await page.locator('.campaign-card-public').waitFor({ state: 'attached' });
 
 if ((await page.title()) !== 'Social Health — Hermetic Labs') errors.push('Public page title is incorrect');
-if (!(await page.locator('link[href*="site.css?v=20260905-2"]').count())) errors.push('Site stylesheet cache marker is missing');
+if (!(await page.locator('link[href*="site.css?v=20260908-2"]').count())) errors.push('Site stylesheet cache marker is missing');
 if (!(await page.locator('script[src*="site.js?v=20260905-2"]').count())) errors.push('Site script cache marker is missing');
 if (!(await page.locator('#publicConsole').isVisible())) errors.push('Public console is not visible');
 if (!(await page.locator('#contributorWorkspace').isHidden())) errors.push('Contributor workspace appeared without a signed link');
@@ -145,12 +145,12 @@ if (!(await page.locator('#haltBuilds .build-playtest-link[href="#haltPlaytestin
 if (!(await page.locator('#haltStudio').isVisible())) errors.push('HALT summary did not open the focused contribution studio');
 if (!(await page.locator('#haltPlaytesting').isVisible())) errors.push('HALT playtesting summary is not visible in the HALT workspace');
 if ((await page.locator('#haltPlaytesting .playtest-gallery-card').count()) !== 3) errors.push('Playtesting contribution gallery does not contain three evidence cards');
-if (!(await page.locator('#haltPlaytesting .playtest-report').first().locator(':scope > .playtest-report-list > .playtest-report-evidence > .playtest-gallery').count())) errors.push('PT-001 evidence gallery is not inside the extracted findings list');
+if (!(await page.locator('#pt001Cycle .playtest-report').first().locator(':scope > .playtest-report-list > .playtest-report-evidence > .playtest-gallery').count())) errors.push('PT-001 evidence gallery is not inside the extracted findings list');
 if (await page.locator('#haltPlaytesting > .playtest-gallery').count()) errors.push('PT-001 evidence gallery remains outside the report history');
-const extractedReportOrder = await page.locator('#haltPlaytesting .playtest-report').first().locator(':scope > .playtest-report-list').evaluate((list) => ({ evidenceFirst: list.firstElementChild?.classList.contains('playtest-report-evidence'), firstFinding: list.children[1]?.querySelector('.finding-code')?.textContent }));
+const extractedReportOrder = await page.locator('#pt001Cycle .playtest-report').first().locator(':scope > .playtest-report-list').evaluate((list) => ({ evidenceFirst: list.firstElementChild?.classList.contains('playtest-report-evidence'), firstFinding: list.children[1]?.querySelector('.finding-code')?.textContent }));
 if (!extractedReportOrder.evidenceFirst || extractedReportOrder.firstFinding !== 'F-001') errors.push('PT-001 evidence does not appear immediately before F-001');
-await page.locator('#haltPlaytesting .playtest-history > summary').click();
-await page.locator('#haltPlaytesting .playtest-cycle > summary').click();
+if ((await page.locator('#haltPlaytesting .playtest-history').getAttribute('open')) === null) errors.push('Latest playtesting history is hidden by default');
+await page.locator('#pt001Cycle > summary').click();
 if ((await page.locator('#haltPlaytesting .playtest-gallery-card img').count()) !== 3) errors.push('Playtesting evidence images are missing');
 if (await page.locator('#haltPlaytesting .playtest-gallery-card img').evaluateAll((images) => images.some((image) => !image.getAttribute('alt')?.trim()))) errors.push('Playtesting evidence image alt text is missing');
 await page.locator('#haltPlaytesting .playtest-gallery-card:last-child').scrollIntoViewIfNeeded();
@@ -163,6 +163,7 @@ if ((await page.locator('#haltPlaytesting .playtest-loop li').count()) !== 4) er
 if ((await page.locator('#haltPlaytesting .playtest-loop strong').allTextContents()).join(',') !== '23,23,10,1') errors.push('Cumulative playtesting loop counts are incorrect');
 if ((await page.locator('#pt001Cycle .playtest-report-list:not(.is-response) article').count()) !== 11) errors.push('PT-001 extracted report does not contain 11 findings');
 if ((await page.locator('#pt002Cycle .playtest-report-list:not(.is-response) article').count()) !== 12) errors.push('PT-002 extracted report does not contain 12 findings');
+if (!(await page.locator('#pt002Cycle .playtest-contribution-summary').count())) errors.push('PT-002 contributor impact is not captured above the findings');
 if ((await page.locator('#pt001Cycle .playtest-report-list.is-response article').count()) !== 11) errors.push('PT-001 build response does not pair all 11 findings');
 if ((await page.locator('#haltPlaytesting .playtest-report-list.is-response .finding-status.is-fixed').count()) !== 10) errors.push('Build response does not mark all ten implemented fixes');
 if ((await page.locator('#haltPlaytesting .playtest-report-list.is-response .finding-status.is-verified').count()) !== 1) errors.push('Build response does not preserve the independently verified dashboard close');
