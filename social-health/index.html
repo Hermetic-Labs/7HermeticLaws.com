@@ -204,24 +204,24 @@
                 <p class="eyebrow">Windows test packages</p>
                 <h3 id="haltBuildsTitle">Install the right HALT build.</h3>
               </div>
-              <p>Tester links may move to a newer verified package. Partner Center links are immutable and must remain pinned to the submitted binary.</p>
+              <p>Choose the product you are testing, then open Playtesting to see the active report and verification history.</p>
             </div>
-            <div class="build-policy" aria-label="Download-link policy">
-              <div><span>Tester and internal handoff</span><strong>Use a <code>latest</code> link when one is published.</strong></div>
-              <div><span>Microsoft Partner Center</span><strong>Use the immutable <code>1.2.18</code> link.</strong></div>
+            <div class="build-policy" aria-label="Current playtesting coverage">
+              <div><span>Active playtest lane</span><strong>Caregiver · PT-002</strong></div>
+              <div><span>Awaiting first assigned cycle</span><strong>Organization · Community</strong></div>
             </div>
             <div class="halt-build-grid">
               <article class="halt-build-card is-primary">
                 <span class="build-badge">Tester default</span>
                 <h4>HALT Organization</h4>
-                <p>The tester link follows the current Organization package. Keep the versioned object for certification and exact-binary reference.</p>
+                <p>Use the current Organization tester package. No Organization playtest cycle has been assigned yet.</p>
                 <div class="halt-build-actions">
                   <a class="build-download-primary" href="https://pub-b841d8ac01084f8f822078f923a49a87.r2.dev/builds/HALT_latest_setup.exe">Download latest</a>
-                  <a href="https://pub-b841d8ac01084f8f822078f923a49a87.r2.dev/builds/HALT_1.2.18_setup.exe">Immutable 1.2.18</a>
+                  <a class="build-playtest-link" href="#haltPlaytesting">Playtesting</a>
                 </div>
               </article>
               <article class="halt-build-card">
-                <span class="build-badge is-versioned">Immutable only</span>
+                <span class="build-badge is-versioned">Active playtesting</span>
                 <h4>HALT Caregiver</h4>
                 <p>No <code>latest</code> alias is published yet. Use this signed 1.2.21 response build for PT-001 verification and continued internal testing.</p>
                 <div class="halt-build-actions">
@@ -230,11 +230,12 @@
                 </div>
               </article>
               <article class="halt-build-card">
-                <span class="build-badge is-versioned">Immutable only</span>
+                <span class="build-badge is-versioned">Build available</span>
                 <h4>HALT Community</h4>
-                <p>No <code>latest</code> alias is published yet. Use this signed 1.2.19 package for testing and internal handoff; keep any submitted Partner Center URL pinned.</p>
+                <p>Use this signed 1.2.19 package for testing and internal handoff. No Community playtest cycle has been assigned yet.</p>
                 <div class="halt-build-actions">
                   <a class="build-download-primary" href="https://pub-b841d8ac01084f8f822078f923a49a87.r2.dev/builds/HALT_Community_1.2.19_setup.exe">Download 1.2.19</a>
+                  <a class="build-playtest-link" href="#haltPlaytesting">Playtesting</a>
                 </div>
               </article>
             </div>

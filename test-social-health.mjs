@@ -141,7 +141,9 @@ if (!(await page.locator('#haltBuilds a[href$="/builds/HALT_1.2.18_setup.exe"]')
 if (!(await page.locator('#haltBuilds a[href$="/builds/HALT_Caregiver_1.2.21_setup.exe"]').count())) errors.push('HALT Caregiver 1.2.21 immutable package is missing');
 if (!(await page.locator('#haltBuilds a[href$="/builds/HALT_Community_1.2.19_setup.exe"]').count())) errors.push('HALT Community immutable package is missing');
 if (await page.locator('#haltBuilds a[href*="Caregiver_latest"], #haltBuilds a[href*="Community_latest"]').count()) errors.push('Unpublished Caregiver or Community latest alias was inferred');
-if (!(await page.locator('#haltBuilds .build-playtest-link[href="#haltPlaytesting"]').count())) errors.push('Caregiver playtesting link is missing beside the installer');
+if ((await page.locator('#haltBuilds .build-playtest-link[href="#haltPlaytesting"]').count()) !== 3) errors.push('Each HALT package is missing its matching Playtesting link');
+if (await page.locator('#haltBuilds').getByText(/immutable/i).count()) errors.push('Release-management language leaked into the tester package shelf');
+if (!(await page.locator('#haltBuilds').getByText('Caregiver · PT-002').count())) errors.push('Active Caregiver playtest lane is not identified');
 if (!(await page.locator('#haltStudio').isVisible())) errors.push('HALT summary did not open the focused contribution studio');
 if (!(await page.locator('#haltPlaytesting').isVisible())) errors.push('HALT playtesting summary is not visible in the HALT workspace');
 if ((await page.locator('#haltPlaytesting .playtest-gallery-card').count()) !== 3) errors.push('Playtesting contribution gallery does not contain three evidence cards');
