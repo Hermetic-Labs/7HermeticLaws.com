@@ -207,34 +207,34 @@
               <p>Choose the product you are testing, then open Playtesting to see the active report and verification history.</p>
             </div>
             <div class="build-policy" aria-label="Current playtesting coverage">
-              <div><span>Active playtest lane</span><strong>Caregiver · PT-002</strong></div>
-              <div><span>Awaiting first assigned cycle</span><strong>Organization · Community</strong></div>
+              <div><span>Active ecosystem sprint</span><strong>Organization · Caregiver · Community</strong></div>
+              <div><span>Current response cycle</span><strong>Caregiver · PT-002</strong></div>
             </div>
             <div class="halt-build-grid">
               <article class="halt-build-card is-primary">
-                <span class="build-badge">Tester default</span>
+                <span class="build-badge">Ecosystem testing</span>
                 <h4>HALT Organization</h4>
-                <p>Use the current Organization tester package. No Organization playtest cycle has been assigned yet.</p>
+                <p>Use this signed 1.2.22 ecosystem build for the first Organization playtest cycle.</p>
                 <div class="halt-build-actions">
-                  <a class="build-download-primary" href="https://pub-b841d8ac01084f8f822078f923a49a87.r2.dev/builds/HALT_latest_setup.exe">Download latest</a>
+                  <a class="build-download-primary" href="https://pub-b841d8ac01084f8f822078f923a49a87.r2.dev/builds/HALT_1.2.22_setup.exe">Download 1.2.22</a>
                   <a class="build-playtest-link" href="#haltPlaytesting">Playtesting</a>
                 </div>
               </article>
               <article class="halt-build-card">
                 <span class="build-badge is-versioned">Active playtesting</span>
                 <h4>HALT Caregiver</h4>
-                <p>No <code>latest</code> alias is published yet. Use this signed 1.2.21 response build for PT-001 verification and continued internal testing.</p>
+                <p>Use this signed 1.2.22 response build to verify PT-002 and continue Caregiver testing.</p>
                 <div class="halt-build-actions">
-                  <a class="build-download-primary" href="https://pub-b841d8ac01084f8f822078f923a49a87.r2.dev/builds/HALT_Caregiver_1.2.21_setup.exe">Download 1.2.21</a>
+                  <a class="build-download-primary" href="https://pub-b841d8ac01084f8f822078f923a49a87.r2.dev/builds/HALT_Caregiver_1.2.22_setup.exe">Download 1.2.22</a>
                   <a class="build-playtest-link" href="#haltPlaytesting">Playtesting</a>
                 </div>
               </article>
               <article class="halt-build-card">
-                <span class="build-badge is-versioned">Build available</span>
+                <span class="build-badge is-versioned">Ecosystem testing</span>
                 <h4>HALT Community</h4>
-                <p>Use this signed 1.2.19 package for testing and internal handoff. No Community playtest cycle has been assigned yet.</p>
+                <p>Use this signed 1.2.22 ecosystem build for the first Community playtest cycle.</p>
                 <div class="halt-build-actions">
-                  <a class="build-download-primary" href="https://pub-b841d8ac01084f8f822078f923a49a87.r2.dev/builds/HALT_Community_1.2.19_setup.exe">Download 1.2.19</a>
+                  <a class="build-download-primary" href="https://pub-b841d8ac01084f8f822078f923a49a87.r2.dev/builds/HALT_Community_1.2.22_setup.exe">Download 1.2.22</a>
                   <a class="build-playtest-link" href="#haltPlaytesting">Playtesting</a>
                 </div>
               </article>
@@ -248,7 +248,7 @@
                 <h3 id="playtestingTitle">Playtesting, at a glance.</h3>
                 <p>Human observations become named findings, build responses, and explicit verification gates. A finding closes only after the original behavior is retested.</p>
               </div>
-              <div class="playtesting-freshness"><span>Latest field response</span><strong>Caregiver · PT-002</strong><small>Source response ready · Sep 8, 2026</small></div>
+              <div class="playtesting-freshness"><span>Latest field response</span><strong>Caregiver · PT-002</strong><small>Response build 1.2.22 ready · Sep 8, 2026</small></div>
             </div>
 
             <figure class="playtest-overview" aria-labelledby="playtestOverviewCaption">
@@ -283,13 +283,13 @@
               <div class="playtest-history-body">
                 <details id="pt002Cycle" class="playtest-cycle" open>
                   <summary>
-                    <span><b>PT-002</b><strong>Caregiver 1.2.19 · extended field pass</strong><small>Nadeem · 12 new findings · source response ready</small></span>
+                    <span><b>PT-002</b><strong>Caregiver 1.2.19 · extended field pass</strong><small>Nadeem · 12 new findings · response build ready</small></span>
                   </summary>
                   <div class="playtest-cycle-body">
                     <div class="playtest-cycle-meta">
-                      <div><span>Decision</span><strong>Source response ready for verification build</strong></div>
+                      <div><span>Decision</span><strong>1.2.22 ready for field verification</strong></div>
                       <div><span>Source status</span><strong>9 wired · 2 clarified · 1 retest</strong></div>
-                      <div><span>Build status</span><strong>Installer pending · field verification required</strong></div>
+                      <div><span>Build status</span><strong>Signed · immutable · field verification required</strong></div>
                     </div>
                     <div class="playtest-report-grid">
                       <details class="playtest-report" open>
@@ -326,7 +326,8 @@
                         <summary><span><b>2</b><strong>Build response</strong><small>What changed and what must be retested</small></span></summary>
                         <div class="playtest-report-list is-response">
                           <section class="playtest-response-release" aria-label="PT-002 response status">
-                            <div><span>Source response</span><strong>Caregiver and Community wiring complete</strong><small>Production frontends compile cleanly. The next immutable installer remains a separate verification gate.</small></div>
+                            <div><span>Response build</span><strong>HALT Caregiver 1.2.22</strong><small>Signed and published after the full Rust suite, production build, embedded-signature, and public-download gates passed. Organization and Community 1.2.22 are also ready for the ecosystem sprint.</small></div>
+                            <a href="https://pub-b841d8ac01084f8f822078f923a49a87.r2.dev/builds/HALT_Caregiver_1.2.22_setup.exe">Download response build</a>
                           </section>
                           <article><span class="finding-code">F-012</span><span class="finding-status is-fixed">Wired</span><div><strong>Protected care-record media now loads through the authorized path</strong><p>Desktop views read attachment bytes through the native command; browser views use the admitted field session. Profile photos and attachment previews no longer depend on an unauthenticated image URL.</p></div></article>
                           <article><span class="finding-code">F-013</span><span class="finding-status is-fixed">Wired</span><div><strong>Recovered bedside sessions clear stale admission warnings</strong><p>A successful identity refresh or mesh connection now removes the earlier transient error instead of leaving a red warning beside a working request.</p></div></article>
