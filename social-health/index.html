@@ -22,7 +22,7 @@
   <meta name="twitter:title" content="Social Health — Hermetic Labs">
   <meta name="twitter:description" content="Turn product truth into clear public signal.">
   <meta name="twitter:image" content="https://7hermeticlaws.com/social-health/assets/social-health-og.png">
-  <link rel="stylesheet" href="./site.css?v=20260905-2">
+  <link rel="stylesheet" href="./site.css?v=20260908-1">
   <link rel="stylesheet" href="./scorecard.css?v=20260822-3">
   <script src="./site.js?v=20260905-2" defer></script>
   <script src="./scorecard.js?v=20260822-3" defer></script>
@@ -247,48 +247,89 @@
                 <h3 id="playtestingTitle">Playtesting, at a glance.</h3>
                 <p>Human observations become named findings, build responses, and explicit verification gates. A finding closes only after the original behavior is retested.</p>
               </div>
-              <div class="playtesting-freshness"><span>Latest response</span><strong>Caregiver · 1.2.21</strong><small>PT-001 verification build · Sep 2, 2026</small></div>
+              <div class="playtesting-freshness"><span>Latest field report</span><strong>Caregiver · PT-002</strong><small>12 new findings · Sep 8, 2026</small></div>
             </div>
 
             <figure class="playtest-overview" aria-labelledby="playtestOverviewCaption">
-              <figcaption id="playtestOverviewCaption">Current closed-loop progress</figcaption>
-              <ol class="playtest-loop" aria-label="11 findings, 11 triaged, 10 fixed in build 1.2.21, 0 independently verified">
-                <li class="is-complete"><span>01</span><strong>11</strong><small>Found</small></li>
-                <li class="is-complete"><span>02</span><strong>11</strong><small>Triaged</small></li>
-                <li class="is-complete"><span>03</span><strong>10</strong><small>Fixed</small></li>
-                <li><span>04</span><strong>0</strong><small>Verified</small></li>
+              <figcaption id="playtestOverviewCaption">Cumulative closed-loop progress</figcaption>
+              <ol class="playtest-loop" aria-label="23 findings found and extracted, 10 addressed in build 1.2.21, 1 independently verified">
+                <li class="is-complete"><span>01</span><strong>23</strong><small>Found</small></li>
+                <li class="is-complete"><span>02</span><strong>23</strong><small>Extracted</small></li>
+                <li class="is-complete"><span>03</span><strong>10</strong><small>Addressed</small></li>
+                <li><span>04</span><strong>1</strong><small>Verified</small></li>
               </ol>
-              <div class="severity-visual" aria-label="Severity mix: 2 critical, 3 high, 5 medium, 1 low">
+              <div class="severity-visual" aria-label="Latest report severity mix: 1 critical, 5 high, 3 medium, 3 low">
                 <div class="severity-track" aria-hidden="true">
-                  <span class="is-critical" style="--share:2"></span>
-                  <span class="is-high" style="--share:3"></span>
-                  <span class="is-medium" style="--share:5"></span>
-                  <span class="is-low" style="--share:1"></span>
+                  <span class="is-critical" style="--share:1"></span>
+                  <span class="is-high" style="--share:5"></span>
+                  <span class="is-medium" style="--share:3"></span>
+                  <span class="is-low" style="--share:3"></span>
                 </div>
                 <div class="severity-legend">
-                  <span><i class="is-critical"></i><strong>2</strong> Critical</span>
-                  <span><i class="is-high"></i><strong>3</strong> High</span>
-                  <span><i class="is-medium"></i><strong>5</strong> Medium</span>
-                  <span><i class="is-low"></i><strong>1</strong> Low</span>
+                  <span><i class="is-critical"></i><strong>1</strong> Critical</span>
+                  <span><i class="is-high"></i><strong>5</strong> High</span>
+                  <span><i class="is-medium"></i><strong>3</strong> Medium</span>
+                  <span><i class="is-low"></i><strong>3</strong> Low</span>
                 </div>
               </div>
             </figure>
 
             <details class="playtest-history">
               <summary>
-                <span><strong>Open playtest history</strong><small>One cycle · two paired reports · eleven linked findings</small></span>
-                <span class="playtest-history-count">01</span>
+                <span><strong>Open playtest history</strong><small>Two cycles · twenty-three linked findings · one verified close</small></span>
+                <span class="playtest-history-count">02</span>
               </summary>
               <div class="playtest-history-body">
-                <details class="playtest-cycle">
+                <details id="pt002Cycle" class="playtest-cycle" open>
                   <summary>
-                    <span><b>PT-001</b><strong>Caregiver 1.2.19 · build v8a</strong><small>Warren / Nadeem · 11 findings · 1.2.21 response ready</small></span>
+                    <span><b>PT-002</b><strong>Caregiver 1.2.19 · extended field pass</strong><small>Nadeem · 12 new findings · extraction complete</small></span>
                   </summary>
                   <div class="playtest-cycle-body">
                     <div class="playtest-cycle-meta">
-                      <div><span>Decision</span><strong>1.2.21 ready for verification</strong></div>
-                      <div><span>Source status</span><strong>11 triaged · 1 understanding gap</strong></div>
-                      <div><span>Build status</span><strong>10 fixed · 1 controlled retest</strong></div>
+                      <div><span>Decision</span><strong>F-018 safety gate first</strong></div>
+                      <div><span>Source status</span><strong>12 extracted · 12 open</strong></div>
+                      <div><span>Build status</span><strong>Triage not started</strong></div>
+                    </div>
+                    <div class="playtest-report-grid">
+                      <details class="playtest-report" open>
+                        <summary><span><b>1</b><strong>Extracted bug report</strong><small>Sanitized field observations</small></span></summary>
+                        <div class="playtest-report-list">
+                          <article><span class="finding-code">F-012</span><span class="finding-severity is-medium">Medium</span><div><strong>Care-record profile image does not appear</strong><p>An added profile image is missing from the care record. Retest must distinguish save failure from render failure after reload.</p></div></article>
+                          <article><span class="finding-code">F-013</span><span class="finding-severity is-medium">Medium</span><div><strong>Admission warning conflicts with a working paired session</strong><p>The bedside screen briefly reported that it was not admitted while its assistance request still reached the caregiver workspace.</p></div></article>
+                          <article><span class="finding-code">F-014</span><span class="finding-severity is-high">High</span><div><strong>An open assistance request cannot be claimed</strong><p>The Claim control appeared unavailable on an active request, blocking the caregiver from assigning and resolving it.</p></div></article>
+                          <article><span class="finding-code">F-015</span><span class="finding-severity is-medium">Medium</span><div><strong>Critical counter exceeds the visible care context</strong><p>The mesh summary reported two critical items with one synthetic patient and no explanation of what contributed to the count.</p></div></article>
+                          <article><span class="finding-code">F-016</span><span class="finding-severity is-low">Low</span><div><strong>A depleted-supply warning appears twice</strong><p>The same first-aid supply shortage rendered as two identical alert cards.</p></div></article>
+                          <article><span class="finding-code">F-017</span><span class="finding-severity is-high">High</span><div><strong>Supply warning remains after restock</strong><p>The depleted warning did not clear after stock rose above its alert threshold.</p></div></article>
+                          <article><span class="finding-code">F-018</span><span class="finding-severity is-critical">Critical</span><div><strong>An unclaimed assistance request can be silently dismissed</strong><p>An open request closed immediately without being claimed, confirmed, or given a resolution record. A genuine care need could disappear before anyone acts on it.</p></div></article>
+                          <article><span class="finding-code">F-019</span><span class="finding-severity is-low">Low</span><div><strong>Care Home summary cards do not navigate</strong><p>The four summary cards do not open or filter their related work areas.</p></div></article>
+                          <article><span class="finding-code">F-020</span><span class="finding-severity is-low">Low</span><div><strong>Mesh summary counters have no drill-down</strong><p>Ward, patient, and critical counters do not reveal the records behind their totals.</p></div></article>
+                          <article><span class="finding-code">F-021</span><span class="finding-severity is-high">High</span><div><strong>Critical counter stays stale after resolution</strong><p>The count remained elevated after the related item was resolved, indicating that the summary does not react to underlying state changes.</p></div></article>
+                          <article><span class="finding-code">F-022</span><span class="finding-severity is-high">High</span><div><strong>A water request is absent from the Need calculation</strong><p>The planning chart continued to show zero water need after a bedside request. Triage must confirm whether Need represents planned demand, live requests, or both.</p></div></article>
+                          <article><span class="finding-code">F-023</span><span class="finding-severity is-high">High</span><div><strong>A follow-up offline AI response does not complete</strong><p>The first response completed, but the next short message remained in generation for more than three minutes.</p></div></article>
+                        </div>
+                      </details>
+
+                      <details class="playtest-report">
+                        <summary><span><b>2</b><strong>Build response</strong><small>Begins after source triage</small></span></summary>
+                        <div class="playtest-report-list is-response is-pending-response">
+                          <section class="playtest-response-release" aria-label="PT-002 response status">
+                            <div><span>Next action</span><strong>Triage begins with F-018</strong><small>No finding is marked fixed until the code path is traced and a verification build exists.</small></div>
+                          </section>
+                        </div>
+                      </details>
+                    </div>
+                  </div>
+                </details>
+
+                <details id="pt001Cycle" class="playtest-cycle">
+                  <summary>
+                    <span><b>PT-001</b><strong>Caregiver 1.2.19 · build v8a</strong><small>Warren / Nadeem · 11 findings · F-005 verified</small></span>
+                  </summary>
+                  <div class="playtest-cycle-body">
+                    <div class="playtest-cycle-meta">
+                      <div><span>Decision</span><strong>1.2.21 ready for remaining verification</strong></div>
+                      <div><span>Source status</span><strong>11 triaged · F-005 verified</strong></div>
+                      <div><span>Build status</span><strong>10 fixed · verification pending</strong></div>
                     </div>
                     <div class="playtest-report-grid">
                       <details class="playtest-report" open>
@@ -345,7 +386,7 @@
                           <article><span class="finding-code">F-002</span><span class="finding-status is-fixed">Fixed</span><div><strong>Contact purpose is explicit</strong><p>The field now says “name or phone,” includes an example, and applies a 500-character/control-character boundary while remaining optional.</p></div></article>
                           <article><span class="finding-code">F-003</span><span class="finding-status is-fixed">Fixed</span><div><strong>Impossible ages stop before save</strong><p>Caregiver accepts whole-year ages from 0–130 only, with the same range enforced again by the shared core.</p></div></article>
                           <article><span class="finding-code">F-004</span><span class="finding-status is-fixed">Fixed</span><div><strong>The real stored-script sinks are closed</strong><p>React already rendered normal screens as text. The patient and shift-handoff HTML exports were the exposed paths; patient-controlled values are now encoded and covered by a script-payload regression test.</p></div></article>
-                          <article><span class="finding-code">F-005</span><span class="finding-status is-gap">Retest</span><div><strong>Understanding gap—not a confirmed count defect</strong><p>Returning to Care Home reloads the count immediately; a Home view left open polls every 15 seconds. Retest add → Care Home before changing that path.</p></div></article>
+                          <article><span class="finding-code">F-005</span><span class="finding-status is-verified">Verified</span><div><strong>Dashboard counting works as designed</strong><p>The follow-up field pass confirmed that all four summary values updated after adding a synthetic care record and submitting an assistance request.</p></div></article>
                           <article><span class="finding-code">F-006</span><span class="finding-status is-fixed">Fixed</span><div><strong>Unbounded age pass-through is blocked</strong><p>This was not an integer overflow: the extreme number was stored and displayed as entered. UI and core boundaries now reject it.</p></div></article>
                           <article><span class="finding-code">F-007</span><span class="finding-status is-fixed">Fixed</span><div><strong>Missing weight reads as missing</strong><p>An unset weight now displays as an em dash instead of “0 kg,” and the editor accepts only blank or 0.1–1000 kg.</p></div></article>
                           <article><span class="finding-code">F-008</span><span class="finding-status is-fixed">Fixed</span><div><strong>Injury time matches admission time</strong><p>Both timestamps now use the same guarded local date-and-time formatter; invalid legacy text remains visible instead of crashing the panel.</p></div></article>
@@ -357,7 +398,7 @@
                     </div>
                   </div>
                 </details>
-                <p class="playtest-public-note"><strong>Public-safe summary.</strong> Tester identity, screenshots, raw logs, and internal evidence remain in the controlled handoff record.</p>
+                <p class="playtest-public-note"><strong>Public-safe summary.</strong> Raw test inputs, synthetic record names, screenshots, network details, and internal evidence remain in the controlled handoff record.</p>
               </div>
             </details>
           </section>

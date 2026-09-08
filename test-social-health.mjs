@@ -160,11 +160,12 @@ if (!(await page.locator('#haltPlaytesting img[src$="playtest-caregiver-field-ru
 if (!(await page.locator('#haltPlaytesting img[src$="playtest-whisper-failure-v8a.jpg"]').count())) errors.push('Whisper failure evidence is missing');
 if (!(await page.locator('#haltPlaytesting img[src$="playtest-summary-v8a.png"]').count())) errors.push('Playtesting summary evidence is missing');
 if ((await page.locator('#haltPlaytesting .playtest-loop li').count()) !== 4) errors.push('Playtesting loop does not show all four stages');
-if ((await page.locator('#haltPlaytesting .playtest-loop strong').allTextContents()).join(',') !== '11,11,10,0') errors.push('Playtesting loop counts are incorrect');
-if ((await page.locator('#haltPlaytesting .playtest-report-list:not(.is-response) article').count()) !== 11) errors.push('Extracted bug report does not contain 11 findings');
-if ((await page.locator('#haltPlaytesting .playtest-report-list.is-response article').count()) !== 11) errors.push('Build response does not pair all 11 findings');
+if ((await page.locator('#haltPlaytesting .playtest-loop strong').allTextContents()).join(',') !== '23,23,10,1') errors.push('Cumulative playtesting loop counts are incorrect');
+if ((await page.locator('#pt001Cycle .playtest-report-list:not(.is-response) article').count()) !== 11) errors.push('PT-001 extracted report does not contain 11 findings');
+if ((await page.locator('#pt002Cycle .playtest-report-list:not(.is-response) article').count()) !== 12) errors.push('PT-002 extracted report does not contain 12 findings');
+if ((await page.locator('#pt001Cycle .playtest-report-list.is-response article').count()) !== 11) errors.push('PT-001 build response does not pair all 11 findings');
 if ((await page.locator('#haltPlaytesting .playtest-report-list.is-response .finding-status.is-fixed').count()) !== 10) errors.push('Build response does not mark all ten implemented fixes');
-if ((await page.locator('#haltPlaytesting .playtest-report-list.is-response .finding-status.is-gap').count()) !== 1) errors.push('Build response does not preserve the dashboard-count understanding gap');
+if ((await page.locator('#haltPlaytesting .playtest-report-list.is-response .finding-status.is-verified').count()) !== 1) errors.push('Build response does not preserve the independently verified dashboard close');
 if (!(await page.locator('#haltPlaytesting .playtest-response-release a[href$="/builds/HALT_Caregiver_1.2.21_setup.exe"]').count())) errors.push('PT-001 response build link is missing');
 if ((await page.locator('#haltBuilds').getByText('Do not replace a Partner Center package URL after submission').count())) errors.push('Internal Partner Center warning leaked into the tester download shelf');
 if (!(await page.locator('#haltStudio .project-assets').isVisible()) || !(await page.locator('#haltStudio .project-pulse').isVisible())) errors.push('HALT iconology and campaign pulse did not move into its workspace');
