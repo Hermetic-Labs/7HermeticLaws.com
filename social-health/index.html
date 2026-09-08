@@ -248,15 +248,15 @@
                 <h3 id="playtestingTitle">Playtesting, at a glance.</h3>
                 <p>Human observations become named findings, build responses, and explicit verification gates. A finding closes only after the original behavior is retested.</p>
               </div>
-              <div class="playtesting-freshness"><span>Latest field report</span><strong>Caregiver · PT-002</strong><small>12 new findings · Sep 8, 2026</small></div>
+              <div class="playtesting-freshness"><span>Latest field response</span><strong>Caregiver · PT-002</strong><small>Source response ready · Sep 8, 2026</small></div>
             </div>
 
             <figure class="playtest-overview" aria-labelledby="playtestOverviewCaption">
               <figcaption id="playtestOverviewCaption">Cumulative closed-loop progress</figcaption>
-              <ol class="playtest-loop" aria-label="23 findings found and extracted, 10 addressed in build 1.2.21, 1 independently verified">
+              <ol class="playtest-loop" aria-label="23 findings found and extracted, 21 addressed in source or a response build, 1 independently verified">
                 <li class="is-complete"><span>01</span><strong>23</strong><small>Found</small></li>
                 <li class="is-complete"><span>02</span><strong>23</strong><small>Extracted</small></li>
-                <li class="is-complete"><span>03</span><strong>10</strong><small>Addressed</small></li>
+                <li class="is-complete"><span>03</span><strong>21</strong><small>Addressed</small></li>
                 <li><span>04</span><strong>1</strong><small>Verified</small></li>
               </ol>
               <div class="severity-visual" aria-label="Latest report severity mix: 1 critical, 5 high, 3 medium, 3 low">
@@ -283,13 +283,13 @@
               <div class="playtest-history-body">
                 <details id="pt002Cycle" class="playtest-cycle" open>
                   <summary>
-                    <span><b>PT-002</b><strong>Caregiver 1.2.19 · extended field pass</strong><small>Nadeem · 12 new findings · extraction complete</small></span>
+                    <span><b>PT-002</b><strong>Caregiver 1.2.19 · extended field pass</strong><small>Nadeem · 12 new findings · source response ready</small></span>
                   </summary>
                   <div class="playtest-cycle-body">
                     <div class="playtest-cycle-meta">
-                      <div><span>Decision</span><strong>F-018 safety gate first</strong></div>
-                      <div><span>Source status</span><strong>12 extracted · 12 open</strong></div>
-                      <div><span>Build status</span><strong>Triage not started</strong></div>
+                      <div><span>Decision</span><strong>Source response ready for verification build</strong></div>
+                      <div><span>Source status</span><strong>9 wired · 2 clarified · 1 retest</strong></div>
+                      <div><span>Build status</span><strong>Installer pending · field verification required</strong></div>
                     </div>
                     <div class="playtest-report-grid">
                       <details class="playtest-report" open>
@@ -323,11 +323,23 @@
                       </details>
 
                       <details class="playtest-report">
-                        <summary><span><b>2</b><strong>Build response</strong><small>Begins after source triage</small></span></summary>
-                        <div class="playtest-report-list is-response is-pending-response">
+                        <summary><span><b>2</b><strong>Build response</strong><small>What changed and what must be retested</small></span></summary>
+                        <div class="playtest-report-list is-response">
                           <section class="playtest-response-release" aria-label="PT-002 response status">
-                            <div><span>Next action</span><strong>Triage begins with F-018</strong><small>No finding is marked fixed until the code path is traced and a verification build exists.</small></div>
+                            <div><span>Source response</span><strong>Caregiver and Community wiring complete</strong><small>Production frontends compile cleanly. The next immutable installer remains a separate verification gate.</small></div>
                           </section>
+                          <article><span class="finding-code">F-012</span><span class="finding-status is-fixed">Wired</span><div><strong>Protected care-record media now loads through the authorized path</strong><p>Desktop views read attachment bytes through the native command; browser views use the admitted field session. Profile photos and attachment previews no longer depend on an unauthenticated image URL.</p></div></article>
+                          <article><span class="finding-code">F-013</span><span class="finding-status is-fixed">Wired</span><div><strong>Recovered bedside sessions clear stale admission warnings</strong><p>A successful identity refresh or mesh connection now removes the earlier transient error instead of leaving a red warning beside a working request.</p></div></article>
+                          <article><span class="finding-code">F-014</span><span class="finding-status is-fixed">Wired</span><div><strong>Claim now carries the signed caregiver identity</strong><p>The Claim action supplies both the member ID and display name required by the shared task core, updates the board immediately, and shows a useful error when network identity is missing.</p></div></article>
+                          <article><span class="finding-code">F-015</span><span class="finding-status is-gap">Clarified</span><div><strong>The counter represents supply risk, not critical patients</strong><p>The ambiguous “Critical” label is now “Supply risks.” Duplicate stock records are rolled into one alert position so the total communicates what it actually measures.</p></div></article>
+                          <article><span class="finding-code">F-016</span><span class="finding-status is-fixed">Wired</span><div><strong>Equivalent stock records produce one shortage alert</strong><p>Alert calculations group the same named item by location and purpose, while new duplicate entries redirect the user to the existing stock card.</p></div></article>
+                          <article><span class="finding-code">F-017</span><span class="finding-status is-fixed">Wired</span><div><strong>Restock changes refresh the alert surfaces immediately</strong><p>Add, consume, restock, and delete operations now notify the dashboard and planning chart; the rolled-up alert clears when combined stock rises above its threshold.</p></div></article>
+                          <article><span class="finding-code">F-018</span><span class="finding-status is-fixed">Protected</span><div><strong>Active assistance requests cannot be silently removed</strong><p>The UI exposes removal only after completion or cancellation, asks for confirmation, and the shared Rust core independently rejects deletion of an active assistance request.</p></div></article>
+                          <article><span class="finding-code">F-019</span><span class="finding-status is-fixed">Wired</span><div><strong>Care Home summary cards now open their work</strong><p>People and stock cards navigate to their records; assistance and task cards expand the task board with the relevant view.</p></div></article>
+                          <article><span class="finding-code">F-020</span><span class="finding-status is-fixed">Wired</span><div><strong>Mesh counters now drill into care or supplies</strong><p>Ward and patient totals open the care timeline. Supply-risk totals open Supplies, with labels that match the destination.</p></div></article>
+                          <article><span class="finding-code">F-021</span><span class="finding-status is-gap">Clarified</span><div><strong>Supply risk no longer masquerades as unresolved care</strong><p>Resolving a patient request does not change an unrelated stock warning. Stock mutations now refresh the correctly named supply-risk count without waiting for polling.</p></div></article>
+                          <article><span class="finding-code">F-022</span><span class="finding-status is-fixed">Wired</span><div><strong>Open supply requests contribute to live Need</strong><p>The planning chart now combines care-plan demand with unresolved assistance requests, including water and hydration matches.</p></div></article>
+                          <article><span class="finding-code">F-023</span><span class="finding-status is-review">Retest</span><div><strong>Offline inference can no longer spin without a boundary</strong><p>Quick responses stop after 90 seconds and deep analysis after 180 seconds, cancel the local stream, and return a retryable message. The original second-turn stall still requires verification on the packaged runtime.</p></div></article>
                         </div>
                       </details>
                     </div>
