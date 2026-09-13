@@ -49,12 +49,53 @@
         { name: 'Developers Without Borders pledge', source: './assets/ip-library/developers-without-borders-pledge.png', description: 'Printable pledge certificate retained with the HALT humanitarian identity set.', role: 'Pledge certificate' }
       ]
     },
-    vrf: {
+    vulpine: {
       index: '02',
+      state: 'Release hardening',
+      name: 'Vulpine',
+      description: 'A clean-room medical-logistics system joining command, dispatch, driver custody, offline recovery, and governed operational intelligence.',
+      products: ['Command Center', 'Dispatcher', 'Driver'],
+      job: 'Turn verified synthetic release evidence into a precise operational story.',
+      publicState: 'The provider-controlled Onfleet create/cancel proof and tenant-gated command access are verified. No production deployment or Onfleet partnership is claimed.',
+      nextGate: 'Prove the governed driver-to-worker binding, full synthetic lifecycle, cross-surface state agreement, and stable authenticated TestFlight flow.',
+      pulse: {
+        summary: 'Release evidence and contribution activity belonging only to Vulpine.',
+        scope: 'Vulpine Command Center, Dispatcher, Driver, and named provider proofs',
+        rule: 'Explicit Vulpine project key required',
+        notice: 'Only campaigns explicitly assigned to Vulpine appear in this lane.',
+        empty: 'No named Vulpine campaign is currently projected.',
+        aliases: ['vulpine', 'vulpine-driver', 'vulpine-dispatcher']
+      },
+      studio: {
+        title: 'Show the chain. Name the boundary.',
+        description: 'Vulpine is in release hardening. Contributions may use sanitized synthetic evidence, but must distinguish verified provider and identity proofs from the lifecycle and physical-device work still in progress.',
+        referenceUrl: 'https://hermetic-labs.github.io/Vulpine/app/?command=1',
+        referenceLabel: 'Open Vulpine Command',
+        scopeQuestion: 'Which Vulpine operating surface are you speaking for?',
+        scopeDescription: 'Choose command, provider lifecycle, or driver delivery before drafting. Keep every state tied to the named proof and use synthetic data only.',
+        audiences: ['Medical-logistics operators', 'Dispatch and field-service teams', 'Healthcare technology evaluators', 'Operational AI and platform teams', 'Technical builders and contributors', 'General public'],
+        positive: 'Vulpine is a clean-room medical-logistics system in release hardening. Its current evidence includes tenant-gated command access and a live provider-controlled Onfleet create/cancel proof; the full governed lifecycle and stable physical-device flow remain under verification.',
+        positiveWhy: 'Why it works · Names the verified proof, states the release phase, and keeps the unfinished lifecycle visible.',
+        negative: 'Vulpine is deployed with Onfleet across healthcare fleets and autonomously manages every delivery from dispatch through completion.',
+        negativeWhy: 'Why it fails · Invents a partnership, customers, deployment scale, autonomy, and lifecycle evidence that has not been completed.',
+        lanes: {
+          command: { label: 'Command and control', summary: 'Tenant-gated operations context, approvals, evidence, and normalized state.', truth: 'The public Command surface, allowlisted Entra access, gateway path, and grounded operations context have verified release evidence.', boundary: 'Do not imply general availability, a customer deployment, or that every underlying operational view is complete.' },
+          provider: { label: 'Provider lifecycle', summary: 'Governed binding and task-state exchange with external delivery providers.', truth: 'Onfleet Level 3 create/cancel control has been proven with synthetic data.', boundary: 'Create/cancel is not the full lifecycle. Do not claim assign, start, arrive, complete, or fail until the end-to-end proof records exist.' },
+          driver: { label: 'Driver and device', summary: 'Custody, pairing, scanning, offline state, reconnect, and mobile delivery.', truth: 'The driver surface and iOS shell exist, and Azure has recorded an iOS token event.', boundary: 'Do not call the physical-device, authenticated context, pairing, protected evidence, or offline restart/reconnect path complete until the stable TestFlight proof passes.' }
+        }
+      },
+      assets: [
+        { name: 'Vulpine', source: './assets/vulpine-mark.png', description: 'Current fox-and-AI product mark from the Vulpine dispatcher source.', role: 'Product identity' },
+        { name: 'Hermetic Labs symbol', source: './assets/ip-library/hermetic-labs-symbol.png', description: 'RGB geometric Hermetic Labs symbol for company attribution.', role: 'Company identity' },
+        { name: 'Hermetic Labs banner', source: './assets/ip-library/hermetic-labs-banner.png', description: 'Horizontal Hermetic Labs wordmark for dark-background placements.', role: 'Company banner', wide: true }
+      ]
+    },
+    vrf: {
+      index: '03',
       state: 'Public catalog active',
       name: 'VRF',
       description: 'VRF is a modular Unreal Engine ecosystem moving from reusable utilities and foundation packs into intelligence, integration, and embodied experiences.',
-      products: ['Movement', 'Weapons', 'Vehicles', 'AI E.v.E', 'Bundle', 'Unleashed', 'Veritas', '4 free utilities'],
+      products: ['Movement', 'Weapons', 'Vehicles', '4 free utilities', 'AI E.v.E', 'Bundle', 'Unleashed', 'Veritas'],
       job: 'Show the exact product, build, and demonstrated capability while the ecosystem develops as one connected family.',
       publicState: 'Movement, Weapons, and Cars are published on Fab. Their videos and three routes into the live VRF Discord are available; the older Movement and Cars demo downloads need repair.',
       nextGate: 'Maintain the standalone VRF source of truth, then advance the foundation packs through native verification.',
@@ -102,7 +143,7 @@
         lanes: {
           foundations: { label: 'Foundation packs', summary: 'Movement, Weapons, and Vehicles establish locomotion, physical interaction, combat, and driveable systems.', truth: 'Movement, Weapons, and Cars are the three products currently published in the Hermetic Labs Fab catalog.', boundary: 'Name the exact pack and version. A published listing does not prove universal device, engine, or project compatibility.' },
           systems: { label: 'Systems and integration', summary: 'AI E.v.E, Bundle, and four free utilities connect reusable behavior into broader framework experiences.', truth: 'These lanes belong to the working VRF ecosystem and must be described from their own current build or source evidence.', boundary: 'Do not present a workspace build or source project as a currently available Fab product unless the live catalog lists it.' },
-          expansion: { label: 'Expansion and embodiment', summary: 'Unleashed and Veritas form opposite gateway directions between Unreal, external systems, and EVE-OS.', truth: 'Unleashed has a historical public teaser. Veritas is presently an owner-defined outbound responsibility supported by design evidence, not a released runtime product.', boundary: 'Keep historical signal, planned responsibility, and demonstrated runtime behavior visibly distinct.' }
+          expansion: { label: 'Expansion and embodiment', summary: 'Unleashed and Veritas form opposite gateway directions between Unreal, external systems, and EVE-OS.', truth: 'Unleashed has a historical public teaser. Veritas is the final internal VRF pack and dashboard, supported by design evidence rather than a released runtime product.', boundary: 'Keep Veritas inside VRF. Do not present it as a separate Social Health project or as demonstrated runtime behavior.' }
         }
       },
       assetLibraryDescription: 'Five reusable VRF and Hermetic Labs identity assets for Susan’s content workflow. Product imagery remains in the separate curation view until selected for a specific campaign.',
@@ -115,14 +156,14 @@
       ]
     },
     fefe: {
-      index: '03',
-      state: 'Project lane reserved',
+      index: '04',
+      state: 'Public foundation',
       name: 'FEFE Connect',
-      description: 'FEFE Connect remains an independent communication lane. Its content must be grounded in its own product truth, audience, evidence, and approval chain.',
-      products: [],
-      job: 'Build a distinct, evidence-backed public presence for FEFE Connect.',
-      publicState: 'No project-scoped public campaign is asserted here yet.',
-      nextGate: 'Establish the canonical project and asset roots.',
+      description: 'FEFE Connect is an independent, privacy-minded professional-network foundation for legal and mental-health professionals, with separate evidence and approval boundaries.',
+      products: ['Legal membership', 'Mental-health membership', 'Reviewed profiles'],
+      job: 'Prepare an evidence-backed introduction to the reviewed-membership model.',
+      publicState: 'The responsive public site, dual application preview, trust-center drafts, and identity foundation exist. Live verification, authentication, billing, applications, and directory access are not connected.',
+      nextGate: 'Complete the Georgia pilot, ownership, legal, identity, and service-integration gates before inviting real applicants.',
       pulse: {
         summary: 'Public communication and contributor activity belonging only to FEFE Connect.',
         scope: 'FEFE Connect communication',
@@ -152,14 +193,14 @@
       assets: [{ name: 'FEFE Connect', source: './assets/fefe-connect-mark.png', description: 'Current public wordmark from the FEFE Connect site.', role: 'Service identity', wide: true }]
     },
     eve: {
-      index: '04',
-      state: 'Project lane reserved',
+      index: '05',
+      state: 'Platform lane active',
       name: 'Eve OS / Exchange',
       description: 'Eve OS and Hermetic Labs Exchange share a portfolio lane while their precise product and repository boundaries are resolved. No backup tree is treated as canonical by inference.',
       products: ['Eve OS', 'Hermetic Labs Exchange'],
-      job: 'Organize approved public communication without inheriting claims from unrelated projects.',
-      publicState: 'No project-scoped public campaign is asserted here yet.',
-      nextGate: 'Confirm canonical product and repository identities.',
+      job: 'Organize approved platform communication without inheriting private Graph, module, or unrelated project claims.',
+      publicState: 'The company surface publicly identifies Eve OS and the Exchange as different layers. Private orchestration records, support conversations, and planned modules remain outside this projection.',
+      nextGate: 'Bind each operating-system, marketplace, module, and institutional-support claim to its current approved public source.',
       pulse: {
         summary: 'Public communication for Eve OS and Hermetic Labs Exchange within their shared portfolio lane.',
         scope: 'Eve OS and Hermetic Labs Exchange',
@@ -190,6 +231,47 @@
         { name: 'Eve OS', source: './assets/eve-os-wordmark.png', description: 'Existing chromatic wordmark retained for identity reference.', role: 'Product identity', wide: true },
         { name: 'Hermetic Labs Exchange', source: './assets/exchange-mark.png', description: 'Existing RGB ring mark retained as the marketplace reference.', role: 'Marketplace identity' },
         { name: 'Exchange transparent mark', source: './assets/ip-library/exchange-logo-transparent.png', description: 'Transparent-background Exchange source mark retained for alternate placements.', role: 'Marketplace identity' }
+      ]
+    },
+    abbe: {
+      index: '06',
+      state: 'Control-plane foundation',
+      name: 'Abbé Faria',
+      description: 'A governed, local-first learning and re-entry project beginning with institution-approved material, explicit runtime choices, and human-owned release decisions.',
+      products: ['Local control plane', 'Approved-corpus tutor path', 'Re-entry workflow'],
+      job: 'Explain the governed-learning foundation without implying deployment, approval, or a vendor relationship.',
+      publicState: 'A private source repository and dependency-free local control plane are established. No deployed tutor, vendor sandbox, learner data, or partner approval is asserted.',
+      nextGate: 'Use the ten Securus decision gates to obtain written requirements and a non-production path before runtime integration.',
+      pulse: {
+        summary: 'Foundation evidence and contribution activity belonging only to Abbé Faria.',
+        scope: 'Abbé Faria learning, control-plane, and institutional-path communication',
+        rule: 'Explicit Abbé Faria project key required',
+        notice: 'Only campaigns explicitly assigned to Abbé Faria appear in this lane.',
+        empty: 'No named Abbé Faria campaign is currently projected.',
+        aliases: ['abbe', 'abbe-faria', 'abbé-faria']
+      },
+      studio: {
+        title: 'Teach from approved truth. Keep authority human.',
+        description: 'Abbé Faria is being stood up as a governed learning and re-entry system. Its private control plane can organize architecture ownership, runtime profiles, releases, and decision gates without exposing internal implementation or learner information.',
+        referenceUrl: 'https://hermetic-labs.github.io/Abb-Faria/',
+        referenceLabel: 'Open the public Abbé Faria brief',
+        scopeQuestion: 'Which Abbé Faria boundary are you speaking for?',
+        scopeDescription: 'Choose the learning model, control plane, or institutional path. Keep approved-corpus grounding, privacy, vendor status, and deployment state explicit.',
+        audiences: ['Correctional education teams', 'Re-entry and workforce programs', 'Educators and curriculum partners', 'Institutional technology and security teams', 'Human-services organizations', 'Technical builders and contributors'],
+        positive: 'Abbé Faria is a governed-learning project with a private local control plane for architecture ownership, runtime profiles, release state, and institutional decision gates. It remains a foundation; no deployed tutor, learner program, or vendor partnership is claimed.',
+        positiveWhy: 'Why it works · Describes the working foundation while keeping private implementation, learner data, deployment, and partner status outside the claim.',
+        negative: 'Abbé Faria is an approved Securus learning platform already delivering autonomous AI education to incarcerated learners.',
+        negativeWhy: 'Why it fails · Invents approval, a vendor relationship, deployment, learner use, and autonomous authority.',
+        lanes: {
+          learning: { label: 'Approved-corpus learning', summary: 'A bounded tutor path grounded only in institution-approved material.', truth: 'The learning architecture begins with approved source material and explicit human ownership.', boundary: 'Do not claim a trained or deployed tutor, learning outcomes, learner access, or use of institution-controlled material.' },
+          controlPlane: { label: 'Local control plane', summary: 'Architecture ownership, runtime profiles, decision gates, releases, and local project state.', truth: 'A dependency-free control plane exists in the private source repository with local persistence and JSON state exchange.', boundary: 'Describe the capability without publishing private links, source code, internal state, credentials, model weights, or decision records.' },
+          institutional: { label: 'Institutional path', summary: 'Requirements, non-production access, security boundaries, and accountable ownership.', truth: 'Securus is an active prospective route governed by ten explicit decision gates; ViaPath remains a separate prospective route.', boundary: 'Do not imply contact, approval, sponsorship, a sandbox, a pilot, procurement, or a vendor relationship unless a public approved record establishes it.' }
+        }
+      },
+      assets: [
+        { name: 'Abbé Faria', source: './assets/abbe-faria-mark.png', description: 'Current project mark from the public Abbé Faria brief.', role: 'Project identity' },
+        { name: 'Hermetic Labs symbol', source: './assets/ip-library/hermetic-labs-symbol.png', description: 'RGB geometric Hermetic Labs symbol for company attribution.', role: 'Company identity' },
+        { name: 'Hermetic Labs banner', source: './assets/ip-library/hermetic-labs-banner.png', description: 'Horizontal Hermetic Labs wordmark for dark-background placements.', role: 'Company banner', wide: true }
       ]
     }
   };

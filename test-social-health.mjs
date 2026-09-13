@@ -62,11 +62,12 @@ await page.goto(publicUrl, { waitUntil: 'networkidle' });
 await page.locator('.campaign-card-public').waitFor({ state: 'attached' });
 
 if ((await page.title()) !== 'Social Health — Hermetic Labs') errors.push('Public page title is incorrect');
-if (!(await page.locator('link[href*="site.css?v=20260908-3"]').count())) errors.push('Site stylesheet cache marker is missing');
-if (!(await page.locator('script[src*="site.js?v=20260905-2"]').count())) errors.push('Site script cache marker is missing');
+if (!(await page.locator('link[href*="site.css?v=20260913-1"]').count())) errors.push('Site stylesheet cache marker is missing');
+if (!(await page.locator('script[src*="site.js?v=20260913-1"]').count())) errors.push('Site script cache marker is missing');
 if (!(await page.locator('#publicConsole').isVisible())) errors.push('Public console is not visible');
 if (!(await page.locator('#contributorWorkspace').isHidden())) errors.push('Contributor workspace appeared without a signed link');
-if ((await page.locator('.project-tab').count()) !== 4) errors.push('Expected four project lanes');
+if ((await page.locator('.project-tab').count()) !== 6) errors.push('Expected six project lanes');
+if (await page.locator('#tab-veritas').count()) errors.push('Veritas leaked into a separate Social Health project lane');
 if ((await page.locator('.campaign-card-public').count()) !== 1) errors.push('Public campaign did not render');
 if ((await page.locator('#mainContent > :first-child').getAttribute('id')) !== 'projects') errors.push('Portfolio map is not the first public section');
 if (await page.locator('#materials').count()) errors.push('Mixed-project asset register remains on the landing page');
@@ -78,8 +79,41 @@ if ((await page.locator('#projectAssetGrid .project-asset-card').count()) !== 9)
 if (!(await page.locator('#projectAssetGrid img[src$="halt-mark.png"]').count())) errors.push('HALT mark is not wired into the HALT lane');
 if (!(await page.locator('.brand-logo').getAttribute('src')).includes('7hl-social-rgb-192.png')) errors.push('RGB site logo is not wired into the header');
 
+await page.locator('#tab-vulpine').click();
+if ((await page.locator('#projectName').textContent()) !== 'Vulpine') errors.push('Vulpine project tab did not update the panel');
+if ((await page.locator('#projectState').textContent()) !== 'Release hardening') errors.push('Vulpine release state is stale');
+if (!(await page.locator('#projectPublicState').textContent()).includes('create/cancel proof')) errors.push('Vulpine verified provider proof is missing');
+if (!(await page.locator('#projectNextGate').textContent()).includes('full synthetic lifecycle')) errors.push('Vulpine lifecycle boundary is missing');
+if (!(await page.locator('#projectAssetGrid img[src$="vulpine-mark.png"]').count())) errors.push('Vulpine mark is not contained in the Vulpine lane');
+if ((await page.locator('#pulseTitle').textContent()) !== 'Vulpine campaign pulse') errors.push('Campaign pulse did not switch to Vulpine');
+await page.locator('#openProjectStudio').click();
+if ((await page.locator('#studioProjectEyebrow').textContent()) !== 'Vulpine contribution studio') errors.push('Vulpine workspace did not inherit its identity');
+if ((await page.locator('#studioLanePicker [data-project-lane]').count()) !== 3) errors.push('Vulpine workspace lanes did not render');
+if (!(await page.locator('#positiveExampleText').textContent()).includes('release hardening')) errors.push('Vulpine bounded claim is missing');
+if (!(await page.locator('#negativeExampleText').textContent()).includes('deployed with Onfleet')) errors.push('Vulpine partnership guardrail is missing');
+await page.locator('#haltAssignmentCode').fill('SOCIAL-201');
+if (!(await page.evaluate(() => localStorage.getItem('social-health.vulpine-contribution.v1')))) errors.push('Vulpine draft was not isolated in project storage');
+await page.locator('#closeHaltStudio').click();
+
+await page.locator('#tab-abbe').click();
+if ((await page.locator('#projectName').textContent()) !== 'Abbé Faria') errors.push('Abbé Faria project tab did not update the panel');
+if ((await page.locator('#projectState').textContent()) !== 'Control-plane foundation') errors.push('Abbé Faria foundation state is stale');
+if (!(await page.locator('#projectPublicState').textContent()).includes('private source repository')) errors.push('Abbé Faria foundation evidence is missing');
+if (!(await page.locator('#projectAssetGrid img[src$="abbe-faria-mark.png"]').count())) errors.push('Abbé Faria mark is not contained in its lane');
+if ((await page.locator('#pulseTitle').textContent()) !== 'Abbé Faria campaign pulse') errors.push('Campaign pulse did not switch to Abbé Faria');
+await page.locator('#openProjectStudio').click();
+if ((await page.locator('#studioProjectEyebrow').textContent()) !== 'Abbé Faria contribution studio') errors.push('Abbé Faria workspace did not inherit its identity');
+if ((await page.locator('#studioLanePicker [data-project-lane]').count()) !== 3) errors.push('Abbé Faria workspace lanes did not render');
+if (!(await page.locator('#positiveExampleText').textContent()).includes('no deployed tutor')) errors.push('Abbé Faria deployment boundary is missing');
+if (!(await page.locator('#negativeExampleText').textContent()).includes('approved Securus')) errors.push('Abbé Faria vendor-relationship guardrail is missing');
+await page.locator('#haltAssignmentCode').fill('SOCIAL-202');
+if (!(await page.evaluate(() => localStorage.getItem('social-health.abbe-contribution.v1')))) errors.push('Abbé Faria draft was not isolated in project storage');
+await page.locator('#closeHaltStudio').click();
+
 await page.locator('#tab-fefe').click();
 if ((await page.locator('#projectName').textContent()) !== 'FEFE Connect') errors.push('Project tab did not update the panel');
+if ((await page.locator('#projectState').textContent()) !== 'Public foundation') errors.push('FEFE Connect foundation state is stale');
+if (!(await page.locator('#projectPublicState').textContent()).includes('Live verification')) errors.push('FEFE Connect service boundary is missing');
 if (!(await page.locator('#haltStudio').isHidden())) errors.push('A project tab opened the workspace instead of its summary');
 if (!(await page.locator('#projectAssetGrid img[src$="fefe-connect-mark.png"]').count())) errors.push('FEFE Connect mark is not contained in the FEFE lane');
 if ((await page.locator('#pulseTitle').textContent()) !== 'FEFE Connect campaign pulse') errors.push('Campaign pulse did not switch to FEFE Connect');
@@ -116,6 +150,8 @@ if (!(await page.locator('#studioLanePicker').textContent()).includes('Foundatio
 if (!(await page.locator('#studioLanePicker').textContent()).includes('Expansion and embodiment')) errors.push('VRF expansion lane did not render');
 await page.locator('#closeHaltStudio').click();
 await page.locator('#tab-eve').click();
+if ((await page.locator('#projectState').textContent()) !== 'Platform lane active') errors.push('Eve OS / Exchange platform state is stale');
+if (!(await page.locator('#projectPublicState').textContent()).includes('Private orchestration records')) errors.push('Eve OS / Exchange public boundary is missing');
 if ((await page.locator('#projectAssetGrid .project-asset-card').count()) !== 3) errors.push('Eve OS and Exchange marks are not grouped in their shared lane');
 if ((await page.locator('#pulseTitle').textContent()) !== 'Eve OS / Exchange campaign pulse') errors.push('Campaign pulse did not switch to Eve OS / Exchange');
 await page.locator('#openProjectStudio').click();
