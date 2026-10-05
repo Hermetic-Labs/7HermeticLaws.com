@@ -52,31 +52,31 @@
     vulpine: {
       index: '02',
       state: 'Release hardening',
-      name: 'Vulpine',
+      name: 'Courier Services',
       description: 'A clean-room medical-logistics system joining command, dispatch, driver custody, offline recovery, and governed operational intelligence.',
       products: ['Command Center', 'Dispatcher', 'Driver'],
       job: 'Turn verified synthetic release evidence into a precise operational story.',
       publicState: 'The provider-controlled Onfleet create/cancel proof and tenant-gated command access are verified. No production deployment or Onfleet partnership is claimed.',
       nextGate: 'Prove the governed driver-to-worker binding, full synthetic lifecycle, cross-surface state agreement, and stable authenticated TestFlight flow.',
       pulse: {
-        summary: 'Release evidence and contribution activity belonging only to Vulpine.',
-        scope: 'Vulpine Command Center, Dispatcher, Driver, and named provider proofs',
-        rule: 'Explicit Vulpine project key required',
-        notice: 'Only campaigns explicitly assigned to Vulpine appear in this lane.',
-        empty: 'No named Vulpine campaign is currently projected.',
-        aliases: ['vulpine', 'vulpine-driver', 'vulpine-dispatcher']
+        summary: 'Release evidence and contribution activity belonging only to Courier Services.',
+        scope: 'Courier Command Center, Dispatcher, Driver, and named provider proofs',
+        rule: 'Explicit Courier project key required',
+        notice: 'Only campaigns explicitly assigned to Courier Services appear in this lane.',
+        empty: 'No named Courier campaign is currently projected.',
+        aliases: ['courier', 'courier-services', 'phoxx', 'vulpine', 'vulpine-driver', 'vulpine-dispatcher']
       },
       studio: {
         title: 'Show the chain. Name the boundary.',
-        description: 'Vulpine is in release hardening. Contributions may use sanitized synthetic evidence, but must distinguish verified provider and identity proofs from the lifecycle and physical-device work still in progress.',
-        referenceUrl: 'https://hermetic-labs.github.io/Vulpine/app/?command=1',
-        referenceLabel: 'Open Vulpine Command',
-        scopeQuestion: 'Which Vulpine operating surface are you speaking for?',
+        description: 'Courier Services is in release hardening. Contributions may use sanitized synthetic evidence, but must distinguish verified provider and identity proofs from the lifecycle and physical-device work still in progress.',
+        referenceUrl: 'https://7hermeticlabs.services/',
+        referenceLabel: 'Open Courier Services',
+        scopeQuestion: 'Which Courier operating surface are you speaking for?',
         scopeDescription: 'Choose command, provider lifecycle, or driver delivery before drafting. Keep every state tied to the named proof and use synthetic data only.',
         audiences: ['Medical-logistics operators', 'Dispatch and field-service teams', 'Healthcare technology evaluators', 'Operational AI and platform teams', 'Technical builders and contributors', 'General public'],
-        positive: 'Vulpine is a clean-room medical-logistics system in release hardening. Its current evidence includes tenant-gated command access and a live provider-controlled Onfleet create/cancel proof; the full governed lifecycle and stable physical-device flow remain under verification.',
+        positive: 'Courier Services is a clean-room medical-logistics system in release hardening. Its current evidence includes tenant-gated command access and a live provider-controlled Onfleet create/cancel proof; the full governed lifecycle and stable physical-device flow remain under verification.',
         positiveWhy: 'Why it works · Names the verified proof, states the release phase, and keeps the unfinished lifecycle visible.',
-        negative: 'Vulpine is deployed with Onfleet across healthcare fleets and autonomously manages every delivery from dispatch through completion.',
+        negative: 'Courier Services is deployed with Onfleet across healthcare fleets and autonomously manages every delivery from dispatch through completion.',
         negativeWhy: 'Why it fails · Invents a partnership, customers, deployment scale, autonomy, and lifecycle evidence that has not been completed.',
         lanes: {
           command: { label: 'Command and control', summary: 'Tenant-gated operations context, approvals, evidence, and normalized state.', truth: 'The public Command surface, allowlisted Entra access, gateway path, and grounded operations context have verified release evidence.', boundary: 'Do not imply general availability, a customer deployment, or that every underlying operational view is complete.' },
@@ -85,7 +85,7 @@
         }
       },
       assets: [
-        { name: 'Vulpine', source: './assets/vulpine-mark.png', description: 'Current fox-and-AI product mark from the Vulpine dispatcher source.', role: 'Product identity' },
+        { name: 'Courier Services', source: './assets/vulpine-mark.png', description: 'Existing fox-and-AI identity retained through the Courier Services rename.', role: 'Product identity' },
         { name: 'Hermetic Labs symbol', source: './assets/ip-library/hermetic-labs-symbol.png', description: 'RGB geometric Hermetic Labs symbol for company attribution.', role: 'Company identity' },
         { name: 'Hermetic Labs banner', source: './assets/ip-library/hermetic-labs-banner.png', description: 'Horizontal Hermetic Labs wordmark for dark-background placements.', role: 'Company banner', wide: true }
       ]
@@ -235,15 +235,15 @@
     },
     abbe: {
       index: '06',
-      state: 'Control-plane foundation',
+      state: 'Private demonstration',
       name: 'Abbé Faria',
-      description: 'A governed, local-first learning and re-entry project beginning with institution-approved material, explicit runtime choices, and human-owned release decisions.',
-      products: ['Local control plane', 'Approved-corpus tutor path', 'Re-entry workflow'],
-      job: 'Explain the governed-learning foundation without implying deployment, approval, or a vendor relationship.',
-      publicState: 'A private source repository and dependency-free local control plane are established. No deployed tutor, vendor sandbox, learner data, or partner approval is asserted.',
-      nextGate: 'Use the ten Securus decision gates to obtain written requirements and a non-production path before runtime integration.',
+      description: 'A learning and re-entry workspace combining a source-grounded tutor with guided practice for everyday digital tasks. The product direction is institution-controlled and local-first.',
+      products: ['Approved-material tutor', 'Practice OS', 'Institutional controls'],
+      job: 'Explain the learner experience while separating a private demonstration from institutional deployment.',
+      publicState: 'The project team reports an authenticated private cloud demonstration with cited tutor answers and a Practice OS. This demonstrates the experience; it does not establish a production local runtime, learner outcomes, or institutional approval.',
+      nextGate: 'Complete owner acceptance, reconcile the release into the canonical source, and obtain institutional requirements before any learner pilot.',
       pulse: {
-        summary: 'Foundation evidence and contribution activity belonging only to Abbé Faria.',
+        summary: 'Learning, digital practice, and contribution activity belonging only to Abbé Faria.',
         scope: 'Abbé Faria learning, control-plane, and institutional-path communication',
         rule: 'Explicit Abbé Faria project key required',
         notice: 'Only campaigns explicitly assigned to Abbé Faria appear in this lane.',
@@ -252,19 +252,19 @@
       },
       studio: {
         title: 'Teach from approved truth. Keep authority human.',
-        description: 'Abbé Faria is being stood up as a governed learning and re-entry system. Its private control plane can organize architecture ownership, runtime profiles, releases, and decision gates without exposing internal implementation or learner information.',
-        referenceUrl: 'https://hermetic-labs.github.io/Abb-Faria/',
+        description: 'Abbé Faria pairs learning from approved material with a Practice OS: simulated Phone, Messages, Mail, and Internet activities in a bounded environment. Its private demonstration is hosted for evaluation; the intended institutional product remains local-first and governed by human owners.',
+        referenceUrl: 'https://abbefaria.app/',
         referenceLabel: 'Open the public Abbé Faria brief',
         scopeQuestion: 'Which Abbé Faria boundary are you speaking for?',
         scopeDescription: 'Choose the learning model, control plane, or institutional path. Keep approved-corpus grounding, privacy, vendor status, and deployment state explicit.',
         audiences: ['Correctional education teams', 'Re-entry and workforce programs', 'Educators and curriculum partners', 'Institutional technology and security teams', 'Human-services organizations', 'Technical builders and contributors'],
-        positive: 'Abbé Faria is a governed-learning project with a private local control plane for architecture ownership, runtime profiles, release state, and institutional decision gates. It remains a foundation; no deployed tutor, learner program, or vendor partnership is claimed.',
-        positiveWhy: 'Why it works · Describes the working foundation while keeping private implementation, learner data, deployment, and partner status outside the claim.',
+        positive: 'Abbé Faria is developing an institution-controlled learning and re-entry workspace. A private demonstration pairs cited tutor answers with bounded digital practice. Institutional deployment, learner outcomes, and a vendor partnership have not been established.',
+        positiveWhy: 'Why it works · Explains the experience, identifies the private demonstration, and keeps deployment and outcomes separate.',
         negative: 'Abbé Faria is an approved Securus learning platform already delivering autonomous AI education to incarcerated learners.',
         negativeWhy: 'Why it fails · Invents approval, a vendor relationship, deployment, learner use, and autonomous authority.',
         lanes: {
-          learning: { label: 'Approved-corpus learning', summary: 'A bounded tutor path grounded only in institution-approved material.', truth: 'The learning architecture begins with approved source material and explicit human ownership.', boundary: 'Do not claim a trained or deployed tutor, learning outcomes, learner access, or use of institution-controlled material.' },
-          controlPlane: { label: 'Local control plane', summary: 'Architecture ownership, runtime profiles, decision gates, releases, and local project state.', truth: 'A dependency-free control plane exists in the private source repository with local persistence and JSON state exchange.', boundary: 'Describe the capability without publishing private links, source code, internal state, credentials, model weights, or decision records.' },
+          learning: { label: 'Approved-material learning', summary: 'A bounded tutor that explains its sources and leaves unanswered questions visible.', truth: 'The project team reports an authenticated, cited tutor response in the private demonstration.', boundary: 'A demonstration is not evidence of learning outcomes, institution-approved curriculum use, learner access, or a production local runtime.' },
+          controlPlane: { label: 'Practice OS', summary: 'Guided Phone, Messages, Mail, and sealed Internet exercises for everyday digital confidence.', truth: 'The private prototype contains modular practice surfaces, local presence settings, and bounded suggestions. Check-in and Games remain placeholders.', boundary: 'These are simulated exercises, not live calls, email, open-web access, or clinical care. Keep private URLs, learner data, and internal configuration out of public content.' },
           institutional: { label: 'Institutional path', summary: 'Requirements, non-production access, security boundaries, and accountable ownership.', truth: 'Securus is an active prospective route governed by ten explicit decision gates; ViaPath remains a separate prospective route.', boundary: 'Do not imply contact, approval, sponsorship, a sandbox, a pilot, procurement, or a vendor relationship unless a public approved record establishes it.' }
         }
       },
@@ -272,6 +272,96 @@
         { name: 'Abbé Faria', source: './assets/abbe-faria-mark.png', description: 'Current project mark from the public Abbé Faria brief.', role: 'Project identity' },
         { name: 'Hermetic Labs symbol', source: './assets/ip-library/hermetic-labs-symbol.png', description: 'RGB geometric Hermetic Labs symbol for company attribution.', role: 'Company identity' },
         { name: 'Hermetic Labs banner', source: './assets/ip-library/hermetic-labs-banner.png', description: 'Horizontal Hermetic Labs wordmark for dark-background placements.', role: 'Company banner', wide: true }
+      ]
+    },
+    dcd: {
+      index: '07',
+      state: 'Public site · limited pilots',
+      name: 'Data Center Direct',
+      description: 'A county-centered place to understand data-center projects: published records, sources, commitments, and questions in one connected view. Government, enterprise, and community each have a distinct entry point.',
+      products: ['County records', 'Government', 'Enterprise', 'Community voice'],
+      job: 'Help people understand what is published, what remains unanswered, and how to take part without assuming technical familiarity.',
+      publicState: 'The public site and four explanatory films are live. Fayette and Effingham are pilot contexts, not a claim of county adoption. Source-only answers, readiness views, and invitation-only phone participation have distinct limits.',
+      nextGate: 'Use the October 6 Effingham town hall to capture questions and follow-ups, then verify the public-record and participation paths against the pilot evidence.',
+      pulse: {
+        summary: 'County information and contribution activity belonging only to Data Center Direct.',
+        scope: 'Data Center Direct Home, Government, Enterprise, and Community',
+        rule: 'Explicit Data Center Direct project key required',
+        notice: 'Only campaigns explicitly assigned to Data Center Direct appear in this lane.',
+        empty: 'No named Data Center Direct campaign is currently projected.',
+        aliases: ['dcd', 'data-center-direct', 'datacenterdirect', 'project-effingham']
+      },
+      spotlight: {
+        kicker: 'Four ways into Data Center Direct',
+        title: 'Your county. Your future. Your voice.',
+        summary: 'Start with the overview, then use the film for your audience. Each lives on its matching page with a thumbnail and optional captions. The live site remains the source for the current cut.',
+        stats: [{ value: '4', label: 'Public films' }, { value: '2', label: 'Pilot county contexts' }, { value: '3', label: 'Audience views' }, { value: 'Oct 6', label: 'Effingham town hall' }],
+        path: 'Understand the project → inspect the published sources → identify the gaps → find the appropriate participation path',
+        referenceUrl: 'https://www.datacenterdirect.ai/',
+        referenceLabel: 'Visit Data Center Direct →',
+        homeTitle: 'Current films and county records',
+        homeDescription: 'Watch on the live product site for the current film, optional captions, and the records discussed. Film publication does not establish pilot acceptance or an operational private workflow.',
+        cards: [
+          { title: 'Home · 1:02', state: 'Public overview', tone: 'current', image: 'https://www.datacenterdirect.ai/media/dcd/proof-safe-v8-6164a441f6d8/home.png', alt: 'Data Center Direct overview film thumbnail', copy: 'What the service is, how published information is connected, and where questions still need evidence. Ask is bounded to available sources.', href: 'https://www.datacenterdirect.ai/', linkLabel: 'Watch the overview' },
+          { title: 'Government · 0:58', state: 'County and public-service view', tone: 'current', image: 'https://www.datacenterdirect.ai/media/dcd/proof-safe-v8-6164a441f6d8/government.png', alt: 'Data Center Direct government film thumbnail', copy: 'A shared view of published project information and review responsibilities. Private review is a separately labeled boundary, not a proven public workflow.', href: 'https://www.datacenterdirect.ai/?view=government', linkLabel: 'Watch Government' },
+          { title: 'Enterprise · 1:05', state: 'Project and readiness view', tone: 'current', image: 'https://www.datacenterdirect.ai/media/dcd/proof-safe-v8-6164a441f6d8/enterprise.png', alt: 'Data Center Direct enterprise film thumbnail', copy: 'Project context, published commitments, and readiness questions. The public view does not imply a live enterprise connector or an accepted integration.', href: 'https://www.datacenterdirect.ai/?view=enterprise', linkLabel: 'Watch Enterprise' },
+          { title: 'Community · 1:32', state: 'Community and participation view', tone: 'current', image: 'https://www.datacenterdirect.ai/media/dcd/proof-safe-v8-6164a441f6d8/community.png', alt: 'Data Center Direct community film thumbnail', copy: 'Understand the local project and make room for community questions. The voice interview line is a limited invitation-only pilot; public call and receipt completion are not claimed.', href: 'https://www.datacenterdirect.ai/?view=community', linkLabel: 'Watch Community' }
+        ]
+      },
+      studio: {
+        title: 'Make the county story understandable.',
+        description: 'Explain the project in familiar language. Show where a statement comes from, distinguish a published commitment from a completed outcome, and make participation limits clear. Assume the viewer is new to the subject.',
+        referenceUrl: 'https://www.datacenterdirect.ai/',
+        referenceLabel: 'Open Data Center Direct',
+        scopeQuestion: 'Who needs this explanation?',
+        scopeDescription: 'Choose government, enterprise, or community. Identify the county, source, date, and current pilot boundary before making a claim.',
+        audiences: ['Residents new to data-center projects', 'County staff and public officials', 'Community organizations', 'Project and enterprise teams', 'Journalists and public-record researchers', 'Technical builders and contributors'],
+        positive: 'Data Center Direct brings published county project information into a source-linked view. Residents, government, and enterprise can see what is documented and what still needs an answer. Fayette and Effingham are limited pilot contexts; broader adoption is not claimed.',
+        positiveWhy: 'Why it works · Names the purpose, uses everyday language, and separates public information from pilot acceptance.',
+        negative: 'Data Center Direct is adopted by both counties, verifies every promise, and gives everyone a fully operational AI interview and enterprise integration.',
+        negativeWhy: 'Why it fails · Invents adoption, complete verification, unrestricted phone access, and connector readiness.',
+        lanes: {
+          government: { label: 'Government', summary: 'Published records, commitments, review context, and accountable follow-up.', truth: 'The public Government view and explanatory film are live, with private review boundaries labeled.', boundary: 'Do not imply county endorsement, procurement, completed private review, or a commitment fulfilled merely because it is published.' },
+          enterprise: { label: 'Enterprise', summary: 'Project context, readiness questions, and proposed connection paths.', truth: 'The public Enterprise view and film explain readiness from available records.', boundary: 'Do not turn a readiness screen or model-library design into an observed live connector or accepted enterprise integration.' },
+          community: { label: 'Community', summary: 'Plain-language project understanding, unanswered questions, and community voice.', truth: 'The Community view and film are public. A voice interview line is part of a limited invitation-only pilot.', boundary: 'Do not claim general phone access, a completed interview receipt, representative public opinion, or verified participant outcomes without the corresponding evidence.' }
+        }
+      },
+      assets: [
+        { name: 'Hermetic Labs symbol', source: './assets/ip-library/hermetic-labs-symbol.png', description: 'Company attribution for Data Center Direct content; this is the Hermetic Labs symbol, not a separate product logo.', role: 'Company identity' },
+        { name: 'Hermetic Labs banner', source: './assets/ip-library/hermetic-labs-banner.png', description: 'Company wordmark for approved horizontal placements.', role: 'Company banner', wide: true }
+      ]
+    },
+    rd: {
+      index: '08',
+      state: 'Local research prototype',
+      name: 'Hermetic Labs R&D',
+      description: 'A research workbench connecting editable geometry, mechanics experiments, electrical simulation, and measured prototype feedback. The aim is to make each step inspectable before making claims about real hardware.',
+      products: ['Geometry workspace', 'Mechanics experiments', 'Electrical calibration'],
+      job: 'Show the research process and its limits without disclosing private designs or treating a simulation as physical validation.',
+      publicState: 'Local workbench demonstrations cover wind and gravity experiments and a Blender-to-viewport geometry bridge. Geometry transfer does not prove robot dynamics; physical validation remains open.',
+      nextGate: 'Record measured mass, dimensions, joints, and electrical parameters, then compare bounded simulations with a physical reference.',
+      pulse: { summary: 'Sanitized research communication belonging only to Hermetic Labs R&D.', scope: 'Geometry, mechanics, electrical calibration, and measured prototype feedback', rule: 'Explicit R&D project key required', notice: 'Only campaigns explicitly assigned to R&D appear in this lane.', empty: 'No named R&D campaign is currently projected.', aliases: ['robotics-rd', 'hermetic-rd', 'research-and-development'] },
+      studio: {
+        title: 'Show the experiment. Keep the limits visible.',
+        description: 'Explain what was modeled, what was measured, and what remains unknown. Use sanitized demonstration material and keep unreleased designs, implementation details, and sensitive partner work private.',
+        referenceUrl: 'https://7hermeticlabs.com/',
+        referenceLabel: 'Visit Hermetic Labs',
+        scopeQuestion: 'Which research step are you explaining?',
+        scopeDescription: 'Choose geometry, simulation, or measured feedback. Name the assumptions and keep local demonstrations separate from physical results.',
+        audiences: ['Research collaborators', 'Simulation and robotics teams', 'Technical builders and contributors', 'Educators', 'General public'],
+        positive: 'Hermetic Labs is developing a local research workbench for moving editable geometry into an inspectable viewport and running bounded mechanics experiments. Physical validation and calibrated robot dynamics remain future verification steps.',
+        positiveWhy: 'Why it works · Describes demonstrated work and leaves physical claims tied to future measurement.',
+        negative: 'Our simulator proves flight-ready autonomous robotics and perfectly predicts real-world performance.',
+        negativeWhy: 'Why it fails · Invents autonomy, physical validation, deployment readiness, and absolute accuracy.',
+        lanes: {
+          geometry: { label: 'Geometry workspace', summary: 'Editable models, repeatable transfer, and inspectable components.', truth: 'A local Blender-to-viewport bridge demonstrates repeatable geometry transfer.', boundary: 'Geometry, component names, and transforms are not mass, joints, contact behavior, or validated dynamics.' },
+          simulation: { label: 'Mechanics and electrical experiments', summary: 'Bounded wind, gravity, weighted-object, and electrical reference experiments.', truth: 'Local workbench demonstrations and reference checks exist for selected experiments.', boundary: 'Name assumptions and units. Do not claim calibrated full-robot behavior or physical performance from a visual demonstration.' },
+          measurement: { label: 'Measured feedback', summary: 'Compare model assumptions with controlled physical observations.', truth: 'Measured parameters and physical references are the next verification gate.', boundary: 'Do not publish hardware validation, field performance, or sensitive design details without approved evidence.' }
+        }
+      },
+      assets: [
+        { name: 'Hermetic Labs symbol', source: './assets/ip-library/hermetic-labs-symbol.png', description: 'Company identity for sanitized research communication.', role: 'Company identity' },
+        { name: 'Hermetic Labs banner', source: './assets/ip-library/hermetic-labs-banner.png', description: 'Company wordmark for research overview placements.', role: 'Company banner', wide: true }
       ]
     }
   };
@@ -678,6 +768,10 @@
     byId('projectSpotlightSummary').textContent = model.summary;
     byId('projectSpotlightPath').textContent = model.path;
     byId('projectSpotlightReference').href = model.referenceUrl;
+    byId('projectSpotlightReference').textContent = model.referenceLabel || 'Visit the VRF site →';
+    byId('projectSpotlightHomeTitle').textContent = model.homeTitle || 'Standalone VRF source of truth';
+    byId('projectSpotlightHomeDescription').textContent = model.homeDescription || 'The independent VRF site now carries the public product experience while this workspace keeps contribution context and source boundaries visible.';
+    byId('projectSpotlightStats').setAttribute('aria-label', `${project.name} portfolio status`);
 
     byId('projectSpotlightStats').replaceChildren(...model.stats.map((stat) => {
       const item = element('div');

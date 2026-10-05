@@ -62,11 +62,11 @@ await page.goto(publicUrl, { waitUntil: 'networkidle' });
 await page.locator('.campaign-card-public').waitFor({ state: 'attached' });
 
 if ((await page.title()) !== 'Social Health — Hermetic Labs') errors.push('Public page title is incorrect');
-if (!(await page.locator('link[href*="site.css?v=20260913-1"]').count())) errors.push('Site stylesheet cache marker is missing');
-if (!(await page.locator('script[src*="site.js?v=20260913-1"]').count())) errors.push('Site script cache marker is missing');
+if (!(await page.locator('link[href*="site.css?v=20261005-1"]').count())) errors.push('Site stylesheet cache marker is missing');
+if (!(await page.locator('script[src*="site.js?v=20261005-1"]').count())) errors.push('Site script cache marker is missing');
 if (!(await page.locator('#publicConsole').isVisible())) errors.push('Public console is not visible');
 if (!(await page.locator('#contributorWorkspace').isHidden())) errors.push('Contributor workspace appeared without a signed link');
-if ((await page.locator('.project-tab').count()) !== 6) errors.push('Expected six project lanes');
+if ((await page.locator('.project-tab').count()) !== 8) errors.push('Expected eight project lanes');
 if (await page.locator('#tab-veritas').count()) errors.push('Veritas leaked into a separate Social Health project lane');
 if ((await page.locator('.campaign-card-public').count()) !== 1) errors.push('Public campaign did not render');
 if ((await page.locator('#mainContent > :first-child').getAttribute('id')) !== 'projects') errors.push('Portfolio map is not the first public section');
@@ -80,14 +80,15 @@ if (!(await page.locator('#projectAssetGrid img[src$="halt-mark.png"]').count())
 if (!(await page.locator('.brand-logo').getAttribute('src')).includes('7hl-social-rgb-192.png')) errors.push('RGB site logo is not wired into the header');
 
 await page.locator('#tab-vulpine').click();
-if ((await page.locator('#projectName').textContent()) !== 'Vulpine') errors.push('Vulpine project tab did not update the panel');
+if ((await page.locator('#projectName').textContent()) !== 'Courier Services') errors.push('Courier rename did not update the panel');
 if ((await page.locator('#projectState').textContent()) !== 'Release hardening') errors.push('Vulpine release state is stale');
 if (!(await page.locator('#projectPublicState').textContent()).includes('create/cancel proof')) errors.push('Vulpine verified provider proof is missing');
 if (!(await page.locator('#projectNextGate').textContent()).includes('full synthetic lifecycle')) errors.push('Vulpine lifecycle boundary is missing');
 if (!(await page.locator('#projectAssetGrid img[src$="vulpine-mark.png"]').count())) errors.push('Vulpine mark is not contained in the Vulpine lane');
-if ((await page.locator('#pulseTitle').textContent()) !== 'Vulpine campaign pulse') errors.push('Campaign pulse did not switch to Vulpine');
+if ((await page.locator('#pulseTitle').textContent()) !== 'Courier Services campaign pulse') errors.push('Campaign pulse did not switch to Courier');
 await page.locator('#openProjectStudio').click();
-if ((await page.locator('#studioProjectEyebrow').textContent()) !== 'Vulpine contribution studio') errors.push('Vulpine workspace did not inherit its identity');
+if ((await page.locator('#studioProjectEyebrow').textContent()) !== 'Courier Services contribution studio') errors.push('Courier workspace did not inherit its identity');
+if ((await page.locator('#studioProjectReference').getAttribute('href')) !== 'https://7hermeticlabs.services/') errors.push('Courier still uses its broken legacy URL');
 if ((await page.locator('#studioLanePicker [data-project-lane]').count()) !== 3) errors.push('Vulpine workspace lanes did not render');
 if (!(await page.locator('#positiveExampleText').textContent()).includes('release hardening')) errors.push('Vulpine bounded claim is missing');
 if (!(await page.locator('#negativeExampleText').textContent()).includes('deployed with Onfleet')) errors.push('Vulpine partnership guardrail is missing');
@@ -97,17 +98,44 @@ await page.locator('#closeHaltStudio').click();
 
 await page.locator('#tab-abbe').click();
 if ((await page.locator('#projectName').textContent()) !== 'Abbé Faria') errors.push('Abbé Faria project tab did not update the panel');
-if ((await page.locator('#projectState').textContent()) !== 'Control-plane foundation') errors.push('Abbé Faria foundation state is stale');
-if (!(await page.locator('#projectPublicState').textContent()).includes('private source repository')) errors.push('Abbé Faria foundation evidence is missing');
+if ((await page.locator('#projectState').textContent()) !== 'Private demonstration') errors.push('Abbé Faria demonstration state is stale');
+if (!(await page.locator('#projectPublicState').textContent()).includes('project team reports')) errors.push('Abbé Faria owner-report distinction is missing');
 if (!(await page.locator('#projectAssetGrid img[src$="abbe-faria-mark.png"]').count())) errors.push('Abbé Faria mark is not contained in its lane');
 if ((await page.locator('#pulseTitle').textContent()) !== 'Abbé Faria campaign pulse') errors.push('Campaign pulse did not switch to Abbé Faria');
 await page.locator('#openProjectStudio').click();
 if ((await page.locator('#studioProjectEyebrow').textContent()) !== 'Abbé Faria contribution studio') errors.push('Abbé Faria workspace did not inherit its identity');
 if ((await page.locator('#studioLanePicker [data-project-lane]').count()) !== 3) errors.push('Abbé Faria workspace lanes did not render');
-if (!(await page.locator('#positiveExampleText').textContent()).includes('no deployed tutor')) errors.push('Abbé Faria deployment boundary is missing');
+if (!(await page.locator('#positiveExampleText').textContent()).includes('have not been established')) errors.push('Abbé Faria deployment boundary is missing');
+if (!(await page.locator('#studioProjectDescription').textContent()).includes('Practice OS')) errors.push('Abbé Faria practice experience is missing');
+if ((await page.locator('#studioProjectReference').getAttribute('href')) !== 'https://abbefaria.app/') errors.push('Abbé Faria public URL is stale');
 if (!(await page.locator('#negativeExampleText').textContent()).includes('approved Securus')) errors.push('Abbé Faria vendor-relationship guardrail is missing');
 await page.locator('#haltAssignmentCode').fill('SOCIAL-202');
 if (!(await page.evaluate(() => localStorage.getItem('social-health.abbe-contribution.v1')))) errors.push('Abbé Faria draft was not isolated in project storage');
+await page.locator('#closeHaltStudio').click();
+
+await page.locator('#tab-dcd').click();
+if ((await page.locator('#projectName').textContent()) !== 'Data Center Direct') errors.push('DCD project panel is missing');
+if (!(await page.locator('#projectPublicState').textContent()).includes('not a claim of county adoption')) errors.push('DCD pilot boundary is missing');
+if (await page.locator('.campaign-card-public').count()) errors.push('HALT campaign leaked into DCD');
+await page.locator('#openProjectStudio').click();
+if ((await page.locator('#projectSpotlightGrid .project-spotlight-card').count()) !== 4) errors.push('DCD film shelf does not contain four films');
+if (!(await page.locator('#projectSpotlightGrid').textContent()).includes('voice interview line')) errors.push('DCD voice participation was omitted');
+if ((await page.locator('#projectSpotlightReference').getAttribute('href')) !== 'https://www.datacenterdirect.ai/') errors.push('DCD film shelf has the wrong reference');
+if (!(await page.locator('#projectSpotlightHomeTitle').textContent()).includes('county records')) errors.push('DCD inherited VRF footer wording');
+if (!(await page.locator('#haltBuilds').isHidden())) errors.push('HALT builds leaked into DCD');
+for (const [film, view] of [['home', ''], ['government', '?view=government'], ['enterprise', '?view=enterprise'], ['community', '?view=community']]) {
+  const card = page.locator('.project-spotlight-card').filter({ has: page.locator(`img[src$="/${film}.png"]`) });
+  if ((await card.locator('a').first().getAttribute('href')) !== `https://www.datacenterdirect.ai/${view}`) errors.push(`DCD ${film} points to the wrong audience page`);
+}
+await page.locator('#haltAssignmentCode').fill('SOCIAL-DCD');
+if (!(await page.evaluate(() => localStorage.getItem('social-health.dcd-contribution.v1')))) errors.push('DCD draft is not isolated');
+await page.locator('#closeHaltStudio').click();
+await page.locator('#tab-rd').click();
+if (!(await page.locator('#projectPublicState').textContent()).includes('physical validation remains open')) errors.push('R&D physical-validation boundary is missing');
+await page.locator('#openProjectStudio').click();
+if ((await page.locator('#studioLanePicker [data-project-lane]').count()) !== 3) errors.push('R&D research lanes did not render');
+if (!(await page.locator('#projectSpotlight').isHidden())) errors.push('DCD films leaked into R&D');
+if ((await page.locator('#haltAssignmentCode').inputValue()) !== '') errors.push('DCD draft leaked into R&D');
 await page.locator('#closeHaltStudio').click();
 
 await page.locator('#tab-fefe').click();
